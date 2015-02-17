@@ -21,7 +21,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
 
     /** Returns the winner, either 'F' or 's', or '' if there is no winner yet. There is no tie in this game.*/
     function getWinner(board) {
-        var count,i,j;
+        var count = 0,i,j;
         // check the top 3*3 matrix first, if the count of sheep is nine, then the winner is sheep
         for (i = 0; i < 3; i++) {
             for (j = 2; j < 5; j++) {
@@ -47,87 +47,37 @@ angular.module('myApp', []).factory('gameLogic', function() {
 
     function getPossibleMoves(board,turnIndexBeforeMove) {
         var possibleMoves = [];
+        var i, j, l, k;
         // if it's foxes' turn
         if (turnIndexBeforeMove === 0) {
-            var i, j, count = 0;
-            var rightCol, rightRow;
-            var row, col;
-            // scan the whole board to find the two foxes
-            for (row = 0; row < 7; row++) {
-                if (count == 2) break;
-                for (col = 0; col < 7; col++) {
-                    if (count == 2) break;
-                    if (board[row][col] !== 'F') continue;
-                    count++;
-                    //check all the eight possible directions
-                    for (i = -1; i < 2; i++) {
-                        for (j = -1; j < 2; j++) {
-                            if (i === 0 && j === 0) continue;  //no need to check itself
-                            if ((col + row) % 2 !== 0 && i !== 0 && j !== 0) continue; //no such directions for this vertex
-                            rightCol = col + 2 * i;
-                            rightRow = row + 2 * j;
-                            if (rightCol > -1 && rightCol < 7 && rightRow > -1 && rightRow < 7 && board[rightRow][rightCol] === '' && board[(rightRow + row) / 2][(rightCol + col) / 2] === 'S') {
-                                possibleMoves.push(createMove(board, row, col, rightRow, rightCol,turnIndexBeforeMove));
-                                //there is jump possibility
-                            }
+            for (i = 0; i < 7; i++) {
+                for (j = 0; j < 7; j++) {
+                    if (board[i][j] !== 'F') continue;
+                    for (l = 0; l < 7 ; l++) {
+                        for (k = 0; k < 7; k++) {
+                            possibleMoves.push(createMove(board,i,j,l,k,turnIndexBeforeMove));
                         }
                     }
                 }
             }
-            if (possibleMoves.length !== 0) return possibleMoves; //if there is jump possibility, the foxes must jump
-            else {
-                count = 0;
-                for (row = 0; row < 7; row++) {
-                    if(count == 2) break;
-                    for (col = 0; col < 7; col++) {
-                        if (count == 2) break;
-                        if (board[row][col] !== 'F') continue;
-                        count++;
-                        for (i = -1; i < 2; i = i + 1) {
-                            for (j = -1; j < 2; j = j + 1) {
-                                if (i === 0 && j === 0) continue;
-                                if ((col + row) % 2 !== 0 && i !== 0 && j !== 0) continue;
-                                rightCol = col + i;  //only check adjacent vertices this time
-                                rightRow = row + j;
-                                if (rightCol > -1 && rightCol < 7 && rightRow > -1 && rightRow < 7 && board[rightRow][rightCol] == '') {
-                                    possibleMoves.push(createMove(board, row, col, rightRow, rightCol,turnIndexBeforeMove));
-                                }
-                            }
-                        }
-                    }
-                }
-                return possibleMoves;
             }
-        }
         else {  // if it's sheep's turn
-            var i, j, row, col;
-            // find all the sheep
-            for (row = 0; row < 7; row++) {
-                for (col = 0; col < 7; col++) {
-                    if (board[row][col] !== 'S') continue;
-                    if ((row + col) % 2 === 0) {  // if the position has the additional four diagonal directions, check the two forward ones only
-                        if (row - 1 > -1 && col - 1 > -1 && board[row - 1][col - 1] === '') {
-                            possibleMoves.push(createMove(board,row,col,row - 1,col - 1,turnIndexBeforeMove));
+            if (turnIndexBeforeMove === 0) {
+                for (i = 0; i < 7; i++) {
+                    for (j = 0; j < 7; j++) {
+                        if (board[i][j] !== 'S') continue;
+                        for (l = 0; l < 7 ; l++) {
+                            for (k = 0; k < 7; k++) {
+                                possibleMoves.push(createMove(board,i,j,l,k,turnIndexBeforeMove));
+                            }
                         }
-                        if (row - 1 > -1 && col + 1 < 7 && board[row - 1][col + 1] === '' ) {
-                            possibleMoves.push(createMove(board,row,col,row - 1,col + 1,turnIndexBeforeMove));
-                        }
-                    }
-                    // check the three directions that every vertex has, ignore the backward one
-                    if (col - 1 > -1 && board[row][col - 1] === '') {
-                        possibleMoves.push(createMove(board,row,col,row,col - 1,turnIndexBeforeMove));
-                    }
-                    if (col + 1 < 7 && board[row][col + 1] === '') {
-                        possibleMoves.push(createMove(board,row,col,row,col + 1,turnIndexBeforeMove));
-                    }
-                    if (row - 1 > -1 && board[row - 1][col] === '') {
-                        possibleMoves.push(createMove(board,row,col,row - 1,col,turnIndexBeforeMove));
                     }
                 }
+            }
             }
             return possibleMoves;
         }
-    }
+
 
     function createMove(board,rowBefore,colBefore,rowAfter,colAfter,turnIndexBeforeMove) {
         if (board === undefined) {
@@ -165,6 +115,9 @@ angular.module('myApp', []).factory('gameLogic', function() {
         if (board[rowBefore][colBefore] !== 'F') {
             throw new Error("Please move a fox");
         }
+        if (board[rowAfter][colAfter] === 'X') {
+            throw new Error("Invalid move");
+        }
         if (board[rowAfter][colAfter] !== '') {
             throw new Error("The vertex is occupied");
         }
@@ -174,8 +127,8 @@ angular.module('myApp', []).factory('gameLogic', function() {
         var i,j;
         var rightCol, rightRow;
         //check all directions
-        for (i = -1; i < 2; i = i + 1) {
-            for (j = -1; j < 2; j = j + 1) {
+        for (i = -1; i < 2; i++) {
+            for (j = -1; j < 2; j++) {
                 if (i === 0 && j === 0) continue; //no need to check itself
                 if ((colBefore + rowBefore) % 2 !== 0 && i !== 0 && j !== 0) continue; //no such directions for this vertex
                 rightCol = colBefore + 2 * i;
@@ -188,12 +141,37 @@ angular.module('myApp', []).factory('gameLogic', function() {
                 }
             }
         }
-        /** no matter how many jump possibilities exist, as long as the move is one of them,
-         * both boolean variables will be true. Otherwise, if only one is true, there is error*/
         if (doesJumpExist === true && isRightMove === false) {
             throw new Error("Fox must jump over sheep if possible");
         }
-        else if (doesJumpExist === false) {  //no jump possibility exists
+        else if (doesJumpExist === false) {  //no jump possibility exists for this fox, but have to check the other fox
+            //find the second fox
+            var rowFox2,colFox2;
+            var doesJumpExist2 = false;
+            for (i = 0; i < 7; i++) {
+                for(j = 0; j < 7; j++) {
+                    if (board[i][j] === 'F' && (i !== rowBefore || j !== colBefore)) { //make sure it's a different fox
+                        rowFox2 = i;
+                        colFox2 = j;
+                        break;
+                    }
+                }
+            }
+            for (i = -1; i < 2; i++) {
+                for (j = -1; j < 2; j++) {
+                    if (i === 0 && j === 0) continue; //no need to check itself
+                    if ((colFox2 + rowFox2) % 2 !== 0 && i !== 0 && j !== 0) continue; //no such directions for this vertex
+                    rightCol = colFox2 + 2 * i;
+                    rightRow = rowFox2 + 2 * j;
+                    if (rightCol > -1 && rightCol < 7 && rightRow > -1 && rightRow < 7 && board[rightRow][rightCol] === '' && board[(rightRow + rowFox2) / 2][(rightCol + colFox2) / 2] === 'S') {
+                        doesJumpExist2 = true; //jump possibility exists
+                    }
+                }
+            }
+            if (doesJumpExist2 === true) {  //the second fox has jump possibility
+                throw new Error("Should move the fox with jump possibility");
+            }
+            // when neither two foxes have jump possibility
             if ((colBefore + rowBefore) % 2 === 0 && (Math.abs(rowAfter - rowBefore) !== 1 || Math.abs(colAfter - colBefore) !== 1) && Math.abs(rowAfter - rowBefore) + Math.abs(colAfter - colBefore) !== 1) {
                 // the position has a maximum of eight directions, however the move is not one of them
                 throw new Error("Fox must move to adjacent vertices");
@@ -215,6 +193,9 @@ angular.module('myApp', []).factory('gameLogic', function() {
     function createMoveSheep(board,rowBefore,colBefore,rowAfter,colAfter) {
         if (board[rowBefore][colBefore] !== 'S') {
             throw new Error("Please move a sheep");
+        }
+        if (board[rowAfter][colAfter] === 'X') {
+            throw new Error("Invalid move");
         }
         if (board[rowAfter][colAfter] !== '') {
             throw new Error("The vertex is occupied");

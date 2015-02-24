@@ -7,6 +7,7 @@
 
 angular.module('myApp', []).factory('gameLogic', function() {
 
+
     /** Returns the initial game board, 'F' represents foxes, 'S' represents sheep,
     * and 'X' represents the vertices that are invisible in the real game*/
     function getInitialBoard() {

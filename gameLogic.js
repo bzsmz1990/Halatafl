@@ -231,6 +231,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
            /*if (!angular.equals(move, expectedMove)) {
                 return false;
             }*/
+
         }catch (e) {
                 return false;
             }

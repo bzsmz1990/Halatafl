@@ -228,7 +228,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
             var colAfter = deltaValue.colAfter;
             var board = stateBeforeMove.board;
             var expectedMove = createMove(board, rowBefore, colBefore,rowAfter,colAfter, turnIndexBeforeMove);
-           /* if (!angular.equals(move, expectedMove)) {
+           /*if (!angular.equals(move, expectedMove)) {
                 return false;
             }*/
         }catch (e) {

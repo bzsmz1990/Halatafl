@@ -49,31 +49,33 @@ angular.module('myApp', []).factory('gameLogic', function() {
         var possibleMoves = [];
         var i, j, l, k;
         // if it's foxes' turn
-        if (turnIndexBeforeMove === 0) {
+        if (turnIndexBeforeMove === 1) {
             for (i = 0; i < 7; i++) {
                 for (j = 0; j < 7; j++) {
                     if (board[i][j] !== 'F') continue;
                     for (l = 0; l < 7 ; l++) {
                         for (k = 0; k < 7; k++) {
-                            possibleMoves.push(createMove(board,i,j,l,k,turnIndexBeforeMove));
+                            try {
+                                possibleMoves.push(createMove(board, i, j, l, k, turnIndexBeforeMove));
+                            } catch(e) {}
                         }
                     }
                 }
             }
             }
         else {  // if it's sheep's turn
-            if (turnIndexBeforeMove === 0) {
                 for (i = 0; i < 7; i++) {
                     for (j = 0; j < 7; j++) {
                         if (board[i][j] !== 'S') continue;
                         for (l = 0; l < 7 ; l++) {
                             for (k = 0; k < 7; k++) {
-                                possibleMoves.push(createMove(board,i,j,l,k,turnIndexBeforeMove));
+                                try {
+                                    possibleMoves.push(createMove(board, i, j, l, k, turnIndexBeforeMove));
+                                } catch (e) {}
                             }
                         }
                     }
                 }
-            }
             }
             return possibleMoves;
         }
@@ -89,9 +91,9 @@ angular.module('myApp', []).factory('gameLogic', function() {
         }
         var boardAfterMove;
         // if it's foxes' turn
-        if (turnIndexBeforeMove === 0) {
+        if (turnIndexBeforeMove === 1) {
             boardAfterMove = createMoveFox(board,rowBefore,colBefore,rowAfter,colAfter);
-        }
+            }
         else { //if it's sheep's turn
             boardAfterMove = createMoveSheep(board,rowBefore,colBefore,rowAfter,colAfter);
         }
@@ -108,7 +110,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
         }
         return [firstOperation,
             {set: {key: 'board', value: boardAfterMove}},
-            {set: {key: 'delta', value: {rowBefore: rowBefore,colBefore: colBefore,rowAfter:rowAfter, colAfter: colAfter }}}];
+            {set: {key: 'delta', value: {rowBefore: rowBefore,colBefore: colBefore,rowAfter:rowAfter, colAfter: colAfter}}}];
     }
 
     function createMoveFox(board,rowBefore,colBefore,rowAfter,colAfter) {
@@ -172,7 +174,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
                 throw new Error("Should move the fox with jump possibility");
             }
             // when neither two foxes have jump possibility
-            if ((colBefore + rowBefore) % 2 === 0 && (Math.abs(rowAfter - rowBefore) !== 1 || Math.abs(colAfter - colBefore) !== 1) && Math.abs(rowAfter - rowBefore) + Math.abs(colAfter - colBefore) !== 1) {
+            if ((colBefore + rowBefore) % 2 === 0 && ((Math.abs(rowAfter - rowBefore) + Math.abs(colAfter - colBefore) > 2) || (Math.abs(rowAfter - rowBefore) === 2 || Math.abs(colAfter - colBefore) === 2))) {
                 // the position has a maximum of eight directions, however the move is not one of them
                 throw new Error("Fox must move to adjacent vertices");
             }
@@ -185,7 +187,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
         boardAfterMove[rowAfter][colAfter] = 'F';
         if (doesJumpExist === true && isRightMove === true) {
             //the sheep will disappear if it is jumped over by fox
-            board[(rightRow + rowBefore) / 2][(rightCol + colBefore) / 2] = '';
+            boardAfterMove[(rightRow + rowBefore) / 2][(rightCol + colBefore) / 2] = '';
         }
         return boardAfterMove;
     }
@@ -203,12 +205,16 @@ angular.module('myApp', []).factory('gameLogic', function() {
         if (((rowAfter !== rowBefore) && (rowAfter !== rowBefore - 1)) || Math.abs(colAfter - colBefore) > 1 ) {
             throw new Error("Sheep must move to adjacent vertices and cannot back up");
         }
+        if (Math.abs(rowAfter - rowBefore) == 1 && Math.abs(colAfter - colBefore) == 1) {
+            throw new Error("Sheep cannot move diagonally");
+        }
         var boardAfterMove = angular.copy(board);
         boardAfterMove[rowAfter][colAfter] = 'S';
         return boardAfterMove;
 
 
     }
+
 
     function isMoveOk(params) {
         var move = params.move;
@@ -222,9 +228,9 @@ angular.module('myApp', []).factory('gameLogic', function() {
             var colAfter = deltaValue.colAfter;
             var board = stateBeforeMove.board;
             var expectedMove = createMove(board, rowBefore, colBefore,rowAfter,colAfter, turnIndexBeforeMove);
-            if (!angular.equals(move, expectedMove)) {
+           /* if (!angular.equals(move, expectedMove)) {
                 return false;
-            }
+            }*/
         }catch (e) {
                 return false;
             }

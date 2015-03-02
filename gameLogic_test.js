@@ -301,7 +301,7 @@ describe("Halatafl", function() {
                 ['S', '', '', '', '', 'S', 'S'],
                 ['X', 'X', '', '', '', 'X', 'X'],
                 ['X', 'X', '', '', 'S', 'X', 'X']],delta:{rowBefore: 1, colBefore: 2, rowAfter: 0, colAfter: 2}},
-            [{setTurn: {turnIndex: 0}},
+            [{endMatch: {endMatchScores: [0,1]}},
                 {
                     set: {
                         key: 'board', value: [['X', 'X', 'S', '', 'S', 'X', 'X'],
@@ -325,7 +325,7 @@ describe("Halatafl", function() {
                 ['S', 'S', '', '', '', '', 'S'],
                 ['X', 'X', '', '', 'S', 'X', 'X'],
                 ['X', 'X', '', '', 'S', 'X', 'X']],delta:{rowBefore: 4, colBefore: 4, rowAfter: 2, colAfter: 6}},
-            [{setTurn: {turnIndex: 1}},
+            [{endMatch: {endMatchScores: [1,0]}},
                 {
                     set: {
                         key: 'board', value: [['X', 'X', 'S', 'S', 'S', 'X', 'X'],
@@ -506,6 +506,31 @@ describe("Halatafl", function() {
 
 
 
+    it("getPossibleMoves returns exactly one move, which is the sheep's move", function() {
+        var board =
+            [['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+                ['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+                ['', '', 'S', '', 'S', '', ''],
+                ['', '', 'F', 'S', 'F', '', ''],
+                ['', '', '', '', '', '', ''],
+                ['X', 'X', '', '', '', 'X', 'X'],
+                ['X', 'X', '', '', '', 'X', 'X']];
+        var possibleMoves = _gameLogic.getPossibleMoves(board, 0);
+        var expectedMove = [{endMatch: {endMatchScores: [1,0]}},
+            {set: {key: 'board', value:
+                [['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+                    ['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+                    ['', '', 'S', 'S', 'S', '', ''],
+                    ['', '', 'F', '', 'F', '', ''],
+                    ['', '', '', '', '', '', ''],
+                    ['X', 'X', '', '', '', 'X', 'X'],
+                    ['X', 'X', '', '', '', 'X', 'X']]}},
+            {set: {key: 'delta', value: {rowBefore: 3, colBefore: 3, rowAfter: 2, colAfter: 3}}}];
+        expect(possibleMoves.board === [expectedMove].board).toBe(true);
+    });
+
+
+
     it("moving fox to non-adjacent vertices is illegal", function () {
         expectIllegalMove(1, {board:[['X', 'X', '', 'F', '', 'X', 'X'],
                 ['X', 'X', '', 'F', '', 'X', 'X'],
@@ -530,6 +555,87 @@ describe("Halatafl", function() {
 
 
 });
+
+
+    it("after a jump, if there is more jump possibility for this fox, it is still the fox's turn and it must jump", function () {
+        expectMoveOk(1, {board:[['X', 'X', '', '', '', 'X', 'X'],
+                ['X', 'X', '', 'F', '', 'X', 'X'],
+                ['', 'S', 'S', '', '', '', ''],
+                ['S', '', '', 'S', 'F', 'S', 'S'],
+                ['S', 'S', 'S', 'S', 'S', 'S', 'S'],
+                ['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+                ['X', 'X', 'S', 'S', 'S', 'X', 'X']],delta:{rowBefore: 1, colBefore: 4, rowAfter: 3, colAfter: 4}},
+            [{setTurn: {turnIndex: 1}},
+                {
+                    set: {
+                        key: 'board', value: [['X', 'X', '', '', '', 'X', 'X'],
+                            ['X', 'X', '', 'F', '', 'X', 'X'],
+                            ['', 'S', 'S', '', '', '', ''],
+                            ['S', '', 'F', '', '', 'S', 'S'],
+                            ['S', 'S', 'S', 'S', 'S', 'S', 'S'],
+                            ['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+                            ['X', 'X', 'S', 'S', 'S', 'X', 'X']]
+                    }
+                },
+                {set: {key: 'delta', value: {rowBefore: 3, colBefore: 4, rowAfter: 3, colAfter: 2}}}]);
+
+
+    });
+
+
+    it("after a jump, if there is more jump possibility for the other fox, it is still the fox's turn and it must jump", function () {
+        expectMoveOk(1, {board:[['X', 'X', '', '', '', 'X', 'X'],
+                ['X', 'X', '', 'F', '', 'X', 'X'],
+                ['', 'S', 'S', '', '', '', ''],
+                ['S', '', 'F', '', '', 'S', 'S'],
+                ['S', 'S', 'S', 'S', 'S', 'S', 'S'],
+                ['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+                ['X', 'X', 'S', 'S', 'S', 'X', 'X']],delta:{rowBefore: 3, colBefore: 4, rowAfter: 3, colAfter: 2}},
+            [{setTurn: {turnIndex: 0}},
+                {
+                    set: {
+                        key: 'board', value: [['X', 'X', '', '', '', 'X', 'X'],
+                            ['X', 'X', '', '', '', 'X', 'X'],
+                            ['', 'S', '', '', '', '', ''],
+                            ['S', 'F', 'F', '', '', 'S', 'S'],
+                            ['S', 'S', 'S', 'S', 'S', 'S', 'S'],
+                            ['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+                            ['X', 'X', 'S', 'S', 'S', 'X', 'X']]
+                    }
+                },
+                {set: {key: 'delta', value: {rowBefore: 1, colBefore: 3, rowAfter: 3, colAfter: 1}}}]);
+
+
+    });
+
+
+    it("after a jump, if there is more jump possibility for this fox, it is not the sheep's turn yet", function () {
+        expectIllegalMove(1, {board:[['X', 'X', '', '', '', 'X', 'X'],
+                ['X', 'X', '', 'F', '', 'X', 'X'],
+                ['', 'S', 'S', '', '', '', ''],
+                ['S', '', '', 'S', 'F', 'S', 'S'],
+                ['S', 'S', 'S', 'S', 'S', 'S', 'S'],
+                ['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+                ['X', 'X', 'S', 'S', 'S', 'X', 'X']],delta:{rowBefore: 1, colBefore: 4, rowAfter: 3, colAfter: 4}},
+            [{setTurn: {turnIndex: 0}},
+                {
+                    set: {
+                        key: 'board', value: [['X', 'X', '', '', '', 'X', 'X'],
+                            ['X', 'X', '', 'F', '', 'X', 'X'],
+                            ['', 'S', 'S', '', '', '', ''],
+                            ['S', 'S', '', 'S', 'F', 'S', 'S'],
+                            ['S', '', 'S', 'S', 'S', 'S', 'S'],
+                            ['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+                            ['X', 'X', 'S', 'S', 'S', 'X', 'X']]
+                    }
+                },
+                {set: {key: 'delta', value: {rowBefore: 4, colBefore: 1, rowAfter: 3, colAfter: 1}}}]);
+
+
+    });
+
+
+
 
 
 });

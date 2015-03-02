@@ -90,10 +90,12 @@ angular.module('myApp', []).factory('gameLogic', function() {
         if (getWinner(board) !== '' ) {
             throw new Error("Can only make a move if the game is not over!");
         }
-        var boardAfterMove;
+        var boardAfterMove, isJump = false;
         // if it's foxes' turn
         if (turnIndexBeforeMove === 1) {
-            boardAfterMove = createMoveFox(board,rowBefore,colBefore,rowAfter,colAfter);
+            var foxMove = createMoveFox(board,rowBefore,colBefore,rowAfter,colAfter);
+            boardAfterMove = foxMove.boardAfterMove;
+            isJump = foxMove.isJump;
             }
         else { //if it's sheep's turn
             boardAfterMove = createMoveSheep(board,rowBefore,colBefore,rowAfter,colAfter);
@@ -103,10 +105,14 @@ angular.module('myApp', []).factory('gameLogic', function() {
         if (winner !== '') {
             // Game over.
             firstOperation = {endMatch: {endMatchScores:
-                (winner === 'F' ? [1,0] : [0,1])}};
+                (winner === 'F' ? [0,1] : [1,0])}};
         }
         else {
-            // Game continues. Now it's the opponent's turn (the turn switches from 0 to 1 and 1 to 0).
+            // Game continues
+            if (turnIndexBeforeMove === 1 && isJump && hasJumpPossibility(boardAfterMove))
+                firstOperation = {setTurn: {turnIndex: turnIndexBeforeMove}};    //still fox's turn
+            else
+            // Now it's the opponent's turn (the turn switches from 0 to 1 and 1 to 0).
             firstOperation = {setTurn: {turnIndex: 1 - turnIndexBeforeMove}};
         }
         return [firstOperation,
@@ -190,7 +196,9 @@ angular.module('myApp', []).factory('gameLogic', function() {
             //the sheep will disappear if it is jumped over by fox
             boardAfterMove[(rightRow + rowBefore) / 2][(rightCol + colBefore) / 2] = '';
         }
-        return boardAfterMove;
+        return {boardAfterMove:boardAfterMove,
+                isJump:isRightMove
+        };
     }
 
     function createMoveSheep(board,rowBefore,colBefore,rowAfter,colAfter) {
@@ -214,6 +222,55 @@ angular.module('myApp', []).factory('gameLogic', function() {
         return boardAfterMove;
 
 
+    }
+
+    function hasJumpPossibility(board) {
+        var rowFox1,colFox1,i, j,rightCol,rightRow;
+        var doesJumpExist = false;
+        for (i = 0; i < 7; i++) {
+            for(j = 0; j < 7; j++) {
+                if (board[i][j] === 'F') { //find the first fox
+                    rowFox1 = i;
+                    colFox1 = j;
+                    break;
+                }
+            }
+        }
+        for (i = -1; i < 2; i++) {
+            for (j = -1; j < 2; j++) {
+                if (i === 0 && j === 0) continue; //no need to check itself
+                if ((colFox1 + rowFox1) % 2 !== 0 && i !== 0 && j !== 0) continue; //no such directions for this vertex
+                rightCol = colFox1 + 2 * i;
+                rightRow = rowFox1 + 2 * j;
+                if (rightCol > -1 && rightCol < 7 && rightRow > -1 && rightRow < 7 && board[rightRow][rightCol] === '' && board[(rightRow + rowFox1) / 2][(rightCol + colFox1) / 2] === 'S') {
+                    doesJumpExist = true; //jump possibility exists
+                }
+            }
+        }
+        if(doesJumpExist === false) {
+            var rowFox2,colFox2;
+            for (i = 0; i < 7; i++) {
+                for(j = 0; j < 7; j++) {
+                    if (board[i][j] === 'F'&& (i !== rowFox1 || j !== colFox1)) { //find the second fox
+                        rowFox2 = i;
+                        colFox2 = j;
+                        break;
+                    }
+                }
+            }
+            for (i = -1; i < 2; i++) {
+                for (j = -1; j < 2; j++) {
+                    if (i === 0 && j === 0) continue; //no need to check itself
+                    if ((colFox2 + rowFox2) % 2 !== 0 && i !== 0 && j !== 0) continue; //no such directions for this vertex
+                    rightCol = colFox2 + 2 * i;
+                    rightRow = rowFox2 + 2 * j;
+                    if (rightCol > -1 && rightCol < 7 && rightRow > -1 && rightRow < 7 && board[rightRow][rightCol] === '' && board[(rightRow + rowFox2) / 2][(rightCol + colFox2) / 2] === 'S') {
+                        doesJumpExist = true; //jump possibility exists
+                    }
+                }
+            }
+        }
+        return doesJumpExist;
     }
 
 

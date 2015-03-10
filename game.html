@@ -28,9 +28,11 @@
              ng-click="cellClicked(row, col)">
             <img ng-show="true">
             <img ng-src="{{getSquare(row, col).content === -1 ? 'img/empty.png' : (getSquare(row, col).content === 0 ? (getSquare(row,col).isSelected === false ? 'img/sheep.png' : 'img/sheep_selected.png') : (getSquare(row,col).isSelected === false ? 'img/fox.png' : 'img/fox_selected.png'))}}" width = "100%" height = "66.66%">
-            <!--<img id="{{'e2e_test_img_' + row + 'x' + col}}">-->
+            <img id="{{'e2e_test_img_' + row + 'x' + col}}">
         </div>
     </div>
 </div>
+
 </body>
 </html>
+

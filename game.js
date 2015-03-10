@@ -246,6 +246,9 @@ angular.module('myApp')
                     $scope.delta.row === row && $scope.delta.col === col;
             };
 
+
+
+
             gameService.setGame({
                 gameDeveloperEmail: "yoav.zibin@gmail.com",
                 minNumberOfPlayers: 2,

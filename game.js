@@ -42,12 +42,12 @@ angular.module('myApp')
 
                 // Is it the computer's turn?
                 /*if ($scope.isYourTurn &&
-                    params.playersInfo[params.yourPlayerIndex].playerId === '') {
-                    $scope.isYourTurn = false; // to make sure the UI won't send another move.
-                    // Waiting 0.5 seconds to let the move animation finish; if we call aiService
-                    // then the animation is paused until the javascript finishes.
-                    $timeout(sendComputerMove, 500);
-                }*/
+                 params.playersInfo[params.yourPlayerIndex].playerId === '') {
+                 $scope.isYourTurn = false; // to make sure the UI won't send another move.
+                 // Waiting 0.5 seconds to let the move animation finish; if we call aiService
+                 // then the animation is paused until the javascript finishes.
+                 $timeout(sendComputerMove, 500);
+                 }*/
             }
 
             // Before getting any updateUI, we show an empty board to a viewer (so you can't perform moves).
@@ -72,7 +72,7 @@ angular.module('myApp')
                 for (row = 0; row < 7; row++) {
                     for (col = 0; col < 7; col++) {
                         if (col === 0)
-                        $scope.uiState.push([]);
+                            $scope.uiState.push([]);
                         if (board_help[row][col] === 'F') {
                             var foxUISquare = angular.copy(defaultUISquare);
                             foxUISquare.content = 1;
@@ -92,38 +92,37 @@ angular.module('myApp')
 
             function updateUiState() {
                 /*$log.info("updateuI");
-                $log.info($scope.firstClickRow);
-                $log.info($scope.firstClickCol);
-                $log.info($scope.board[$scope.secondClickRow][$scope.secondClickCol]);
-                $scope.uiState[$scope.firstClickRow][$scope.firstClickCol].pieceSrc = 'img/empty';
-                $scope.uiState[$scope.firstClickRow][$scope.firstClickCol].isSelected = false;
-                $log.info($scope.board[0][0]);
-                $log.info($scope.uiState[0][0].pieceSrc);
-                $log.info($scope.secondClickRow);
-                $log.info($scope.secondClickCol);
-                //$scope.uiState[2][2].pieceSrc = ($scope.board[$scope.secondClickRow][$scope.secondClickCol] === 'S') ? 'img/sheep' : 'img/empty';
-                $log.info($scope.uiState[0][0]);
-                $scope.uiState[$scope.secondClickRow][$scope.secondClickCol].pieceSrc = ($scope.board[$scope.secondClickRow][$scope.secondClickCol] === 'F') ? 'img/fox' : 'img/sheep';
-                $log.info($scope.board[0][2]);
-                //$log.info($scope.uiState[$scope.firstClickRow][$scope.firstClickCol].pieceSrc);
-                //$log.info($scope.uiState[$scope.secondClickRow][$scope.secondClickCol].pieceSrc);
-                $log.info($scope.board[0][0]);
-                $log.info($scope.uiState[0][0]);
-                $log.info($scope.secondClickRow);
-                $log.info($scope.secondClickCol);
-
-                //$scope.secondClickRow=null;
-                //$scope.secondClickCol=null;
-                if (Math.abs($scope.firstClickRow - $scope.secondClickRow) > 1 || Math.abs($scope.firstClickCol - $scope.secondClickCol) > 1) {
-                    $scope.uiState[($scope.firstClickRow + $scope.secondClickRow) / 2][($scope.firstClickCol + $scope.secondClickCol) / 2].pieceSrc = 'img/empty';
-                }*/
+                 $log.info($scope.firstClickRow);
+                 $log.info($scope.firstClickCol);
+                 $log.info($scope.board[$scope.secondClickRow][$scope.secondClickCol]);
+                 $scope.uiState[$scope.firstClickRow][$scope.firstClickCol].pieceSrc = 'img/empty';
+                 $scope.uiState[$scope.firstClickRow][$scope.firstClickCol].isSelected = false;
+                 $log.info($scope.board[0][0]);
+                 $log.info($scope.uiState[0][0].pieceSrc);
+                 $log.info($scope.secondClickRow);
+                 $log.info($scope.secondClickCol);
+                 //$scope.uiState[2][2].pieceSrc = ($scope.board[$scope.secondClickRow][$scope.secondClickCol] === 'S') ? 'img/sheep' : 'img/empty';
+                 $log.info($scope.uiState[0][0]);
+                 $scope.uiState[$scope.secondClickRow][$scope.secondClickCol].pieceSrc = ($scope.board[$scope.secondClickRow][$scope.secondClickCol] === 'F') ? 'img/fox' : 'img/sheep';
+                 $log.info($scope.board[0][2]);
+                 //$log.info($scope.uiState[$scope.firstClickRow][$scope.firstClickCol].pieceSrc);
+                 //$log.info($scope.uiState[$scope.secondClickRow][$scope.secondClickCol].pieceSrc);
+                 $log.info($scope.board[0][0]);
+                 $log.info($scope.uiState[0][0]);
+                 $log.info($scope.secondClickRow);
+                 $log.info($scope.secondClickCol);
+                 //$scope.secondClickRow=null;
+                 //$scope.secondClickCol=null;
+                 if (Math.abs($scope.firstClickRow - $scope.secondClickRow) > 1 || Math.abs($scope.firstClickCol - $scope.secondClickCol) > 1) {
+                 $scope.uiState[($scope.firstClickRow + $scope.secondClickRow) / 2][($scope.firstClickCol + $scope.secondClickCol) / 2].pieceSrc = 'img/empty';
+                 }*/
                 $scope.board[$scope.firstClickRow][$scope.firstClickCol] = '';
                 if (Math.abs($scope.firstClickRow - $scope.secondClickRow) > 1 || Math.abs($scope.firstClickCol - $scope.secondClickCol) > 1) {
                     $scope.board[($scope.firstClickRow + $scope.secondClickRow) / 2][($scope.firstClickCol + $scope.secondClickCol) / 2] = '';}
-                    /*$scope.firstClickRow = null;
-                    $scope.firstClickCol = null;
-                    $scope.secondClickRow = null;
-                    $scope.secondClickCol = null;*/
+                /*$scope.firstClickRow = null;
+                 $scope.firstClickCol = null;
+                 $scope.secondClickRow = null;
+                 $scope.secondClickCol = null;*/
 
                 //$scope.board[$scope.secondClickRow][$scope.secondClickCol] = 'S';
                 for(var i = 0; i < 7; i++) {
@@ -217,44 +216,41 @@ angular.module('myApp')
 
 
 
-            /*
-            $scope.cellClicked = function (row, col) {
-                $log.info(["Clicked on cell:", row, col]);
-                if (!$scope.isYourTurn) {
-                    return;
-                }
-                try {
-                    var move = gameLogic.createMove($scope.board, row, col, $scope.turnIndex);
-                    $scope.isYourTurn = false; // to prevent making another move
-                    gameService.makeMove(move);
-                } catch (e) {
-                    $log.info(["Cell is already full in position:", row, col]);
-                    return;
-                }
-            };
-            $scope.shouldShowImage = function (row, col) {
-                var cell = $scope.board[row][col];
-                return cell !== "";
-            };
-            $scope.getImageSrc = function (row, col) {
-                var cell = $scope.board[row][col];
-                return cell === "X" ? "pieceX.png"
-                    : cell === "O" ? "pieceO.png" : "";
-            };
-            $scope.shouldSlowlyAppear = function (row, col) {
-                return $scope.delta !== undefined &&
-                    $scope.delta.row === row && $scope.delta.col === col;
-            };
-
-
-
-
-            gameService.setGame({
-                gameDeveloperEmail: "yoav.zibin@gmail.com",
-                minNumberOfPlayers: 2,
-                maxNumberOfPlayers: 2,
-                isMoveOk: gameLogic.isMoveOk,
-                updateUI: updateUI
-            });
-        }]);
+/*
+ $scope.cellClicked = function (row, col) {
+ $log.info(["Clicked on cell:", row, col]);
+ if (!$scope.isYourTurn) {
+ return;
+ }
+ try {
+ var move = gameLogic.createMove($scope.board, row, col, $scope.turnIndex);
+ $scope.isYourTurn = false; // to prevent making another move
+ gameService.makeMove(move);
+ } catch (e) {
+ $log.info(["Cell is already full in position:", row, col]);
+ return;
+ }
+ };
+ $scope.shouldShowImage = function (row, col) {
+ var cell = $scope.board[row][col];
+ return cell !== "";
+ };
+ $scope.getImageSrc = function (row, col) {
+ var cell = $scope.board[row][col];
+ return cell === "X" ? "pieceX.png"
+ : cell === "O" ? "pieceO.png" : "";
+ };
+ $scope.shouldSlowlyAppear = function (row, col) {
+ return $scope.delta !== undefined &&
+ $scope.delta.row === row && $scope.delta.col === col;
+ };
+ gameService.setGame({
+ gameDeveloperEmail: "yoav.zibin@gmail.com",
+ minNumberOfPlayers: 2,
+ maxNumberOfPlayers: 2,
+ isMoveOk: gameLogic.isMoveOk,
+ updateUI: updateUI
+ });
+ }]);
+ */
 

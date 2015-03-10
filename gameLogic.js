@@ -192,9 +192,13 @@ angular.module('myApp', []).factory('gameLogic', function() {
        }
         var boardAfterMove = angular.copy(board);
         boardAfterMove[rowAfter][colAfter] = 'F';
-        if (doesJumpExist === true && isRightMove === true) {
+        boardAfterMove[rowBefore][colBefore] = '';
+        /*if (doesJumpExist === true && isRightMove === true) {
             //the sheep will disappear if it is jumped over by fox
-            boardAfterMove[(rightRow + rowBefore) / 2][(rightCol + colBefore) / 2] = '';
+         boardAfterMove[(rowAfter + rowBefore) / 2][(rowBefore + colBefore) / 2] = '';
+        }*/
+        if (Math.abs(rowAfter - rowBefore) == 2 || Math.abs(colAfter - colBefore) == 2) {
+            boardAfterMove[(rowAfter + rowBefore) / 2][(colAfter + colBefore) / 2] = '';
         }
         return {boardAfterMove:boardAfterMove,
                 isJump:isRightMove
@@ -219,6 +223,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
         }
         var boardAfterMove = angular.copy(board);
         boardAfterMove[rowAfter][colAfter] = 'S';
+        boardAfterMove[rowBefore][colBefore] = '';
         return boardAfterMove;
 
 
@@ -270,6 +275,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
                 }
             }
         }
+        //console.log(doesJumpExist);
         return doesJumpExist;
     }
 

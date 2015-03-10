@@ -13,11 +13,16 @@ angular.module('myApp')
 
             resizeGameAreaService.setWidthToHeight(0.666666667);
 
+
             function sendComputerMove() {
+                var items = gameLogic.getPossibleMoves($scope.board, $scope.turnIndex);
+                gameService.makeMove(items[Math.floor(Math.random()*items.length)]);
+            }
+            /*function sendComputerMove() {
                 gameService.makeMove(aiService.createComputerMove($scope.board, $scope.turnIndex,
                     // at most 1 second for the AI to choose a move (but might be much quicker)
                     {millisecondsLimit: 1000}));
-            }
+            }*/
 
             $scope.turnIndex = 0;
             $scope.isYourTurn = true;
@@ -51,7 +56,7 @@ angular.module('myApp')
             }
 
             // Before getting any updateUI, we show an empty board to a viewer (so you can't perform moves).
-            //updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex:-2});
+            updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex:-2});
             //updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex:0});
 
 
@@ -116,9 +121,9 @@ angular.module('myApp')
                  if (Math.abs($scope.firstClickRow - $scope.secondClickRow) > 1 || Math.abs($scope.firstClickCol - $scope.secondClickCol) > 1) {
                  $scope.uiState[($scope.firstClickRow + $scope.secondClickRow) / 2][($scope.firstClickCol + $scope.secondClickCol) / 2].pieceSrc = 'img/empty';
                  }*/
-                $scope.board[$scope.firstClickRow][$scope.firstClickCol] = '';
-                if (Math.abs($scope.firstClickRow - $scope.secondClickRow) > 1 || Math.abs($scope.firstClickCol - $scope.secondClickCol) > 1) {
-                    $scope.board[($scope.firstClickRow + $scope.secondClickRow) / 2][($scope.firstClickCol + $scope.secondClickCol) / 2] = '';}
+                //$scope.board[$scope.firstClickRow][$scope.firstClickCol] = '';
+                //if (Math.abs($scope.firstClickRow - $scope.secondClickRow) > 1 || Math.abs($scope.firstClickCol - $scope.secondClickCol) > 1) {
+                  //  $scope.board[($scope.firstClickRow + $scope.secondClickRow) / 2][($scope.firstClickCol + $scope.secondClickCol) / 2] = '';}
                 /*$scope.firstClickRow = null;
                  $scope.firstClickCol = null;
                  $scope.secondClickRow = null;

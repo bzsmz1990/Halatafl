@@ -55,7 +55,7 @@ angular.module('myApp')
             }
 
             // Before getting any updateUI, we show an empty board to a viewer (so you can't perform moves).
-            updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex:-2});
+            //updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex:-2});
             //updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex:0});
 
 

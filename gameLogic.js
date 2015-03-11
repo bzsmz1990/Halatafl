@@ -122,6 +122,60 @@ angular.module('myApp', []).factory('gameLogic', function() {
              console.log("ie not tie");
              firstOperation = {setTurn: {turnIndex: turnIndexBeforeMove}};
              }*/
+            else if (turnIndexBeforeMove === 0 && !hasJumpPossibility(boardAfterMove)) {
+                var isThereMove = false;
+                var rowFox1,colFox1,i, j;
+                for (i = 0; i < 7; i++) {
+                    for(j = 0; j < 7; j++) {
+                        if (board[i][j] === 'F') { //find the first fox
+                            rowFox1 = i;
+                            colFox1 = j;
+                            break;
+                        }
+                    }
+                }
+                for (i = -1; i < 2; i++) {
+                    for (j = -1; j < 2; j++) {
+                        if (rowFox1 + i > 6 || rowFox1 + i < 0 || colFox1 + j > 6 || colFox1 + j < 0) continue;
+                        if ((rowFox1 + colFox1) % 2 !== 0 && Math.abs(i) + Math.abs(j) === 2) continue;
+                        if (boardAfterMove[rowFox1 + i][colFox1 + j] === '') {
+                           isThereMove = true;
+                            break;
+                        }
+                    }
+                }
+                if (!isThereMove) {
+                    var rowFox2, colFox2;
+                    for (i = 0; i < 7; i++) {
+                        for(j = 0; j < 7; j++) {
+                            if (board[i][j] === 'F' && (i !== rowFox1 || j !== colFox1)) { //find the second fox
+                                rowFox2 = i;
+                                colFox2 = j;
+                                break;
+                            }
+                        }
+                    }
+                    for (i = -1; i < 2; i++) {
+                        for (j = -1; j < 2; j++) {
+                            if (rowFox2 + i > 6 || rowFox2 + i < 0 || colFox2 + j > 6 || colFox2 + j < 0) continue;
+                            if ((rowFox2 + colFox2) % 2 !== 0 && Math.abs(i) + Math.abs(j) === 2) continue;
+                            if (boardAfterMove[rowFox2 + i][colFox2 + j] === '') {
+                                isThereMove = true;
+                                break;
+                            }
+                        }
+                    }
+                }
+                //console.log(isThereMove);
+                console.log("not tie yet");
+                if (!isThereMove) {
+                    firstOperation = {endMatch: {endMatchScores:
+                        ([0,0])}};  // ie tie
+                    console.log("is tie");
+                    //firstOperation = {setTurn: {turnIndex: turnIndexBeforeMove}};
+                }
+                else firstOperation = {setTurn: {turnIndex: 1 - turnIndexBeforeMove}};
+            }
             else {
             // Now it's the opponent's turn (the turn switches from 0 to 1 and 1 to 0).
             firstOperation = {setTurn: {turnIndex: 1 - turnIndexBeforeMove}};

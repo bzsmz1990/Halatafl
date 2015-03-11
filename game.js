@@ -13,10 +13,14 @@ angular.module('myApp')
 
             resizeGameAreaService.setWidthToHeight(0.666666667);
 
-
+            $scope.randomMove;
+            $scope.justHasRandomMove = false;
             function sendComputerMove() {
                 var items = gameLogic.getPossibleMoves($scope.board, $scope.turnIndex);
-                gameService.makeMove(items[Math.floor(Math.random()*items.length)]);
+                $scope.randomMove = items[Math.floor(Math.random()*items.length)];
+                $scope.justHasRandomMove = true;
+                gameService.makeMove($scope.randomMove);
+
             }
             /*function sendComputerMove() {
                 gameService.makeMove(aiService.createComputerMove($scope.board, $scope.turnIndex,
@@ -29,20 +33,19 @@ angular.module('myApp')
             function updateUI(params) {
                 $scope.board = params.stateAfterMove.board;
                 $scope.delta = params.stateAfterMove.delta;
+                var notFirstTime = true;
+                if ($scope.board === undefined) {
+                    $scope.board = gameLogic.getInitialBoard();
+                    notFirstTime = false;
+                    initializeUiState();
+                    //$log.info($scope.board[0][0]);
+                }
                 $scope.isYourTurn = params.turnIndexAfterMove >= 0 && // game is ongoing
                 params.yourPlayerIndex === params.turnIndexAfterMove; // it's my turn
                 $scope.turnIndex = params.turnIndexAfterMove;
-
-                if ($scope.board === undefined) {
-                    $scope.board = gameLogic.getInitialBoard();
-                    initializeUiState();
-                    //$log.info($scope.board[0][0]);
-                } else {
-                    updateUiState();
+                if (notFirstTime) {
+                     updateUiState();
                 }
-
-
-
 
            // Is it the computer's turn?
                 if ($scope.isYourTurn &&
@@ -141,6 +144,18 @@ angular.module('myApp')
                         }
                     }
                 }
+
+                $log.info($scope.justHasRandomMove);
+
+                if ($scope.justHasRandomMove) {
+                    var deltaValue = $scope.randomMove[2].set.value;
+                    $scope.secondClickRow = deltaValue.rowAfter;
+                    $scope.secondClickCol = deltaValue.colAfter;
+                    $scope.justHasRandomMove = false;
+                }
+
+                $log.info($scope.justHasRandomMove);
+
                 var char = $scope.board[$scope.secondClickRow][$scope.secondClickCol];
                 var uISquareCopy = {
                     content: char === 'S'? 0 : 1, //0 is sheep, 1 is fox, -1 is empty
@@ -148,6 +163,16 @@ angular.module('myApp')
                     //pieceSrc: 'img/empty'
                 };
                 $scope.uiState[$scope.secondClickRow][$scope.secondClickCol] = uISquareCopy;
+
+
+                for(var i = 0; i < 7; i++) {
+                    for(var j = 0; j < 7; j++) {
+                        //var char = $scope.board[i][j];
+                        //var uiSquare = $scope.uiState[i][j];
+                        //$log.info(char);
+                        $log.info($scope.uiState[i][j].content);
+                    }
+                }
                 //$scope.uiState[$scope.secondClickRow][$scope.secondClickCol].content = 0;
                 //$scope.uiState[2][0].pieceSrc = 'img/sheep';
                 //$log.info($scope.uiState[$scope.secondClickRow][$scope.secondClickCol].content);
@@ -195,8 +220,8 @@ angular.module('myApp')
                     $scope.secondClickCol = col;
                     var move = gameLogic.createMove($scope.board, $scope.firstClickRow, $scope.firstClickCol, $scope.secondClickRow, $scope.secondClickCol, $scope.turnIndex);
                     //$scope.isYourTurn = false; // to prevent making another move
-                    gameService.makeMove(move);
                     $scope.isFirstClick = true;
+                    gameService.makeMove(move);
                 } catch (e) {
                     //$log.info(e);
                     $log.info(["Invalid move:", $scope.firstClickRow, $scope.firstClickCol, $scope.secondClickRow, $scope.secondClickCol]);

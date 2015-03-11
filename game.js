@@ -24,35 +24,34 @@ angular.module('myApp')
                     {millisecondsLimit: 1000}));
             }*/
 
-            $scope.turnIndex = 0;
-            $scope.isYourTurn = true;
+            //$scope.turnIndex = 0;
+            //$scope.isYourTurn = true;
             function updateUI(params) {
                 $scope.board = params.stateAfterMove.board;
                 $scope.delta = params.stateAfterMove.delta;
+                $scope.isYourTurn = params.turnIndexAfterMove >= 0 && // game is ongoing
+                params.yourPlayerIndex === params.turnIndexAfterMove; // it's my turn
+                $scope.turnIndex = params.turnIndexAfterMove;
+
                 if ($scope.board === undefined) {
                     $scope.board = gameLogic.getInitialBoard();
                     initializeUiState();
-                    $log.info($scope.board[0][0]);
-                }
-                else {
-                    $scope.isYourTurn = params.turnIndexAfterMove >= 0 && // game is ongoing
-                    params.yourPlayerIndex === params.turnIndexAfterMove; // it's my turn
-                    $scope.turnIndex = params.turnIndexAfterMove;
-                    //updateUiState();
-                    //$log.info($scope.board[$scope.secondClickRow][$scope.secondClickCol]);
+                    //$log.info($scope.board[0][0]);
+                } else {
                     updateUiState();
-                    //$log.info($scope.board[$scope.secondClickRow][$scope.secondClickCol]);
                 }
 
 
-                // Is it the computer's turn?
-                /*if ($scope.isYourTurn &&
+
+
+           // Is it the computer's turn?
+                if ($scope.isYourTurn &&
                  params.playersInfo[params.yourPlayerIndex].playerId === '') {
                  $scope.isYourTurn = false; // to make sure the UI won't send another move.
                  // Waiting 0.5 seconds to let the move animation finish; if we call aiService
                  // then the animation is paused until the javascript finishes.
                  $timeout(sendComputerMove, 500);
-                 }*/
+                 }
             }
 
             // Before getting any updateUI, we show an empty board to a viewer (so you can't perform moves).

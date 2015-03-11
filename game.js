@@ -17,9 +17,12 @@ angular.module('myApp')
             $scope.justHasRandomMove = false;
             function sendComputerMove() {
                 var items = gameLogic.getPossibleMoves($scope.board, $scope.turnIndex);
-                $scope.randomMove = items[Math.floor(Math.random()*items.length)];
-                $scope.justHasRandomMove = true;
-                gameService.makeMove($scope.randomMove);
+                if (items.length !== 0) {
+                    $scope.randomMove = items[Math.floor(Math.random() * items.length)];
+                    $scope.justHasRandomMove = true;
+                    gameService.makeMove($scope.randomMove);
+                }
+                //what is there is no available move for wolf?
 
             }
             /*function sendComputerMove() {

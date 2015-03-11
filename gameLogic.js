@@ -109,11 +109,23 @@ angular.module('myApp', []).factory('gameLogic', function() {
         }
         else {
             // Game continues
+            //var items = getPossibleMoves(boardAfterMove, 1 - turnIndexBeforeMove);
             if (turnIndexBeforeMove === 1 && isJump && hasJumpPossibility(boardAfterMove))
                 firstOperation = {setTurn: {turnIndex: turnIndexBeforeMove}};    //still fox's turn
-            else
+            /*else if (getPossibleMoves(boardAfterMove, 1 - turnIndexBeforeMove).length === 0 && getPossibleMoves(boardAfterMove, turnIndexBeforeMove).length === 0) {
+                console.log("ie tie");
+                firstOperation = {endMatch: {endMatchScores:
+                    ([0,0])}};  // ie tie
+
+            }*/
+             /*else if (items.length === 0) {
+             console.log("ie not tie");
+             firstOperation = {setTurn: {turnIndex: turnIndexBeforeMove}};
+             }*/
+            else {
             // Now it's the opponent's turn (the turn switches from 0 to 1 and 1 to 0).
             firstOperation = {setTurn: {turnIndex: 1 - turnIndexBeforeMove}};
+            }
         }
         return [firstOperation,
             {set: {key: 'board', value: boardAfterMove}},

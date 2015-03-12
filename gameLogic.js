@@ -50,7 +50,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
         var possibleMoves = [];
         var i, j, l, k;
         // if it's foxes' turn
-        if (turnIndexBeforeMove === 1) {
+        if (turnIndexBeforeMove === 0) {
             for (i = 0; i < 7; i++) {
                 for (j = 0; j < 7; j++) {
                     if (board[i][j] !== 'F') continue;
@@ -92,7 +92,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
         }
         var boardAfterMove, isJump = false;
         // if it's foxes' turn
-        if (turnIndexBeforeMove === 1) {
+        if (turnIndexBeforeMove === 0) {
             var foxMove = createMoveFox(board,rowBefore,colBefore,rowAfter,colAfter);
             boardAfterMove = foxMove.boardAfterMove;
             isJump = foxMove.isJump;
@@ -110,7 +110,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
         else {
             // Game continues
             //var items = getPossibleMoves(boardAfterMove, 1 - turnIndexBeforeMove);
-            if (turnIndexBeforeMove === 1 && isJump && hasJumpPossibility(boardAfterMove))
+            if (turnIndexBeforeMove === 0 && isJump && hasJumpPossibility(boardAfterMove))
                 firstOperation = {setTurn: {turnIndex: turnIndexBeforeMove}};    //still fox's turn
             /*else if (getPossibleMoves(boardAfterMove, 1 - turnIndexBeforeMove).length === 0 && getPossibleMoves(boardAfterMove, turnIndexBeforeMove).length === 0) {
                 console.log("ie tie");
@@ -122,7 +122,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
              console.log("ie not tie");
              firstOperation = {setTurn: {turnIndex: turnIndexBeforeMove}};
              }*/
-            else if (turnIndexBeforeMove === 0 && !hasJumpPossibility(boardAfterMove)) {
+            else if (turnIndexBeforeMove === 1 && !hasJumpPossibility(boardAfterMove)) {
                 var isThereMove = false;
                 var rowFox1,colFox1,i, j;
                 for (i = 0; i < 7; i++) {

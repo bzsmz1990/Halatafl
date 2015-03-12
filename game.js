@@ -198,8 +198,8 @@ angular.module('myApp')
                 if (!$scope.isYourTurn) {
                     return;
                 }
-                var rightOne = ($scope.turnIndex === 1) ? 'F' : 'S';
-                var wrongOne = ($scope.turnIndex === 1) ? 'S' : 'F';
+                var rightOne = ($scope.turnIndex === 0) ? 'F' : 'S';
+                var wrongOne = ($scope.turnIndex === 0) ? 'S' : 'F';
                 if ($scope.board[row][col] !== rightOne && $scope.isFirstClick) {
                     return;
                 }

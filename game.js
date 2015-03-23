@@ -5,9 +5,9 @@
 angular.module('myApp')
     .controller('Ctrl',
     ['$scope', '$log', '$timeout',
-        'gameService', 'gameLogic', 'resizeGameAreaService',
+        'gameService', 'stateService','gameLogic', 'resizeGameAreaService',
         function ($scope, $log, $timeout,
-                  gameService, gameLogic, resizeGameAreaService) {
+                  gameService, stateService, gameLogic, resizeGameAreaService) {
 
             'use strict';
 
@@ -186,6 +186,7 @@ angular.module('myApp')
                 return $scope.uiState[row][col];
             };
 
+            window.e2e_test_stateService = stateService;
 
             $scope.isFirstClick = true;
             $scope.firstClickRow;

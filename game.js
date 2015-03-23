@@ -5,9 +5,11 @@
 angular.module('myApp')
     .controller('Ctrl',
     ['$scope', '$log', '$timeout',
-        'gameService', 'stateService','gameLogic', 'resizeGameAreaService',
+        'gameService', 'stateService','gameLogic',
+        'resizeGameAreaService',
         function ($scope, $log, $timeout,
-                  gameService, stateService, gameLogic, resizeGameAreaService) {
+                  gameService, stateService, gameLogic, resizeGameAreaService
+        ) {
 
             'use strict';
 
@@ -186,7 +188,7 @@ angular.module('myApp')
                 return $scope.uiState[row][col];
             };
 
-            window.e2e_test_stateService = stateService;
+            window.e2e_test_stateService = stateService; // to allow us to load any state in our e2e tests.
 
             $scope.isFirstClick = true;
             $scope.firstClickRow;

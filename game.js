@@ -143,15 +143,15 @@ angular.module('myApp')
                  $scope.secondClickCol = null;*/
 
                 //$scope.board[$scope.secondClickRow][$scope.secondClickCol] = 'S';
-                var fox_row = 0;
-                var fox_col = 2;
+                //var fox_row = 0;
+                //var fox_col = 2;
                 for(var i = 0; i < 7; i++) {
                     for(var j = 0; j < 7; j++) {
                         var char = $scope.board[i][j];
                         var uiSquare = $scope.uiState[i][j];
                         //$log.info(char);
                         switch(char) {
-                            case 'F': uiSquare.content = 1; $log.info(uiSquare.content);fox_row = i; fox_col = j;break;
+                            case 'F': uiSquare.content = 1; $log.info(uiSquare.content);break;
                             case 'S': uiSquare.content = 0; $log.info(uiSquare.content);break;
                             default: uiSquare.content = -1; $log.info(uiSquare.content);
                         }

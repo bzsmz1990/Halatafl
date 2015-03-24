@@ -103,7 +103,7 @@ angular.module('myApp')
             }
 
             $scope.isFirstClick = true;
-            $scope.isSecondClick = false;
+            $scope.isSecondClick = 0; // 0: no value, 1: is first click, 2: is second click
             $scope.firstClickRow;
             $scope.firstClickCol;
             $scope.secondClickRow;
@@ -152,7 +152,7 @@ angular.module('myApp')
                         var uiSquare = $scope.uiState[i][j];
                         var uISquareCopy = {
                             content: char === 'S' ? 0 : (char === 'F' ? 1 : -1), //0 is sheep, 1 is fox, -1 is empty
-                            isSelected: $scope.isSecondClick === false ? uiSquare.isSelected : false  //,
+                            isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false  //,
                             //pieceSrc: 'img/empty'
                         };
                         //$log.info(char);
@@ -165,7 +165,7 @@ angular.module('myApp')
                     }
                 }
 
-                $scope.isSecondClick = false;
+                $scope.isSecondClick = 0;
 
                 $log.info($scope.justHasRandomMove);
 
@@ -249,6 +249,7 @@ angular.module('myApp')
                     $scope.firstClickCol = col;
                     $scope.uiState[row][col].isSelected = true;
                     $scope.isFirstClick = false;
+                    $scope.isSecondClick = 1;
                     return;
                 }
                 try {
@@ -257,7 +258,7 @@ angular.module('myApp')
                     var move = gameLogic.createMove($scope.board, $scope.firstClickRow, $scope.firstClickCol, $scope.secondClickRow, $scope.secondClickCol, $scope.turnIndex);
                     //$scope.isYourTurn = false; // to prevent making another move
                     $scope.isFirstClick = true;
-                    $scope.isSecondClick = true;
+                    $scope.isSecondClick = 2;
                     gameService.makeMove(move);
                 } catch (e) {
                     //$log.info(e);

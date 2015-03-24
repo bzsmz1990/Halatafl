@@ -151,7 +151,7 @@ angular.module('myApp')
                         var uiSquare = $scope.uiState[i][j];
                         var uISquareCopy = {
                             content: char === 'S' ? 0 : (char === 'F' ? 1 : -1), //0 is sheep, 1 is fox, -1 is empty
-                            isSelected: uiSquare.isSelected  //,
+                            isSelected: $scope.isFirstClick === true ? uiSquare.isSelected : false  //,
                             //pieceSrc: 'img/empty'
                         };
                         //$log.info(char);

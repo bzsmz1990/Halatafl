@@ -125,105 +125,48 @@ describe('Halatafl', function() {
                 ['X','X','S','S','S','X','X']]);
     });
 
-    /*it('should end game if S wins', function () {
-        /*for (var col = 2; col < 5; col++) {
-            for (var row = 0; row < 3; row++) {
-                clickDivAndExpectPiece(row, col, "S");
-            }
-            // After the game ends, player "O" click (in cell 2x2) will be ignored.
-            //clickDivAndExpectPiece(2, col, col === 2 ? "" : "O");
-        }
-        clickDivAndExpectPiece(3, 2, "S_trans");
-        clickDivAndExpectPiece(2, 2, "S");
+
+
+    it('sheep cannot go backward', function () {
+        clickDivAndExpectPiece(3, 3, "S_trans");
+        clickDivAndExpectPiece(2, 3, "S");
         clickDivAndExpectPiece(0, 2, "F_trans");
         clickDivAndExpectPiece(1, 2, "F");
+        clickDivAndExpectPiece(2, 3, "S_trans");
+        clickDivAndExpectPiece(3, 3, "");   //invalid move
+        clickDivAndExpectPiece(2, 4, "S");   //valid move
         expectBoard(
-            [['X', 'X', 'S', 'S', 'S', 'X', 'X'],
-                ['X', 'X', 'S', 'S', 'S', 'X', 'X'],
-                ['F', '', 'S', 'S', 'S', '', 'F'],
-                ['S', '', '', '', '', '', 'S'],
-                ['S', 'S', '', '', '', '', 'S'],
-                ['X', 'X', '', '', 'S', 'X', 'X'],
-                ['X', 'X', '', '', 'S', 'X', 'X']]);
-    });*/
+            [['X','X','', '', 'F','X','X'],
+                ['X','X','F', '', '','X','X'],
+                ['','','','','S','',''],
+                ['S','S','S','','S','S','S'],
+                ['S','S','S','S','S','S','S'],
+                ['X','X','S','S','S','X','X'],
+                ['X','X','S','S','S','X','X']]);
+    });
 
 
-/*
-   delta1 = {rowBefore: 1, colBefore: 4, rowAfter: 1, colAfter: 3};
-    var board1 =
-        [['X', 'X', '', '', 'S', 'X', 'X'],
-            ['X', 'X', 'S', 'F', '', 'X', 'X'],
-            ['', '', '', 'F', '', '', ''],
-            ['S', '', '', 'S', '', '', 'S'],
-            ['S', '', '', '', '', 'S', 'S'],
-            ['X', 'X', '', '', '', 'X', 'X'],
-            ['X', 'X', '', '', 'S', 'X', 'X']];
 
+    it('fox can jump', function () {
+        clickDivAndExpectPiece(3, 3, "S_trans");
+        clickDivAndExpectPiece(2, 3, "S");
+        clickDivAndExpectPiece(0, 2, "F_trans");
+        clickDivAndExpectPiece(1, 3, "F");
+        clickDivAndExpectPiece(3, 0, "S_trans");
+        clickDivAndExpectPiece(2, 0, "S");
+        clickDivAndExpectPiece(1, 3, "F_trans");
+        clickDivAndExpectPiece(3, 3, "F");
+        clickDivAndExpectPiece(2, 3, "");
+        expectBoard(
+            [['X','X','', '', 'F','X','X'],
+                ['X','X','', '', '','X','X'],
+                ['S','','','','','',''],
+                ['','S','S','F','S','S','S'],
+                ['S','S','S','S','S','S','S'],
+                ['X','X','S','S','S','X','X'],
+                ['X','X','S','S','S','X','X']]);
+    });
 
-    var delta3 = {rowBefore: 1, colBefore: 2, rowAfter: 0, colAfter: 2};
-    var board3 =
-        [['X', 'X', 'S', '', 'S', 'X', 'X'],
-            ['X', 'X', '', 'F', '', 'X', 'X'],
-            ['', '', '', 'F', '', '', ''],
-            ['S', '', '', 'S', '', '', 'S'],
-            ['S', '', '', '', '', 'S', 'S'],
-            ['X', 'X', '', '', '', 'X', 'X'],
-            ['X', 'X', '', '', 'S', 'X', 'X']];
-    /*
-    var delta3 = {rowBefore: 2, colBefore: 3, rowAfter: 4, colAfter: 3};
-    var board3 =
-        [['X', 'X', 'S', '', 'S', 'X', 'X'],
-            ['X', 'X', '', 'F', '', 'X', 'X'],
-            ['', '', '', '', '', '', ''],
-            ['S', '', '', '', '', '', 'S'],
-            ['S', '', '', 'F', '', 'S', 'S'],
-            ['X', 'X', '', '', '', 'X', 'X'],
-            ['X', 'X', '', '', 'S', 'X', 'X']];
-    /*var delta4 = {row: 2, col: 1};
-    var board4 =
-        [['X', 'O', ''],
-            ['X', 'O', ''],
-            ['', 'X', '']];
-    */
-    /*
-    var matchState3 = {
-        turnIndexBeforeMove: 0,
-        turnIndex: 1,
-        endMatchScores:null,
-        lastMove: [{setTurn: {turnIndex: 1}},
-            {set: {key: 'board', value: board3}},
-            {set: {key: 'delta', value: delta3}}],
-        lastState: {board: board1, delta: delta1},
-        currentState: {board: board3, delta: delta3},
-        lastVisibleTo: {},
-        currentVisibleTo: {}
-    };
-    /*
-    var matchState3 = {
-        turnIndexBeforeMove: 1,
-        turnIndex: -2,
-        endMatchScores: [0, 1],
-        lastMove: [{endMatch: {endMatchScores: [1, 0]}},
-            {set: {key: 'board', value: board3}},
-            {set: {key: 'delta', value: delta3}}],
-        lastState: {board: board2, delta: delta2},
-        currentState: {board: board3, delta: delta3},
-        lastVisibleTo: {},
-        currentVisibleTo: {},
-    };
-    /*
-    var matchState4 = {
-        turnIndexBeforeMove: 0,
-        turnIndex: 1,
-        endMatchScores: null,
-        lastMove: [{setTurn: {turnIndex: 1}},
-            {set: {key: 'board', value: board4}},
-            {set: {key: 'delta', value: delta4}}],
-        lastState: {board: board2, delta: delta2},
-        currentState: {board: board4, delta: delta4},
-        lastVisibleTo: {},
-        currentVisibleTo: {},
-    };*/
 
 
 
@@ -299,7 +242,7 @@ describe('Halatafl', function() {
      currentVisibleTo: {},
      };*/
 
-    it('can start from a match that is about to end, and win', function () {
+    it('can start from a match that is about to end, and win, for fox', function () {
         setMatchState(matchState2, 'passAndPlay');
         expectBoard(board2);
         clickDivAndExpectPiece(2, 3, "F_trans"); // winning click!
@@ -314,8 +257,101 @@ describe('Halatafl', function() {
         setMatchState(matchState2, 0); // playMode=1 means that yourPlayerIndex=1.
         expectBoard(board2);
         clickDivAndExpectPiece(2, 3, "F");
-        clickDivAndExpectPiece(4, 3, "F"); // can't do the winning click!
+        clickDivAndExpectPiece(4, 3, ""); // can't do the winning click!
         expectBoard(board2);
+    });
+
+
+
+    var delta11 = {rowBefore: 4, colBefore: 4, rowAfter: 3, colAfter: 4};
+    var board11 =
+        [['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+            ['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+            ['', '', 'S', 'S', '', '', ''],
+            ['', '', '', '', 'S', '', ''],
+            ['F', 'F', '', '', '', '', ''],
+            ['X', 'X', '', '', '', 'X', 'X'],
+            ['X', 'X', '', '', '', 'X', 'X']];
+
+
+    var delta21 = {rowBefore: 4, colBefore: 1, rowAfter: 3, colAfter: 1};
+    var board21 =
+        [['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+            ['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+            ['', '', 'S', 'S', '', '', ''],
+            ['', 'F', '', '', 'S', '', ''],
+            ['F', '', '', '', '', '', ''],
+            ['X', 'X', '', '', '', 'X', 'X'],
+            ['X', 'X', '', '', '', 'X', 'X']];
+    var delta31 = {rowBefore: 3, colBefore: 4, rowAfter: 2, colAfter: 4};
+    var board31 =
+        [['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+            ['X', 'X', 'S', 'S', 'S', 'X', 'X'],
+            ['', '', 'S', 'S', 'S', '', ''],
+            ['', 'F', '', '', '', '', ''],
+            ['F', '', '', '', '', '', ''],
+            ['X', 'X', '', '', '', 'X', 'X'],
+            ['X', 'X', '', '', '', 'X', 'X']];
+
+
+    var matchState21 = {
+        turnIndexBeforeMove: 1,
+        turnIndex: 0,
+        endMatchScores:null,
+        lastMove: [{setTurn: {turnIndex: 0}},
+            {set: {key: 'board', value: board21}},
+            {set: {key: 'delta', value: delta21}}],
+        lastState: {board: board11, delta: delta11},
+        currentState: {board: board21, delta: delta21},
+        lastVisibleTo: {},
+        currentVisibleTo: {}
+    };
+
+
+
+    var matchState3 = {
+        turnIndexBeforeMove: 1,
+        turnIndex: -2,
+        endMatchScores: [0, 1],
+        lastMove: [{endMatch: {endMatchScores: [0, 1]}},
+            {set: {key: 'board', value: board3}},
+            {set: {key: 'delta', value: delta3}}],
+        lastState: {board: board2, delta: delta2},
+        currentState: {board: board3, delta: delta3},
+        lastVisibleTo: {},
+        currentVisibleTo: {},
+    };
+
+
+
+
+
+    it('can start from a match that is about to end, and win, for sheep', function () {
+        setMatchState(matchState21, 'passAndPlay');
+        expectBoard(board21);
+        clickDivAndExpectPiece(3, 4, "S_trans"); // winning click!
+        clickDivAndExpectPiece(2, 4, "S");
+        clickDivAndExpectPiece(2, 4, "S"); // can't click after game ended
+        expectBoard(board31);
+    });
+
+
+    it('cannot play if it is not your turn', function () {
+        // Now make sure that if you're playing "O" (your player index is 1) then
+        // you can't do the winning click!
+        setMatchState(matchState21, 1); // playMode=1 means that yourPlayerIndex=1.
+        expectBoard(board21);
+        clickDivAndExpectPiece(3, 4, "S");
+        clickDivAndExpectPiece(2, 4, ""); // can't do the winning click!
+        expectBoard(board21);
+    });
+
+
+    it('cannot start from a match that ended', function () {
+        setMatchState(matchState3, 'passAndPlay');
+        expectBoard(board3);
+        clickDivAndExpectPiece(0, 2, "S"); // can't click after game ended
+        clickDivAndExpectPiece(0, 3, "");
     });
 
 

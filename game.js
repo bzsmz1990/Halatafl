@@ -149,17 +149,24 @@ angular.module('myApp')
                     for(var j = 0; j < 7; j++) {
                         var char = $scope.board[i][j];
                         var uiSquare = $scope.uiState[i][j];
+                        var uISquareCopy = {
+                            content: char === 'S' ? 0 : (char === 'F' ? 1 : -1), //0 is sheep, 1 is fox, -1 is empty
+                            isSelected: uiSquare.isSelected  //,
+                            //pieceSrc: 'img/empty'
+                        };
                         //$log.info(char);
-                        switch(char) {
+                        /*switch(char) {
                             case 'F': uiSquare.content = 1; $log.info(uiSquare.content);break;
                             case 'S': uiSquare.content = 0; $log.info(uiSquare.content);break;
                             default: uiSquare.content = -1; $log.info(uiSquare.content);
-                        }
+                        }*/
+                        $scope.uiState[i][j] = uISquareCopy;
                     }
                 }
 
                 $log.info($scope.justHasRandomMove);
 
+                /*
                 //if ($scope.justHasRandomMove) {
                     var deltaValue = $scope.randomMove[2].set.value;
                     $scope.secondClickRow = deltaValue.rowAfter;
@@ -168,7 +175,7 @@ angular.module('myApp')
                 //}
 
                 $log.info($scope.justHasRandomMove);
-
+                */
 
                 /*for(var i = 0; i < 7; i++) {
                     for(var j = 0; j < 7; j++) {
@@ -179,7 +186,7 @@ angular.module('myApp')
                     }
                 }*/
                 //$scope.uiState[fox_row][fox_col].content = 1;
-
+                /*
                 //if ($scope.secondClickRow != null && $scope.secondClickCol != null) {
                     var char = $scope.board[$scope.secondClickRow][$scope.secondClickCol];
                     var uISquareCopy = {
@@ -193,7 +200,7 @@ angular.module('myApp')
                 $log.info("2row" + $scope.secondClickRow);
                 $log.info("2col" + $scope.secondClickCol);
 
-
+                */
                 for(var i = 0; i < 7; i++) {
                     for(var j = 0; j < 7; j++) {
                         //var char = $scope.board[i][j];

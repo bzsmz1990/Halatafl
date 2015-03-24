@@ -103,6 +103,7 @@ angular.module('myApp')
             }
 
             $scope.isFirstClick = true;
+            $scope.isSecondClick = false;
             $scope.firstClickRow;
             $scope.firstClickCol;
             $scope.secondClickRow;
@@ -151,7 +152,7 @@ angular.module('myApp')
                         var uiSquare = $scope.uiState[i][j];
                         var uISquareCopy = {
                             content: char === 'S' ? 0 : (char === 'F' ? 1 : -1), //0 is sheep, 1 is fox, -1 is empty
-                            isSelected: $scope.isFirstClick === true ? uiSquare.isSelected : false  //,
+                            isSelected: $scope.isSecondClick === false ? uiSquare.isSelected : false  //,
                             //pieceSrc: 'img/empty'
                         };
                         //$log.info(char);
@@ -163,6 +164,8 @@ angular.module('myApp')
                         $scope.uiState[i][j] = uISquareCopy;
                     }
                 }
+
+                $scope.isSecondClick = false;
 
                 $log.info($scope.justHasRandomMove);
 
@@ -254,6 +257,7 @@ angular.module('myApp')
                     var move = gameLogic.createMove($scope.board, $scope.firstClickRow, $scope.firstClickCol, $scope.secondClickRow, $scope.secondClickCol, $scope.turnIndex);
                     //$scope.isYourTurn = false; // to prevent making another move
                     $scope.isFirstClick = true;
+                    $scope.isSecondClick = true;
                     gameService.makeMove(move);
                 } catch (e) {
                     //$log.info(e);

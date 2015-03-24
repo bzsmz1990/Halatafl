@@ -160,12 +160,12 @@ angular.module('myApp')
 
                 $log.info($scope.justHasRandomMove);
 
-                if ($scope.justHasRandomMove) {
+                //if ($scope.justHasRandomMove) {
                     var deltaValue = $scope.randomMove[2].set.value;
                     $scope.secondClickRow = deltaValue.rowAfter;
                     $scope.secondClickCol = deltaValue.colAfter;
                     $scope.justHasRandomMove = false;
-                }
+                //}
 
                 $log.info($scope.justHasRandomMove);
 
@@ -180,7 +180,7 @@ angular.module('myApp')
                 }*/
                 //$scope.uiState[fox_row][fox_col].content = 1;
 
-                if ($scope.secondClickRow != null && $scope.secondClickCol != null) {
+                //if ($scope.secondClickRow != null && $scope.secondClickCol != null) {
                     var char = $scope.board[$scope.secondClickRow][$scope.secondClickCol];
                     var uISquareCopy = {
                         content: char === 'S' ? 0 : 1, //0 is sheep, 1 is fox, -1 is empty
@@ -188,7 +188,10 @@ angular.module('myApp')
                         //pieceSrc: 'img/empty'
                     };
                     $scope.uiState[$scope.secondClickRow][$scope.secondClickCol] = uISquareCopy;
-                }
+                //}
+
+                $log.info("2row" + $scope.secondClickRow);
+                $log.info("2col" + $scope.secondClickCol);
 
 
                 for(var i = 0; i < 7; i++) {

@@ -8,7 +8,7 @@ describe('Halatafl', function() {
     'use strict';
 
     beforeEach(function() {
-        browser.get('http://localhost:63342/Halatafl/game.html');
+        browser.get('http://localhost:9000/game.html');
     });
 
     function getDiv(row, col) {
@@ -31,19 +31,19 @@ describe('Halatafl', function() {
             //expect(getImg(row, col).isDisplayed()).toEqual(pieceKind === "" ? false : true);
         if (pieceKind == 'F')
         expect(getImg(row, col).getAttribute("src")).toEqual(
-                "http://localhost:63342/Halatafl/img/fox.png");
+                "http://localhost:9000/img/fox.png");
         else if (pieceKind == 'F_trans')
             expect(getImg(row, col).getAttribute("src")).toEqual(
-                "http://localhost:63342/Halatafl/img/fox_selected.png");
+                "http://localhost:9000/img/fox_selected.png");
         else if (pieceKind == 'S')
             expect(getImg(row, col).getAttribute("src")).toEqual(
-                "http://localhost:63342/Halatafl/img/sheep.png");
+                "http://localhost:9000/img/sheep.png");
         else if (pieceKind == 'S_trans')
             expect(getImg(row, col).getAttribute("src")).toEqual(
-                "http://localhost:63342/Halatafl/img/sheep_selected.png");
+                "http://localhost:9000/img/sheep_selected.png");
         else if (pieceKind == '' || pieceKind == 'X')
             expect(getImg(row, col).getAttribute("src")).toEqual(
-                "http://localhost:63342/Halatafl/img/empty.png");
+                "http://localhost:9000/img/empty.png");
     }
 
 
@@ -58,8 +58,7 @@ describe('Halatafl', function() {
 
     function expectBoard(board) {
         for (var row = 0; row < 7; row++) {
-            for (var col = 0; col < 7; col++) {
-                if (board[row][col] == 'F' || board[row][col] == 'S')
+            for (var col = 0; col < 7; col++){
                 expectPiece(row, col, board[row][col]);
             }
         }
@@ -148,6 +147,86 @@ describe('Halatafl', function() {
                 ['X', 'X', '', '', 'S', 'X', 'X']]);
     });*/
 
+
+/*
+   delta1 = {rowBefore: 1, colBefore: 4, rowAfter: 1, colAfter: 3};
+    var board1 =
+        [['X', 'X', '', '', 'S', 'X', 'X'],
+            ['X', 'X', 'S', 'F', '', 'X', 'X'],
+            ['', '', '', 'F', '', '', ''],
+            ['S', '', '', 'S', '', '', 'S'],
+            ['S', '', '', '', '', 'S', 'S'],
+            ['X', 'X', '', '', '', 'X', 'X'],
+            ['X', 'X', '', '', 'S', 'X', 'X']];
+
+
+    var delta3 = {rowBefore: 1, colBefore: 2, rowAfter: 0, colAfter: 2};
+    var board3 =
+        [['X', 'X', 'S', '', 'S', 'X', 'X'],
+            ['X', 'X', '', 'F', '', 'X', 'X'],
+            ['', '', '', 'F', '', '', ''],
+            ['S', '', '', 'S', '', '', 'S'],
+            ['S', '', '', '', '', 'S', 'S'],
+            ['X', 'X', '', '', '', 'X', 'X'],
+            ['X', 'X', '', '', 'S', 'X', 'X']];
+    /*
+    var delta3 = {rowBefore: 2, colBefore: 3, rowAfter: 4, colAfter: 3};
+    var board3 =
+        [['X', 'X', 'S', '', 'S', 'X', 'X'],
+            ['X', 'X', '', 'F', '', 'X', 'X'],
+            ['', '', '', '', '', '', ''],
+            ['S', '', '', '', '', '', 'S'],
+            ['S', '', '', 'F', '', 'S', 'S'],
+            ['X', 'X', '', '', '', 'X', 'X'],
+            ['X', 'X', '', '', 'S', 'X', 'X']];
+    /*var delta4 = {row: 2, col: 1};
+    var board4 =
+        [['X', 'O', ''],
+            ['X', 'O', ''],
+            ['', 'X', '']];
+    */
+    /*
+    var matchState3 = {
+        turnIndexBeforeMove: 0,
+        turnIndex: 1,
+        endMatchScores:null,
+        lastMove: [{setTurn: {turnIndex: 1}},
+            {set: {key: 'board', value: board3}},
+            {set: {key: 'delta', value: delta3}}],
+        lastState: {board: board1, delta: delta1},
+        currentState: {board: board3, delta: delta3},
+        lastVisibleTo: {},
+        currentVisibleTo: {}
+    };
+    /*
+    var matchState3 = {
+        turnIndexBeforeMove: 1,
+        turnIndex: -2,
+        endMatchScores: [0, 1],
+        lastMove: [{endMatch: {endMatchScores: [1, 0]}},
+            {set: {key: 'board', value: board3}},
+            {set: {key: 'delta', value: delta3}}],
+        lastState: {board: board2, delta: delta2},
+        currentState: {board: board3, delta: delta3},
+        lastVisibleTo: {},
+        currentVisibleTo: {},
+    };
+    /*
+    var matchState4 = {
+        turnIndexBeforeMove: 0,
+        turnIndex: 1,
+        endMatchScores: null,
+        lastMove: [{setTurn: {turnIndex: 1}},
+            {set: {key: 'board', value: board4}},
+            {set: {key: 'delta', value: delta4}}],
+        lastState: {board: board2, delta: delta2},
+        currentState: {board: board4, delta: delta4},
+        lastVisibleTo: {},
+        currentVisibleTo: {},
+    };*/
+
+
+
     var delta1 = {rowBefore: 1, colBefore: 4, rowAfter: 1, colAfter: 3};
     var board1 =
         [['X', 'X', '', '', 'S', 'X', 'X'],
@@ -161,7 +240,7 @@ describe('Halatafl', function() {
 
     var delta2 = {rowBefore: 1, colBefore: 2, rowAfter: 0, colAfter: 2};
     var board2 =
-        [['X', 'X', 'S', '', 'S', 'X', 'X'],
+            [['X', 'X', 'S', '', 'S', 'X', 'X'],
             ['X', 'X', '', 'F', '', 'X', 'X'],
             ['', '', '', 'F', '', '', ''],
             ['S', '', '', 'S', '', '', 'S'],
@@ -178,10 +257,10 @@ describe('Halatafl', function() {
             ['X', 'X', '', '', '', 'X', 'X'],
             ['X', 'X', '', '', 'S', 'X', 'X']];
     /*var delta4 = {row: 2, col: 1};
-    var board4 =
-        [['X', 'O', ''],
-            ['X', 'O', ''],
-            ['', 'X', '']];*/
+     var board4 =
+     [['X', 'O', ''],
+     ['X', 'O', ''],
+     ['', 'X', '']];*/
 
     var matchState2 = {
         turnIndexBeforeMove: 0,
@@ -196,29 +275,29 @@ describe('Halatafl', function() {
         currentVisibleTo: {}
     };
     /*var matchState3 = {
-        turnIndexBeforeMove: 1,
-        turnIndex: -2,
-        endMatchScores: [0, 1],
-        lastMove: [{endMatch: {endMatchScores: [1, 0]}},
-            {set: {key: 'board', value: board3}},
-            {set: {key: 'delta', value: delta3}}],
-        lastState: {board: board2, delta: delta2},
-        currentState: {board: board3, delta: delta3},
-        lastVisibleTo: {},
-        currentVisibleTo: {},
-    };
-    var matchState4 = {
-        turnIndexBeforeMove: 0,
-        turnIndex: 1,
-        endMatchScores: null,
-        lastMove: [{setTurn: {turnIndex: 1}},
-            {set: {key: 'board', value: board4}},
-            {set: {key: 'delta', value: delta4}}],
-        lastState: {board: board2, delta: delta2},
-        currentState: {board: board4, delta: delta4},
-        lastVisibleTo: {},
-        currentVisibleTo: {},
-    };*/
+     turnIndexBeforeMove: 1,
+     turnIndex: -2,
+     endMatchScores: [0, 1],
+     lastMove: [{endMatch: {endMatchScores: [1, 0]}},
+     {set: {key: 'board', value: board3}},
+     {set: {key: 'delta', value: delta3}}],
+     lastState: {board: board2, delta: delta2},
+     currentState: {board: board3, delta: delta3},
+     lastVisibleTo: {},
+     currentVisibleTo: {},
+     };
+     var matchState4 = {
+     turnIndexBeforeMove: 0,
+     turnIndex: 1,
+     endMatchScores: null,
+     lastMove: [{setTurn: {turnIndex: 1}},
+     {set: {key: 'board', value: board4}},
+     {set: {key: 'delta', value: delta4}}],
+     lastState: {board: board2, delta: delta2},
+     currentState: {board: board4, delta: delta4},
+     lastVisibleTo: {},
+     currentVisibleTo: {},
+     };*/
 
     it('can start from a match that is about to end, and win', function () {
         setMatchState(matchState2, 'passAndPlay');
@@ -238,6 +317,8 @@ describe('Halatafl', function() {
         clickDivAndExpectPiece(4, 3, "F"); // can't do the winning click!
         expectBoard(board2);
     });
+
+
 
 
 

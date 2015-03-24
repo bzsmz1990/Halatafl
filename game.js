@@ -102,6 +102,12 @@ angular.module('myApp')
                 }
             }
 
+            $scope.isFirstClick = true;
+            $scope.firstClickRow;
+            $scope.firstClickCol;
+            $scope.secondClickRow;
+            $scope.secondClickCol;
+
             function updateUiState() {
                 /*$log.info("updateuI");
                  $log.info($scope.firstClickRow);
@@ -137,13 +143,15 @@ angular.module('myApp')
                  $scope.secondClickCol = null;*/
 
                 //$scope.board[$scope.secondClickRow][$scope.secondClickCol] = 'S';
+                var fox_row = 0;
+                var fox_col = 2;
                 for(var i = 0; i < 7; i++) {
                     for(var j = 0; j < 7; j++) {
                         var char = $scope.board[i][j];
                         var uiSquare = $scope.uiState[i][j];
                         //$log.info(char);
                         switch(char) {
-                            case 'F': uiSquare.content = 1; $log.info(uiSquare.content);break;
+                            case 'F': uiSquare.content = 1; $log.info(uiSquare.content);fox_row = i; fox_col = j;break;
                             case 'S': uiSquare.content = 0; $log.info(uiSquare.content);break;
                             default: uiSquare.content = -1; $log.info(uiSquare.content);
                         }
@@ -161,13 +169,26 @@ angular.module('myApp')
 
                 $log.info($scope.justHasRandomMove);
 
-                var char = $scope.board[$scope.secondClickRow][$scope.secondClickCol];
-                var uISquareCopy = {
-                    content: char === 'S'? 0 : 1, //0 is sheep, 1 is fox, -1 is empty
-                    isSelected: false  //,
-                    //pieceSrc: 'img/empty'
-                };
-                $scope.uiState[$scope.secondClickRow][$scope.secondClickCol] = uISquareCopy;
+
+                /*for(var i = 0; i < 7; i++) {
+                    for(var j = 0; j < 7; j++) {
+                        if ($scope.board[i][j] === 'F')
+                            $scope.uiState[i][j].content = 1;
+                        if ($scope.board[i][j] === '' || $scope.board[i][j] === 'X')
+                            $scope.uiState[i][j].content = 0;
+                    }
+                }*/
+                //$scope.uiState[fox_row][fox_col].content = 1;
+
+                if ($scope.secondClickRow != null && $scope.secondClickCol != null) {
+                    var char = $scope.board[$scope.secondClickRow][$scope.secondClickCol];
+                    var uISquareCopy = {
+                        content: char === 'S' ? 0 : 1, //0 is sheep, 1 is fox, -1 is empty
+                        isSelected: false  //,
+                        //pieceSrc: 'img/empty'
+                    };
+                    $scope.uiState[$scope.secondClickRow][$scope.secondClickCol] = uISquareCopy;
+                }
 
 
                 for(var i = 0; i < 7; i++) {
@@ -190,11 +211,7 @@ angular.module('myApp')
 
             window.e2e_test_stateService = stateService; // to allow us to load any state in our e2e tests.
 
-            $scope.isFirstClick = true;
-            $scope.firstClickRow;
-            $scope.firstClickCol;
-            $scope.secondClickRow;
-            $scope.secondClickCol;
+
 
             $scope.cellClicked = function (row, col) {
                 $log.info(["Clicked on cell:", row, col]);

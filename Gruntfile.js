@@ -1,7 +1,3 @@
-/**
- * Created by Wenzhao on 3/23/15.
- */
-
 module.exports = function(grunt) {
 
     'use strict';
@@ -39,7 +35,7 @@ module.exports = function(grunt) {
                     browser: false, element: false, by: false, // Protractor
                 },
             },
-            all: ['Gruntfile.js', 'karma.conf.js', 'protractor.conf.js', 'end_to_end_tests.js','game.js','gameLogic.js','gameLogic_test.js']
+            all: ['Gruntfile.js', 'karma.conf.js', 'protractor.conf.js', 'src/*.js']
         },
         karma: {
             unit: {
@@ -51,7 +47,7 @@ module.exports = function(grunt) {
         // Run karma and watch files using:
         // grunt karma:unit:start watch
         watch: {
-            files: ['end_to_end_tests.js','game.js','gameLogic.js','gameLogic_test.js'],
+            files: ['src/*.js'],
             tasks: ['jshint', 'karma:unit:run']
         },
         concat: {
@@ -60,7 +56,7 @@ module.exports = function(grunt) {
             },
             dist: {
                 // Order is important! gameLogic.js must be first because it defines myApp angular module.
-                src: ['gameLogic.js', 'game.js'],
+                src: ['src/gameLogic.js', 'src/game.js'],
                 dest: 'dist/everything.js',
             },
         },
@@ -89,7 +85,7 @@ module.exports = function(grunt) {
                         'http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js',
                         'http://yoav-zibin.github.io/emulator/dist/gameServices.min.js',
                         'http://yoav-zibin.github.io/emulator/angular-translate/angular-translate.2.6.1.min.js',
-                        //'languages/en.js',
+
                         'http://yoav-zibin.github.io/emulator/main.css',
                         'dist/everything.min.js',
                         'game.css'

@@ -1,47 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2be1ea00-a174-4843-8035-a4f402d41504" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 40.0.2214 (Mac OS X 10.10.1)/base.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 40.0.2214 (Mac OS X 10.10.1)/gameLogic.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 40.0.2214 (Mac OS X 10.10.1)/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 40.0.2214 (Mac OS X 10.10.1)/prettify.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 40.0.2214 (Mac OS X 10.10.1)/prettify.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 40.0.2214 (Mac OS X 10.10.1)/sort-arrow-sprite.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 40.0.2214 (Mac OS X 10.10.1)/sorter.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 41.0.2272 (Mac OS X 10.10.1)/base.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 41.0.2272 (Mac OS X 10.10.1)/gameLogic.js.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 41.0.2272 (Mac OS X 10.10.1)/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 41.0.2272 (Mac OS X 10.10.1)/prettify.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 41.0.2272 (Mac OS X 10.10.1)/prettify.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 41.0.2272 (Mac OS X 10.10.1)/sort-arrow-sprite.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/coverage/Chrome 41.0.2272 (Mac OS X 10.10.1)/sorter.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/end_to_end_tests.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/game.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gameLogic.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/gameLogic_test.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/bg_hr.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/blacktocat.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/icon_download.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/images/sprite_download.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/img/512x512.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/img/background.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/img/empty.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/img/fox.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/img/fox_selected.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/img/lessThan20KB.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/img/sheep.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/img/sheep_selected.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/index.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/javascripts/main.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/stylesheets/pygment_trac.css" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/stylesheets/stylesheet.css" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Gruntfile.js" afterPath="$PROJECT_DIR$/Gruntfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.html" afterPath="$PROJECT_DIR$/game.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/karma.conf.js" afterPath="$PROJECT_DIR$/karma.conf.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protractor.conf.js" afterPath="$PROJECT_DIR$/protractor.conf.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="2be1ea00-a174-4843-8035-a4f402d41504" name="Default" comment="" />
     <ignored path="Halatafl.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />

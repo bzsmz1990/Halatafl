@@ -380,10 +380,10 @@ angular.module('myApp', []).factory('gameLogic', function() {
 
 angular.module('myApp')
     .controller('Ctrl',
-    ['$scope', '$log', '$timeout',
+    ['$scope', '$log', '$timeout', '$rootScope',
         'gameService', 'stateService','gameLogic',
         'resizeGameAreaService',
-        function ($scope, $log, $timeout,
+        function ($scope, $log, $timeout, $rootScope,
                   gameService, stateService, gameLogic, resizeGameAreaService
         ) {
 
@@ -404,10 +404,10 @@ angular.module('myApp')
 
             }
             /*function sendComputerMove() {
-                gameService.makeMove(aiService.createComputerMove($scope.board, $scope.turnIndex,
-                    // at most 1 second for the AI to choose a move (but might be much quicker)
-                    {millisecondsLimit: 1000}));
-            }*/
+             gameService.makeMove(aiService.createComputerMove($scope.board, $scope.turnIndex,
+             // at most 1 second for the AI to choose a move (but might be much quicker)
+             {millisecondsLimit: 1000}));
+             }*/
 
             //$scope.turnIndex = 0;
             //$scope.isYourTurn = true;
@@ -425,23 +425,22 @@ angular.module('myApp')
                 params.yourPlayerIndex === params.turnIndexAfterMove; // it's my turn
                 $scope.turnIndex = params.turnIndexAfterMove;
                 if (notFirstTime) {
-                     updateUiState();
+                    updateUiState();
                 }
 
-           // Is it the computer's turn?
+                // Is it the computer's turn?
                 if ($scope.isYourTurn &&
-                 params.playersInfo[params.yourPlayerIndex].playerId === '') {
-                 $scope.isYourTurn = false; // to make sure the UI won't send another move.
-                 // Waiting 0.5 seconds to let the move animation finish; if we call aiService
-                 // then the animation is paused until the javascript finishes.
-                 $timeout(sendComputerMove, 500);
-                 }
+                    params.playersInfo[params.yourPlayerIndex].playerId === '') {
+                    $scope.isYourTurn = false; // to make sure the UI won't send another move.
+                    // Waiting 0.5 seconds to let the move animation finish; if we call aiService
+                    // then the animation is paused until the javascript finishes.
+                    $timeout(sendComputerMove, 500);
+                }
             }
 
             // Before getting any updateUI, we show an empty board to a viewer (so you can't perform moves).
             //updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex:-2});
             //updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex:0});
-
 
             function initializeUiState() {
                 // Initialize the ui state as an array first
@@ -486,42 +485,7 @@ angular.module('myApp')
             $scope.secondClickCol;
 
             function updateUiState() {
-                /*$log.info("updateuI");
-                 $log.info($scope.firstClickRow);
-                 $log.info($scope.firstClickCol);
-                 $log.info($scope.board[$scope.secondClickRow][$scope.secondClickCol]);
-                 $scope.uiState[$scope.firstClickRow][$scope.firstClickCol].pieceSrc = 'img/empty';
-                 $scope.uiState[$scope.firstClickRow][$scope.firstClickCol].isSelected = false;
-                 $log.info($scope.board[0][0]);
-                 $log.info($scope.uiState[0][0].pieceSrc);
-                 $log.info($scope.secondClickRow);
-                 $log.info($scope.secondClickCol);
-                 //$scope.uiState[2][2].pieceSrc = ($scope.board[$scope.secondClickRow][$scope.secondClickCol] === 'S') ? 'img/sheep' : 'img/empty';
-                 $log.info($scope.uiState[0][0]);
-                 $scope.uiState[$scope.secondClickRow][$scope.secondClickCol].pieceSrc = ($scope.board[$scope.secondClickRow][$scope.secondClickCol] === 'F') ? 'img/fox' : 'img/sheep';
-                 $log.info($scope.board[0][2]);
-                 //$log.info($scope.uiState[$scope.firstClickRow][$scope.firstClickCol].pieceSrc);
-                 //$log.info($scope.uiState[$scope.secondClickRow][$scope.secondClickCol].pieceSrc);
-                 $log.info($scope.board[0][0]);
-                 $log.info($scope.uiState[0][0]);
-                 $log.info($scope.secondClickRow);
-                 $log.info($scope.secondClickCol);
-                 //$scope.secondClickRow=null;
-                 //$scope.secondClickCol=null;
-                 if (Math.abs($scope.firstClickRow - $scope.secondClickRow) > 1 || Math.abs($scope.firstClickCol - $scope.secondClickCol) > 1) {
-                 $scope.uiState[($scope.firstClickRow + $scope.secondClickRow) / 2][($scope.firstClickCol + $scope.secondClickCol) / 2].pieceSrc = 'img/empty';
-                 }*/
-                //$scope.board[$scope.firstClickRow][$scope.firstClickCol] = '';
-                //if (Math.abs($scope.firstClickRow - $scope.secondClickRow) > 1 || Math.abs($scope.firstClickCol - $scope.secondClickCol) > 1) {
-                  //  $scope.board[($scope.firstClickRow + $scope.secondClickRow) / 2][($scope.firstClickCol + $scope.secondClickCol) / 2] = '';}
-                /*$scope.firstClickRow = null;
-                 $scope.firstClickCol = null;
-                 $scope.secondClickRow = null;
-                 $scope.secondClickCol = null;*/
 
-                //$scope.board[$scope.secondClickRow][$scope.secondClickCol] = 'S';
-                //var fox_row = 0;
-                //var fox_col = 2;
                 for(var i = 0; i < 7; i++) {
                     for(var j = 0; j < 7; j++) {
                         var char = $scope.board[i][j];
@@ -531,12 +495,7 @@ angular.module('myApp')
                             isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false  //,
                             //pieceSrc: 'img/empty'
                         };
-                        //$log.info(char);
-                        /*switch(char) {
-                            case 'F': uiSquare.content = 1; $log.info(uiSquare.content);break;
-                            case 'S': uiSquare.content = 0; $log.info(uiSquare.content);break;
-                            default: uiSquare.content = -1; $log.info(uiSquare.content);
-                        }*/
+
                         $scope.uiState[i][j] = uISquareCopy;
                     }
                 }
@@ -545,68 +504,195 @@ angular.module('myApp')
 
                 $log.info($scope.justHasRandomMove);
 
-                /*
-                //if ($scope.justHasRandomMove) {
-                    var deltaValue = $scope.randomMove[2].set.value;
-                    $scope.secondClickRow = deltaValue.rowAfter;
-                    $scope.secondClickCol = deltaValue.colAfter;
-                    $scope.justHasRandomMove = false;
-                //}
 
-                $log.info($scope.justHasRandomMove);
-                */
 
-                /*for(var i = 0; i < 7; i++) {
-                    for(var j = 0; j < 7; j++) {
-                        if ($scope.board[i][j] === 'F')
-                            $scope.uiState[i][j].content = 1;
-                        if ($scope.board[i][j] === '' || $scope.board[i][j] === 'X')
-                            $scope.uiState[i][j].content = 0;
-                    }
-                }*/
-                //$scope.uiState[fox_row][fox_col].content = 1;
-                /*
-                //if ($scope.secondClickRow != null && $scope.secondClickCol != null) {
-                    var char = $scope.board[$scope.secondClickRow][$scope.secondClickCol];
-                    var uISquareCopy = {
-                        content: char === 'S' ? 0 : 1, //0 is sheep, 1 is fox, -1 is empty
-                        isSelected: false  //,
-                        //pieceSrc: 'img/empty'
-                    };
-                    $scope.uiState[$scope.secondClickRow][$scope.secondClickCol] = uISquareCopy;
-                //}
 
-                $log.info("2row" + $scope.secondClickRow);
-                $log.info("2col" + $scope.secondClickCol);
-
-                */
                 for(var i = 0; i < 7; i++) {
                     for(var j = 0; j < 7; j++) {
                         //var char = $scope.board[i][j];
                         //var uiSquare = $scope.uiState[i][j];
                         //$log.info(char);
                         $log.info($scope.uiState[i][j].content);
+                        //$log.info($scope.board[i][j]);
                     }
                 }
-                //$scope.uiState[$scope.secondClickRow][$scope.secondClickCol].content = 0;
-                //$scope.uiState[2][0].pieceSrc = 'img/sheep';
-                //$log.info($scope.uiState[$scope.secondClickRow][$scope.secondClickCol].content);
-                //$log.info($scope.uiState[3][1].content);
+                $log.info("turnIndex " + $scope.turnIndex);
             }
 
             $scope.getSquare = function(row, col) {
                 return $scope.uiState[row][col];
             };
 
+
+
+
+
+            //$scope.turnIndex = 0;
+
+
+             //$log.info("turnIndex " + $scope.turnIndex);
+
+
+             var gameArea = document.getElementById("gameArea");
+            $log.info("clientWidth" + gameArea.clientWidth);
+            $log.info("clientHeight" + gameArea.clientHeight);
+            //$log.info(gameArea);
+             var rowsNum = 7;
+             var colsNum = 7;
+             var draggingStartedRowCol = null; // The {row: YY, col: XX} where dragging started.
+             var draggingPiece = null;
+             var nextZIndex = 61;
+             window.handleDragEvent = handleDragEvent;
+             function handleDragEvent(type, clientX, clientY) {
+             // Center point in gameArea
+
+                 //$log.info("X"+clientX);
+                 //$log.info("Y"+clientY);
+                 //$log.info("left"+gameArea.offsetLeft);
+                 //$log.info("left"+gameArea.offsetTop);
+             var x = clientX - gameArea.offsetLeft;
+             var y = clientY - gameArea.offsetTop;
+             var row, col;
+             // Is outside gameArea?
+             if (x < 0 || y < 0 || x >= gameArea.clientWidth || y >= gameArea.clientHeight) {
+             //draggingLines.style.display = "none";
+             if (draggingPiece) {
+             // Drag the piece where the touch is (without snapping to a square).
+             var size = getSquareWidthHeight();
+             setDraggingPieceTopLeft({top: y - size.height / 2, left: x - size.width / 2});
+             } else {
+             return;
+             }
+             } else {
+             // Inside gameArea. Let's find the containing square's row and col
+             var col = Math.floor(colsNum * x / gameArea.clientWidth);
+                 if (y < 0.125 * gameArea.clientHeight  || y > 0.875 * gameArea.clientHeight ) return;
+             var row = Math.floor(rowsNum * (y - 0.125 * gameArea.clientHeight ) / gameArea.clientHeight / 0.75);
+                //if ($scope.turnIndex == 1) row = row - 1;
+             if (type === "touchstart" && !draggingStartedRowCol) {
+             // drag started
+             $log.info("turnIndex " + $scope.turnIndex);
+             if ($scope.board[row][col] != '' || $scope.board[row][col] != 'X') {
+             //if (($scope.board[row][col] == 'F' && $scope.turnIndex === 1) || ($scope.board[row][col] == 'S' && $scope.turnIndex === 0)) {
+             draggingStartedRowCol = {row: row, col: col};
+                 $log.info("firstrow" + draggingStartedRowCol.row);
+             draggingPiece = document.getElementById('e2e_test_img_' + row + 'x' + col);
+                 //draggingPiece = document.getElementById("MyPiece" + draggingStartedRowCol.row + "x" + draggingStartedRowCol.col);
+                 //$log.info("here");
+                 //$log.info(draggingPiece === null);
+                 $log.info("draggingPiece" + draggingPiece);
+              draggingPiece.style['z-index'] = ++nextZIndex;
+                 $log.info("style" + draggingPiece.style['z-index']);
+             }
+             }
+             if (!draggingPiece) {
+             return;
+             }
+                 //$log.info(type);
+             if (type === "touchend") {
+                 //$log.info("turnIndex " + $scope.turnIndex);
+                 var from = draggingStartedRowCol;
+                 var to = {row: row, col: col};
+                 dragDone(from, to);
+                 //$log.info(draggingStartedRowCol);
+                 //$log.info(to);
+             //dragDone(from, to);
+             } else {
+             // Drag continue
+             setDraggingPieceTopLeft(getSquareTopLeft(row, col));
+             //draggingLines.style.display = "inline";
+             //var centerXY = getSquareCenterXY(row, col);
+             //verticalDraggingLine.setAttribute("x1", centerXY.x);
+             //verticalDraggingLine.setAttribute("x2", centerXY.x);
+             //horizontalDraggingLine.setAttribute("y1", centerXY.y);
+             //horizontalDraggingLine.setAttribute("y2", centerXY.y);
+             }
+             }
+             if (type === "touchend" || type === "touchcancel" || type === "touchleave") {
+             // drag ended
+             // return the piece to it's original style (then angular will take care to hide it).
+             setDraggingPieceTopLeft(getSquareTopLeft(draggingStartedRowCol.row, draggingStartedRowCol.col));
+             //draggingLines.style.display = "none";
+                 //$log.info(type);
+                 //$log.info(draggingStartedRowCol);
+                 draggingStartedRowCol = null;
+                 //$log.info(draggingStartedRowCol);
+             draggingPiece = null;
+             }
+             }
+             function setDraggingPieceTopLeft(topLeft) {
+             var originalSize = getSquareTopLeft(draggingStartedRowCol.row, draggingStartedRowCol.col);
+             draggingPiece.style.left = (topLeft.left - originalSize.left) + "px";
+             draggingPiece.style.top = (topLeft.top - originalSize.top) + "px";
+             }
+             function getSquareWidthHeight() {
+             return {
+             width: gameArea.clientWidth / colsNum,
+             height: gameArea.clientHeight / rowsNum
+             };
+             }
+             function getSquareTopLeft(row, col) {
+             var size = getSquareWidthHeight();
+             return {top: row * size.height, left: col * size.width}
+             }
+             function getSquareCenterXY(row, col) {
+             var size = getSquareWidthHeight();
+             return {
+             x: col * size.width + size.width / 2,
+             y: row * size.height + size.height / 2
+             };
+             }
+
+
+
+
+
+
+             //resizeGameAreaService.setWidthToHeight(0.5);
+             function dragDone(from, to) {
+             $rootScope.$apply(function () {
+                 try {
+                     //$scope.secondClickRow = row;
+                     //$scope.secondClickCol = col;
+                     $log.info("turnIndex " + $scope.turnIndex);
+                     var move = gameLogic.createMove($scope.board, from.row, from.col, to.row, to.col, $scope.turnIndex);
+                     //$log.info("success");
+                     //$scope.isYourTurn = false; // to prevent making another move
+                     //$scope.isFirstClick = true;
+                     //$scope.isSecondClick = 2;
+                     gameService.makeMove(move);
+                     //return;
+                 } catch (e) {
+                     //$log.info(e);
+                     $log.info(["Invalid move:", from.row, from.col, to.row, to.col]);
+                     //$log.info(type);
+                     $log.info(draggingStartedRowCol);
+                     //draggingStartedRowCol = null;
+                     $log.info(draggingStartedRowCol);
+                     //draggingPiece = null;
+                     return;
+                 }
+             });
+             }
+
+
+
+
+
+
+
+
             window.e2e_test_stateService = stateService; // to allow us to load any state in our e2e tests.
 
-
+            /*
+            $log.info("turnIndex " + $scope.turnIndex);
 
             $scope.cellClicked = function (row, col) {
                 $log.info(["Clicked on cell:", row, col]);
                 if (!$scope.isYourTurn) {
                     return;
                 }
+                $log.info("turnIndex " + $scope.turnIndex);
                 var rightOne = ($scope.turnIndex === 1) ? 'F' : 'S';
                 var wrongOne = ($scope.turnIndex === 1) ? 'S' : 'F';
                 if ($scope.board[row][col] !== rightOne && $scope.isFirstClick) {
@@ -642,6 +728,9 @@ angular.module('myApp')
                     return;
                 }
             };
+            */
+
+
 
             gameService.setGame({
                 gameDeveloperEmail: "zangwz@gmail.com",
@@ -659,41 +748,4 @@ angular.module('myApp')
 
 
 
-/*
- $scope.cellClicked = function (row, col) {
- $log.info(["Clicked on cell:", row, col]);
- if (!$scope.isYourTurn) {
- return;
- }
- try {
- var move = gameLogic.createMove($scope.board, row, col, $scope.turnIndex);
- $scope.isYourTurn = false; // to prevent making another move
- gameService.makeMove(move);
- } catch (e) {
- $log.info(["Cell is already full in position:", row, col]);
- return;
- }
- };
- $scope.shouldShowImage = function (row, col) {
- var cell = $scope.board[row][col];
- return cell !== "";
- };
- $scope.getImageSrc = function (row, col) {
- var cell = $scope.board[row][col];
- return cell === "X" ? "pieceX.png"
- : cell === "O" ? "pieceO.png" : "";
- };
- $scope.shouldSlowlyAppear = function (row, col) {
- return $scope.delta !== undefined &&
- $scope.delta.row === row && $scope.delta.col === col;
- };
- gameService.setGame({
- gameDeveloperEmail: "yoav.zibin@gmail.com",
- minNumberOfPlayers: 2,
- maxNumberOfPlayers: 2,
- isMoveOk: gameLogic.isMoveOk,
- updateUI: updateUI
- });
- }]);
- */
 

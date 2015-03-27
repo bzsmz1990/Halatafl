@@ -158,6 +158,8 @@ angular.module('myApp')
 
 
              var gameArea = document.getElementById("gameArea");
+            $log.info("clientWidth" + gameArea.clientWidth);
+            $log.info("clientHeight" + gameArea.clientHeight);
             //$log.info(gameArea);
              var rowsNum = 7;
              var colsNum = 7;
@@ -188,8 +190,8 @@ angular.module('myApp')
              } else {
              // Inside gameArea. Let's find the containing square's row and col
              var col = Math.floor(colsNum * x / gameArea.clientWidth);
-                 if (y < 50 || y > 320) return;
-             var row = Math.floor(rowsNum * (y - 50) / gameArea.clientHeight / 0.73);
+                 if (y < 0.125 * gameArea.clientHeight  || y > 0.875 * gameArea.clientHeight ) return;
+             var row = Math.floor(rowsNum * (y - 0.125 * gameArea.clientHeight ) / gameArea.clientHeight / 0.75);
                 //if ($scope.turnIndex == 1) row = row - 1;
              if (type === "touchstart" && !draggingStartedRowCol) {
              // drag started

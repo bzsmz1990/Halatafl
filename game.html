@@ -7,7 +7,7 @@
     <title>Halatafl</title>
     <meta name="description" content="Halatafl game">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <script src="dragAndDropListeners.js"></script>
+    <script src="http://yoav-zibin.github.io/emulator/examples/drag_n_drop/dragAndDropListeners.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js"></script>
     <script src="src/gameLogic.js"></script>
     <script src="src/game.js"></script>
@@ -25,7 +25,7 @@
 
     <img ng-src = "imgs/background.png" width = "100%" height = "100%">
     <div ng-repeat="row in [0, 1, 2, 3, 4, 5, 6]"
-         style="position:absolute; top:{{row * 10.5 + 11}}%; left:0; width:100%; height:10.5%;">
+         style="position:absolute; top:{{row * 10.5 + 13}}%; left:0; width:100%; height:10.5%;">
         <div ng-repeat="col in [0, 1, 2, 3, 4, 5, 6]"
              style="position:absolute; top:0; left:{{col * 14 + 3.5}}%; width:10.5%; height:100%;"
              class="square"
@@ -33,7 +33,8 @@
              id="{{'e2e_test_div_' + row + 'x' + col}}">
             <img ng-show="true">
             <img ng-src = "{{getSquare(row, col).content === -1 ? 'imgs/empty.png' : (getSquare(row, col).content === 0 ? (getSquare(row,col).isSelected === false ? 'imgs/sheep.png' : 'imgs/sheep_selected.png') : (getSquare(row,col).isSelected === false ? 'imgs/fox.png' : 'imgs/fox_selected.png'))}}" width = "100%" height = "66.66%"
-            id = "{{'e2e_test_img_' + row + 'x' + col}}">
+                 style="position:absolute;"
+                 id = "{{'e2e_test_img_' + row + 'x' + col}}">
             <!--id="MyPiece{{row}}x{{col}}">-->
             <div>
     </div>

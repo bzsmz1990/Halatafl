@@ -188,10 +188,11 @@ angular.module('myApp')
              return;
              }
              } else {
+
              // Inside gameArea. Let's find the containing square's row and col
              var col = Math.floor(colsNum * x / gameArea.clientWidth);
-                 if (y < 0.125 * gameArea.clientHeight  || y > 0.875 * gameArea.clientHeight ) return;
-             var row = Math.floor(rowsNum * (y - 0.125 * gameArea.clientHeight ) / gameArea.clientHeight / 0.75);
+                 //if (y < 0.05 * gameArea.clientHeight  || y > 0.95 * gameArea.clientHeight ) return;
+             var row = Math.floor(rowsNum * (y - 0.12 * gameArea.clientHeight ) / gameArea.clientHeight / 0.75);
                 //if ($scope.turnIndex == 1) row = row - 1;
              if (type === "touchstart" && !draggingStartedRowCol) {
              // drag started
@@ -223,7 +224,9 @@ angular.module('myApp')
              //dragDone(from, to);
              } else {
              // Drag continue
-             setDraggingPieceTopLeft(getSquareTopLeft(row, col));
+                 var size = getSquareWidthHeight();
+                 setDraggingPieceTopLeft({top: y - 0.12 * gameArea.clientHeight - size.height / 2, left: x - size.width / 2});
+             //setDraggingPieceTopLeft(getSquareTopLeft(row, col));
              //draggingLines.style.display = "inline";
              //var centerXY = getSquareCenterXY(row, col);
              //verticalDraggingLine.setAttribute("x1", centerXY.x);
@@ -252,7 +255,7 @@ angular.module('myApp')
              function getSquareWidthHeight() {
              return {
              width: gameArea.clientWidth / colsNum,
-             height: gameArea.clientHeight / rowsNum
+             height: gameArea.clientHeight * 0.75 / rowsNum
              };
              }
              function getSquareTopLeft(row, col) {

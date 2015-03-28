@@ -62,46 +62,46 @@
 /* Chrome, Safari, Opera */
 
 @-webkit-keyframes enlarge1 {
-    0% { position: absolute; transform: scale(1) }
-    50% { position: absolute; transform: scale(1.35) }
+
+    50% { width: 130%; height: 90%; left: -18%; right: -18% }
 }
 
 @-moz-keyframes enlarge1 {
-    0% { position: absolute; transform: scale(1) }
-    50% { position: absolute; transform: scale(1.35) }
+
+    50% { width: 130%; height: 90%; left: -18%; right: -18% }
 }
 
 @-o-keyframes enlarge1 {
-    0% { position: absolute; transform: scale(1) }
-    50% { position: absolute; transform: scale(1.35) }
+
+    50% { width: 130%; height: 90%; left: -18%; right: -18% }
 }
 
 @keyframes enlarge1 {
-    0% { position: absolute; transform: scale(1) }
-    50% { position: absolute; transform: scale(1.35) }
+
+    50% { width: 130%; height: 90%; left: -18%; right: -18% }
 }
 
 
 /* Chrome, Safari, Opera */
 
 @-webkit-keyframes enlarge2 {
-    0% { position: absolute; transform: scale(1) }
-    50% { position: absolute; transform: scale(1.35) }
+
+    50% { width: 130%; height: 90%; left: -18%; right: -18% }
 }
 
 @-moz-keyframes enlarge2 {
-    0% { position: absolute; transform: scale(1) }
-    50% { position: absolute; transform: scale(1.35) }
+
+    50% { width: 130%; height: 90%; left: -18%; right: -18% }
 }
 
 @-o-keyframes enlarge2 {
-    0% { position: absolute; transform: scale(1) }
-    50% { position: absolute; transform: scale(1.35) }
+
+    50% { width: 130%; height: 90%; left: -18%; right: -18% }
 }
 
 @keyframes enlarge2 {
-    0% { position: absolute; transform: scale(1) }
-    50% { position: absolute; transform: scale(1.35) }
+
+    50% { width: 130%; height: 90%; left: -18%; right: -18% }
 }
 
 

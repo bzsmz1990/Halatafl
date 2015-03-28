@@ -17,16 +17,21 @@ angular.module('myApp')
 
             $scope.randomMove;
             $scope.justHasRandomMove = false;
-            function sendComputerMove() {
-                var items = gameLogic.getPossibleMoves($scope.board, $scope.turnIndex);
-                if (items.length !== 0) {
-                    $scope.randomMove = items[Math.floor(Math.random() * items.length)];
-                    $scope.justHasRandomMove = true;
-                    gameService.makeMove($scope.randomMove);
-                }
-                //what is there is no available move for wolf?
 
-            }
+               function sendComputerMove() {
+                    var items = gameLogic.getPossibleMoves($scope.board, $scope.turnIndex);
+                    if (items.length !== 0) {
+                        $scope.randomMove = items[Math.floor(Math.random() * items.length)];
+                        $scope.justHasRandomMove = true;
+                        //setTimeout(function () {var i = 0;}, 2000);
+                        gameService.makeMove($scope.randomMove);
+
+                    }
+                    //what if there is no available move for wolf?
+                }
+
+
+
             /*function sendComputerMove() {
              gameService.makeMove(aiService.createComputerMove($scope.board, $scope.turnIndex,
              // at most 1 second for the AI to choose a move (but might be much quicker)
@@ -58,7 +63,7 @@ angular.module('myApp')
                     $scope.isYourTurn = false; // to make sure the UI won't send another move.
                     // Waiting 0.5 seconds to let the move animation finish; if we call aiService
                     // then the animation is paused until the javascript finishes.
-                    $timeout(sendComputerMove, 500);
+                    $timeout(sendComputerMove, 1200);
                 }
             }
 

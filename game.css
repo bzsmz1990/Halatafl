@@ -1,47 +1,4 @@
 
-/*
-.piece {
-    position: absolute;
-    width: 60%;
-    top: 20%;
-    left: 20%;
-}
-.r {    //r and b are class names
-    border-right: 4pt solid black;
-}
-.b {
-    border-bottom: 4pt solid black;
-}
-
-.slowlyAppear {
-    -webkit-animation: slowlyAppear 0.5s linear; /* Chrome, Safari, Opera */
-/*    animation: slowlyAppear 0.5s linear;
-}
-/* Chrome, Safari, Opera */
-/*
-@-webkit-keyframes slowlyAppear {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-
-/* Standard syntax */
-/*
-@keyframes slowlyAppear {
-    from {opacity: 0;}
-    to {opacity: 1;}
-}
-*/
-
-
-/*.square {
-    position: absolute;
-    width: 80%;
-    top:10%;
-    left:10%;
-}*/
-
-
-
 
 
 .square {
@@ -51,6 +8,126 @@
     float: left;
     height: 0;
 }
+
+
+
+
+
+
+.enlarge1 {
+    position: absolute;
+    width: 100%;
+    top: 0%;
+    left: 0%;
+    -webkit-animation: enlarge1 1s;
+    -moz-animation: enlarge1 1s;
+    -o-animation: enlarge1 1s;
+    animation: enlarge1 1s;
+
+}
+
+.enlarge2 {
+    position: absolute;
+    width: 100%;
+    top: 0%;
+    left: 0%;
+    -webkit-animation: enlarge2 1s;
+    -moz-animation: enlarge2 1s;
+    -o-animation: enlarge2 1s;
+    animation: enlarge2 1s;
+
+}
+
+.disappear {
+    position: absolute;
+    width: 100%;
+    top: 0%;
+    left: 0%;
+    -webkit-animation: disappear 2s;
+    -moz-animation: disappear  2s;
+    -o-animation: disappear  2s;
+    animation: disappear  2s;
+    transition-timing-function: linear;
+}
+
+.invisible {
+    display: none;
+}
+
+
+
+
+
+
+/* Chrome, Safari, Opera */
+
+@-webkit-keyframes enlarge1 {
+    0% { position: absolute; transform: scale(1) }
+    50% { position: absolute; transform: scale(1.35) }
+}
+
+@-moz-keyframes enlarge1 {
+    0% { position: absolute; transform: scale(1) }
+    50% { position: absolute; transform: scale(1.35) }
+}
+
+@-o-keyframes enlarge1 {
+    0% { position: absolute; transform: scale(1) }
+    50% { position: absolute; transform: scale(1.35) }
+}
+
+@keyframes enlarge1 {
+    0% { position: absolute; transform: scale(1) }
+    50% { position: absolute; transform: scale(1.35) }
+}
+
+
+/* Chrome, Safari, Opera */
+
+@-webkit-keyframes enlarge2 {
+    0% { position: absolute; transform: scale(1) }
+    50% { position: absolute; transform: scale(1.35) }
+}
+
+@-moz-keyframes enlarge2 {
+    0% { position: absolute; transform: scale(1) }
+    50% { position: absolute; transform: scale(1.35) }
+}
+
+@-o-keyframes enlarge2 {
+    0% { position: absolute; transform: scale(1) }
+    50% { position: absolute; transform: scale(1.35) }
+}
+
+@keyframes enlarge2 {
+    0% { position: absolute; transform: scale(1) }
+    50% { position: absolute; transform: scale(1.35) }
+}
+
+
+
+
+
+
+@-webkit-keyframes disappear {
+    0% { position: absolute; left: 0%; top:0%}
+    100% { position: absolute; left: 1000%; top:-1000%}
+}
+
+@-moz-keyframes disappear {
+    0% { position: absolute; left: 0%; top:0%}
+    100% { position: absolute; left: 1000%; top:-1000%}
+}
+@-o-keyframes disappear {
+    0% { position: absolute; left: 0%; top:0%}
+    100% { position: absolute; left: 1000%; top:-1000%}
+}
+@keyframes disappear {
+    0% { position: absolute; left: 0%; top:0%}
+    100% { position: absolute; left: 1000%; top:-1000%}
+}
+
+
 
 
 

@@ -128,6 +128,41 @@ angular.module('myApp')
 
                 $log.info($scope.justHasRandomMove);
 
+                //animation
+                var row = $scope.delta.rowAfter;
+                var col = $scope.delta.colAfter;
+                var img = document.getElementById('e2e_test_img_' + row + 'x' + col);
+                if (img.className === 'enlarge1')
+                img.className = 'enlarge2';
+                else
+                    img.className = 'enlarge1';
+                var rowBefore = $scope.delta.rowBefore;
+                var colBefore = $scope.delta.colBefore;
+                if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2) {
+                    var uISquareCopy = {
+                        content: 0,
+                        isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false
+                        //pieceSrc: 'img/empty'
+                    };
+                    $scope.uiState[(row + rowBefore) / 2][(col + colBefore) / 2] = uISquareCopy;
+                    var img2 = document.getElementById('e2e_test_img_' + (row + rowBefore) / 2 + 'x' + (col + colBefore) / 2);
+                    img2.className = 'disappear';
+                    setTimeout(function () {
+                           img2.className = 'invisible'
+                    }, 2000);
+                    //$log.info("content" + uISquareCopy2.content);
+                }
+
+
+                /*
+                var uISquareCopy = {
+                    content: -1,
+                    isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false
+                    //pieceSrc: 'img/empty'
+                };
+                $scope.uiState[(row + rowBefore) / 2][(col + colBefore) / 2] = uISquareCopy;
+                */
+
 
 
 
@@ -156,7 +191,7 @@ angular.module('myApp')
 
              //$log.info("turnIndex " + $scope.turnIndex);
 
-
+            //drag and drop
              var gameArea = document.getElementById("gameArea");
             $log.info("clientWidth" + gameArea.clientWidth);
             $log.info("clientHeight" + gameArea.clientHeight);
@@ -336,9 +371,6 @@ angular.module('myApp')
              y: row * size.height + size.height / 2
              };
              }
-
-
-
 
 
 

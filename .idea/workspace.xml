@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2be1ea00-a174-4843-8035-a4f402d41504" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/game_without_dragndrop.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game.js" afterPath="$PROJECT_DIR$/src/game.js" />
     </list>
     <ignored path="Halatafl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -56,8 +55,8 @@
       <file leaf-file-name="game.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.053667262" vertical-offset="3090" max-vertical-offset="5760">
-              <caret line="208" column="60" selection-start-line="208" selection-start-column="60" selection-end-line="211" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.4293381" vertical-offset="3060" max-vertical-offset="5805">
+              <caret line="220" column="32" selection-start-line="220" selection-start-column="32" selection-end-line="220" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -102,8 +101,8 @@
         <option value="$PROJECT_DIR$/dragAndDropListeners.js" />
         <option value="$PROJECT_DIR$/draganddroptest.html" />
         <option value="$PROJECT_DIR$/game.html" />
-        <option value="$PROJECT_DIR$/src/game.js" />
         <option value="$PROJECT_DIR$/game_without_dragndrop.js" />
+        <option value="$PROJECT_DIR$/src/game.js" />
       </list>
     </option>
   </component>
@@ -982,8 +981,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.053667262" vertical-offset="3090" max-vertical-offset="5760">
-          <caret line="208" column="60" selection-start-line="208" selection-start-column="60" selection-end-line="211" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.4293381" vertical-offset="3060" max-vertical-offset="5805">
+          <caret line="220" column="32" selection-start-line="220" selection-start-column="32" selection-end-line="220" selection-end-column="32" />
           <folding />
         </state>
       </provider>

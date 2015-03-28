@@ -218,6 +218,9 @@ angular.module('myApp')
                  //$log.info("turnIndex " + $scope.turnIndex);
                  var from = draggingStartedRowCol;
                  var to = {row: row, col: col};
+                 if (from.row > to.row) to.row = from.row - 1;
+                 if (from.col < to.col) to.col = from.col + 1;
+                 if (from.col > to.col) to.col = from.col - 1;
                  dragDone(from, to);
                  //$log.info(draggingStartedRowCol);
                  //$log.info(to);

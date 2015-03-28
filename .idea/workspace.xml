@@ -55,8 +55,8 @@
       <file leaf-file-name="game.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4293381" vertical-offset="3060" max-vertical-offset="5805">
-              <caret line="220" column="32" selection-start-line="220" selection-start-column="32" selection-end-line="220" selection-end-column="32" />
+            <state vertical-scroll-proportion="-0.07334526" vertical-offset="3341" max-vertical-offset="6765">
+              <caret line="220" column="41" selection-start-line="220" selection-start-column="41" selection-end-line="220" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -981,8 +981,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4293381" vertical-offset="3060" max-vertical-offset="5805">
-          <caret line="220" column="32" selection-start-line="220" selection-start-column="32" selection-end-line="220" selection-end-column="32" />
+        <state vertical-scroll-proportion="-0.07334526" vertical-offset="3341" max-vertical-offset="6765">
+          <caret line="220" column="41" selection-start-line="220" selection-start-column="41" selection-end-line="220" selection-end-column="41" />
           <folding />
         </state>
       </provider>

@@ -218,9 +218,73 @@ angular.module('myApp')
                  //$log.info("turnIndex " + $scope.turnIndex);
                  var from = draggingStartedRowCol;
                  var to = {row: row, col: col};
-                 if (from.row > to.row) to.row = from.row - 1;
-                 if (from.col < to.col) to.col = from.col + 1;
-                 if (from.col > to.col) to.col = from.col - 1;
+                 if ($scope.turnIndex === 0) {
+                     if (from.row > to.row) to.row = from.row - 1;
+                     if (from.col < to.col) to.col = from.col + 1;
+                     if (from.col > to.col) to.col = from.col - 1;
+                 }
+                 else {
+                     if (to.row === from.row && to.col < from.col) { //left
+                         if ($scope.board[to.row][from.col - 1] === 'S')
+                         to.col = from.col - 2;
+                         else to.col = from.col - 1;
+                     }
+                     if (to.row === from.row && to.col > from.col) { //right
+                         if ($scope.board[to.row][from.col + 1] === 'S')
+                             to.col = from.col + 2;
+                         else to.col = from.col + 1;
+                     }
+                     if (to.col === from.col && to.row < from.row) { //top
+                         if ($scope.board[from.row - 1][from.col] === 'S')
+                             to.row = from.row - 2;
+                         else to.row = from.row - 1;
+                     }
+                     if (to.col === from.col && to.row > from.row) { //bottom
+                         if ($scope.board[from.row + 1][from.col] === 'S')
+                             to.row = from.row + 2;
+                         else to.row = from.row + 1;
+                     }
+                     if (to.row < from.row && to.col < from.col && Math.abs(to.row - from.row) === Math.abs(to.col - from.col)) { //top left
+                         if ($scope.board[from.row - 1][from.col - 1] === 'S') {
+                             to.row = from.row - 2;
+                             to.col = from.col - 2;
+                         }
+                         else {
+                             to.row = from.row - 1;
+                             to.col = from.col - 1;
+                         }
+                     }
+                     if (to.row < from.row && to.col > from.col && Math.abs(to.row - from.row) === Math.abs(to.col - from.col)) { //top right
+                         if ($scope.board[from.row - 1][from.col + 1] === 'S') {
+                             to.row = from.row - 2;
+                             to.col = from.col + 2;
+                         }
+                         else {
+                             to.row = from.row - 1;
+                             to.col = from.col + 1;
+                         }
+                     }
+                     if (to.row > from.row && to.col < from.col && Math.abs(to.row - from.row) === Math.abs(to.col - from.col)) { //bottom left
+                         if ($scope.board[from.row + 1][from.col - 1] === 'S') {
+                             to.row = from.row + 2;
+                             to.col = from.col - 2;
+                         }
+                         else {
+                             to.row = from.row + 1;
+                             to.col = from.col - 1;
+                         }
+                     }
+                     if (to.row > from.row && to.col > from.col && Math.abs(to.row - from.row) === Math.abs(to.col - from.col)) { //bottom right
+                         if ($scope.board[from.row + 1][from.col + 1] === 'S') {
+                             to.row = from.row + 2;
+                             to.col = from.col + 2;
+                         }
+                         else {
+                             to.row = from.row + 1;
+                             to.col = from.col + 1;
+                         }
+                     }
+                 }
                  dragDone(from, to);
                  //$log.info(draggingStartedRowCol);
                  //$log.info(to);

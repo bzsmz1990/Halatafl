@@ -159,7 +159,7 @@ angular.module('myApp')
                 $log.info("current" + img.className);
                 var rowBefore = $scope.delta.rowBefore;
                 var colBefore = $scope.delta.colBefore;
-                /*if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2) {
+                if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2) {
                     var uISquareCopy = {
                         content: 0,
                         isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false

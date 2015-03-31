@@ -134,11 +134,12 @@ angular.module('myApp')
                             content: char === 'S' ? 0 : (char === 'F' ? 1 : -1), //0 is sheep, 1 is fox, -1 is empty
                             isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false  //,
                             //pieceSrc: 'img/empty'
-                        };
 
+                        };
+                        //document.getElementById('e2e_test_img_' + i + 'x' + j).className = 'enlarge1';
                         $scope.uiState[i][j] = uISquareCopy;
-                     //if ($scope.justInitialize)
-                       //  document.getElementById('e2e_test_img_' + i + 'x' + j).className = 'enlarge1';
+                        //if ($scope.justInitialize)
+                        //  document.getElementById('e2e_test_img_' + i + 'x' + j).className = 'enlarge1';
                     }
                 }
 
@@ -155,9 +156,10 @@ angular.module('myApp')
                     img.className = 'enlarge2';
                 else
                     img.className = 'enlarge1';
+                $log.info("current" + img.className);
                 var rowBefore = $scope.delta.rowBefore;
                 var colBefore = $scope.delta.colBefore;
-                if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2) {
+                /*if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2) {
                     var uISquareCopy = {
                         content: 0,
                         isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false
@@ -167,8 +169,10 @@ angular.module('myApp')
                     var img2 = document.getElementById('e2e_test_img_' + (row + rowBefore) / 2 + 'x' + (col + colBefore) / 2);
                     img2.className = 'disappear';
                     setTimeout(function () {
+                        //if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2)
                         img2.className = 'invisible'
-                    }, 2000);
+                        $log.info("current" + img2.className);
+                    }, 1000);
                     //$log.info("content" + uISquareCopy2.content);
                 }
 
@@ -195,6 +199,7 @@ angular.module('myApp')
                     }
                 }
                 $log.info("turnIndex " + $scope.turnIndex);
+                $log.info("current" + img.className);
             }
 
             $scope.getSquare = function(row, col) {

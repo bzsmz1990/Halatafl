@@ -160,24 +160,22 @@ angular.module('myApp')
                 var rowBefore = $scope.delta.rowBefore;
                 var colBefore = $scope.delta.colBefore;
                 /*if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2) {
-                    var uISquareCopy = {
-                        content: 0,
-                        isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false
-                        //pieceSrc: 'img/empty'
-                    };
-                    $scope.uiState[(row + rowBefore) / 2][(col + colBefore) / 2] = uISquareCopy;
-                    var img2 = document.getElementById('e2e_test_img_' + (row + rowBefore) / 2 + 'x' + (col + colBefore) / 2);
-                    img2.className = 'disappear';
-                    setTimeout(function () {
-                        //if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2)
-                        img2.className = 'invisible'
-                        $log.info("current" + img2.className);
-                    }, 1000);
-                    //$log.info("content" + uISquareCopy2.content);
-                }
-
-
-                /*
+                 var uISquareCopy = {
+                 content: 0,
+                 isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false
+                 //pieceSrc: 'img/empty'
+                 };
+                 $scope.uiState[(row + rowBefore) / 2][(col + colBefore) / 2] = uISquareCopy;
+                 var img2 = document.getElementById('e2e_test_img_' + (row + rowBefore) / 2 + 'x' + (col + colBefore) / 2);
+                 img2.className = 'disappear';
+                 setTimeout(function () {
+                 //if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2)
+                 img2.className = 'invisible'
+                 $log.info("current" + img2.className);
+                 }, 1000);
+                 //$log.info("content" + uISquareCopy2.content);
+                 }
+                 /*
                  var uISquareCopy = {
                  content: -1,
                  isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false

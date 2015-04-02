@@ -46,8 +46,8 @@
       <file leaf-file-name="game.appcache" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game.appcache">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.39933443" vertical-offset="0" max-vertical-offset="601">
-              <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.19966722" vertical-offset="0" max-vertical-offset="601">
+              <caret line="8" column="69" selection-start-line="8" selection-start-column="69" selection-end-line="8" selection-end-column="69" />
               <folding />
             </state>
           </provider>
@@ -1057,8 +1057,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/game.appcache">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.39933443" vertical-offset="0" max-vertical-offset="601">
-          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
+        <state vertical-scroll-proportion="0.19966722" vertical-offset="0" max-vertical-offset="601">
+          <caret line="8" column="69" selection-start-line="8" selection-start-column="69" selection-end-line="8" selection-end-column="69" />
           <folding />
         </state>
       </provider>

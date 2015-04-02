@@ -432,7 +432,7 @@ angular.module('myApp')
 
             window.e2e_test_stateService = stateService; // to allow us to load any state in our e2e tests.
 
-            /*
+
              $log.info("turnIndex " + $scope.turnIndex);
              $scope.cellClicked = function (row, col) {
              $log.info(["Clicked on cell:", row, col]);
@@ -475,7 +475,7 @@ angular.module('myApp')
              return;
              }
              };
-             */
+
 
 
 

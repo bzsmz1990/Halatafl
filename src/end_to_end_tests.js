@@ -16,8 +16,8 @@ describe('Halatafl', function() {
     }
 
     /*function getPiece(row, col, pieceKind) {
-        return element(by.id('e2e_test_piece' + pieceKind + '_' + row + 'x' + col));
-    }*/
+     return element(by.id('e2e_test_piece' + pieceKind + '_' + row + 'x' + col));
+     }*/
 
 
     /*<img id="{{'e2e_test_pieceF_' + row + 'x' + col}}">
@@ -28,9 +28,9 @@ describe('Halatafl', function() {
     }
 
     function expectPiece(row, col, pieceKind) {
-            //expect(getImg(row, col).isDisplayed()).toEqual(pieceKind === "" ? false : true);
+        //expect(getImg(row, col).isDisplayed()).toEqual(pieceKind === "" ? false : true);
         if (pieceKind == 'F')
-        expect(getImg(row, col).getAttribute("src")).toEqual(
+            expect(getImg(row, col).getAttribute("src")).toEqual(
                 "http://localhost:9000/imgs/fox.png");
         else if (pieceKind == 'F_trans')
             expect(getImg(row, col).getAttribute("src")).toEqual(
@@ -48,13 +48,13 @@ describe('Halatafl', function() {
 
 
     /*function expectPiece(row, col, pieceKind) {
-        // Careful when using animations and asserting isDisplayed:
-        // Originally, my animation started from {opacity: 0;}
-        // And then the image wasn't displayed.
-        // I changed it to start from {opacity: 0.1;}
-        expect(getPiece(row, col, 'F').isDisplayed()).toEqual(pieceKind === "F" ? true : false);
-        expect(getPiece(row, col, 'S').isDisplayed()).toEqual(pieceKind === "S" ? true : false);
-    }*/
+     // Careful when using animations and asserting isDisplayed:
+     // Originally, my animation started from {opacity: 0;}
+     // And then the image wasn't displayed.
+     // I changed it to start from {opacity: 0.1;}
+     expect(getPiece(row, col, 'F').isDisplayed()).toEqual(pieceKind === "F" ? true : false);
+     expect(getPiece(row, col, 'S').isDisplayed()).toEqual(pieceKind === "S" ? true : false);
+     }*/
 
     function expectBoard(board) {
         for (var row = 0; row < 7; row++) {
@@ -183,7 +183,7 @@ describe('Halatafl', function() {
 
     var delta2 = {rowBefore: 1, colBefore: 2, rowAfter: 0, colAfter: 2};
     var board2 =
-            [['X', 'X', 'S', '', 'S', 'X', 'X'],
+        [['X', 'X', 'S', '', 'S', 'X', 'X'],
             ['X', 'X', '', 'F', '', 'X', 'X'],
             ['', '', '', 'F', '', '', ''],
             ['S', '', '', 'S', '', '', 'S'],

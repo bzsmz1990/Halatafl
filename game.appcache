@@ -9,6 +9,12 @@ http://yoav-zibin.github.io/emulator/angular-translate/angular-translate.2.6.1.m
 http://yoav-zibin.github.io/emulator/main.css
 dist/everything.min.js
 game.css
+imgs/background.png
+imgs/fox.png
+imgs/fox_selected.png
+imgs/sheep.png
+imgs/sheep_selected.png
+imgs/empty.png
 
 NETWORK:
 dist/everything.min.js.map

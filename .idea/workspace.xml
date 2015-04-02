@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="2be1ea00-a174-4843-8035-a4f402d41504" name="Default" comment="Added click back">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.appcache" afterPath="$PROJECT_DIR$/game.appcache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/protractor.conf.js" afterPath="$PROJECT_DIR$/protractor.conf.js" />
     </list>
     <ignored path="Halatafl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,20 +43,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.appcache" pinned="false" current-in-tab="false">
+      <file leaf-file-name="game.appcache" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game.appcache">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.39933443" vertical-offset="0" max-vertical-offset="601">
+              <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="protractor.conf.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="protractor.conf.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/protractor.conf.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.39933443" vertical-offset="0" max-vertical-offset="601">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
               <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
               <folding />
             </state>
@@ -145,8 +144,8 @@
         <option value="$PROJECT_DIR$/game.html" />
         <option value="$PROJECT_DIR$/src/game.js" />
         <option value="$PROJECT_DIR$/src/end_to_end_tests.js" />
-        <option value="$PROJECT_DIR$/game.appcache" />
         <option value="$PROJECT_DIR$/protractor.conf.js" />
+        <option value="$PROJECT_DIR$/game.appcache" />
       </list>
     </option>
   </component>
@@ -1048,18 +1047,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.appcache">
+    <entry file="file://$PROJECT_DIR$/protractor.conf.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
+          <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/protractor.conf.js">
+    <entry file="file://$PROJECT_DIR$/game.appcache">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.39933443" vertical-offset="0" max-vertical-offset="601">
-          <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
+          <caret line="16" column="14" selection-start-line="16" selection-start-column="14" selection-end-line="16" selection-end-column="14" />
           <folding />
         </state>
       </provider>

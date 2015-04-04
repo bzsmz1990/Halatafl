@@ -459,8 +459,12 @@ angular.module('myApp')
             }
 
 
-            //$scope.fontSize = function() {
-              //  document.getElementById('').class
+            //$(document).ready(function () {
+              //  fontSize();
+            //});
+
+            //function fontSize() {
+              //  document.getElementById('first').css('font-size',gameArea.clientHeight.toString() + "px");
                 //return 45 + "%";
             //}
 

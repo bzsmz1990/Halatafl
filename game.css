@@ -1,11 +1,12 @@
 .font1 {
     position: absolute;
-    top: 0.1%;
+    top: 0%;
     left: 11%;
     width: 7.5%;
     height: 6%;
     color:white;
     font-family:"Comic Sans MS", cursive, sans-serif;
+    font-weight: bold;
     font-size:85%;
 }
 
@@ -18,6 +19,7 @@
     height: 6%;
     color:white;
     font-family:"Comic Sans MS", cursive, sans-serif;
+    font-weight: bold;
     font-size:85%;
 }
 

@@ -459,6 +459,12 @@ angular.module('myApp')
             }
 
 
+            //$scope.fontSize = function() {
+              //  document.getElementById('').class
+                //return 45 + "%";
+            //}
+
+
 
 
 

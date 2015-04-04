@@ -1,25 +1,23 @@
 .font1 {
     position: absolute;
-    top: 0.3%;
+    top: 0.1%;
     left: 11%;
     width: 7.5%;
     height: 6%;
     color:white;
     font-family:"Comic Sans MS", cursive, sans-serif;
-    font-style: italic;
     font-size:85%;
 }
 
 
 .font2 {
     position: absolute;
-    top: 7%;
+    top: 6%;
     left: 11%;
     width: 7.5%;
     height: 6%;
     color:white;
     font-family:"Comic Sans MS", cursive, sans-serif;
-    font-style: italic;
     font-size:85%;
 }
 

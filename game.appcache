@@ -9,6 +9,7 @@ http://yoav-zibin.github.io/emulator/angular-translate/angular-translate.2.6.1.m
 http://yoav-zibin.github.io/emulator/dist/dragAndDropListeners.min.js
 http://yoav-zibin.github.io/emulator/main.css
 dist/everything.min.js
+src/aiService.js
 game.css
 imgs/background.png
 imgs/fox.png

@@ -22,7 +22,7 @@ angular.module('myApp')
                 var move = aiService.createComputerMove($scope.board, $scope.turnIndex);
                     // at most 1 second for the AI to choose a move (but might be much quicker)
                     //{millisecondsLimit: 1000});
-                console.log("computer move: ", move);
+                //console.log("computer move: ", move);
                 gameService.makeMove(move);
 
 
@@ -440,7 +440,7 @@ angular.module('myApp')
             window.e2e_test_stateService = stateService; // to allow us to load any state in our e2e tests.
 
 
-             $log.info("turnIndex " + $scope.turnIndex);
+             /*$log.info("turnIndex " + $scope.turnIndex);
              $scope.cellClicked = function (row, col) {
              $log.info(["Clicked on cell:", row, col]);
              if (!$scope.isYourTurn) {
@@ -481,7 +481,7 @@ angular.module('myApp')
              $log.info(["Invalid move:", $scope.firstClickRow, $scope.firstClickCol, $scope.secondClickRow, $scope.secondClickCol]);
              return;
              }
-             };
+             };*/
 
 
 

@@ -76,6 +76,7 @@ angular.module('myApp').factory('aiService',
             function jumpNumbers(move) {
                 var possibleMoves = gameLogic.getPossibleMoves(move[1].set.value, 1);
                 if (!isJump(possibleMoves[0])) return 0;
+                if (possibleMoves.length === 1 && isJump(possibleMoves[0])) return 1;
                 var max = 0;
                 var move = possibleMoves[0];
                 for (var i = 0; i < possibleMoves.length; i++) {
@@ -85,7 +86,7 @@ angular.module('myApp').factory('aiService',
                         move = possibleMoves[i];
                     }
                 }
-                return 1 + max;
+                return 1+ max;
             }
 
                 function isJump(move) {
@@ -102,12 +103,18 @@ angular.module('myApp').factory('aiService',
                     var row = move[2].set.value.rowAfter;
                     var col = move[2].set.value.colAfter;
                     var board = move[1].set.value;
+                    //console.log("board:", board);
                     var count = 0;
+                    //console.log("board:", board[row + i][col + j]);
                     for (var i = -1; i < 2; i++) {
                         for (var j = -1; j < 2; j++) {
+                        //console.log("board:", board[row + i][col + j]);
                             if (i === 0 && j === 0) continue;
-                            if (board[row + i][col + j] === 'S')
-                            count++;
+                            if (row + i < 0 || row + i > 6 || col + j < 0 || col + j > 6) continue;
+                            if (board[row + i][col + j] === 'S') {
+                                count++;
+                                console.log("count: ", row + i, col + j);
+                            }
                         }
                     }
                     return count;

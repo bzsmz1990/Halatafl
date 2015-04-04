@@ -16,6 +16,7 @@ imgs/fox_selected.png
 imgs/sheep.png
 imgs/sheep_selected.png
 imgs/empty.png
+src/aiService.js
 
 NETWORK:
 dist/everything.min.js.map

@@ -4,6 +4,8 @@
     <list default="true" id="2be1ea00-a174-4843-8035-a4f402d41504" name="Default" comment="Added click back">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.appcache" afterPath="$PROJECT_DIR$/game.appcache" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.html" afterPath="$PROJECT_DIR$/game.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.min.html" afterPath="$PROJECT_DIR$/game.min.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Halatafl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -30,11 +32,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="game.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="game.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/game.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.40880504" vertical-offset="75" max-vertical-offset="1020">
-              <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+            <state vertical-scroll-proportion="-13.125" vertical-offset="0" max-vertical-offset="1050">
+              <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="33" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -44,21 +46,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.min.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game.min.html">
+      <file leaf-file-name="game.appcache" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/game.appcache">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="765">
-              <caret line="17" column="88" selection-start-line="17" selection-start-column="87" selection-end-line="17" selection-end-column="88" />
+            <state vertical-scroll-proportion="0.5252918" vertical-offset="0" max-vertical-offset="514">
+              <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.appcache" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/game.appcache">
+      <file leaf-file-name="game.min.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/game.min.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-              <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+            <state vertical-scroll-proportion="-11.875" vertical-offset="30" max-vertical-offset="825">
+              <caret line="21" column="88" selection-start-line="21" selection-start-column="87" selection-end-line="21" selection-end-column="88" />
               <folding />
             </state>
           </provider>
@@ -139,8 +141,9 @@
         <option value="$PROJECT_DIR$/src/gameLogic.js" />
         <option value="$PROJECT_DIR$/src/game.js" />
         <option value="$PROJECT_DIR$/src/aiService.js" />
-        <option value="$PROJECT_DIR$/game.appcache" />
         <option value="$PROJECT_DIR$/game.html" />
+        <option value="$PROJECT_DIR$/game.min.html" />
+        <option value="$PROJECT_DIR$/game.appcache" />
       </list>
     </option>
   </component>
@@ -1006,29 +1009,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gameLogic.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.296296" vertical-offset="307" max-vertical-offset="5820">
-          <caret line="48" column="29" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/protractor.conf.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="330">
           <caret line="16" column="2" selection-start-line="16" selection-start-column="2" selection-end-line="16" selection-end-column="2" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/aiService.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-55.0" vertical-offset="0" max-vertical-offset="2385">
-          <caret line="101" column="28" selection-start-line="101" selection-start-column="28" selection-end-line="101" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#40#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1048,31 +1033,49 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.appcache">
+    <entry file="file://$PROJECT_DIR$/src/aiService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="405">
-          <caret line="17" column="14" selection-start-line="17" selection-start-column="14" selection-end-line="17" selection-end-column="14" />
+        <state vertical-scroll-proportion="-55.0" vertical-offset="0" max-vertical-offset="2385">
+          <caret line="101" column="28" selection-start-line="101" selection-start-column="28" selection-end-line="101" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#40#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/gameLogic.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.296296" vertical-offset="307" max-vertical-offset="5820">
+          <caret line="48" column="29" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/game.min.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-10.625" vertical-offset="0" max-vertical-offset="765">
-          <caret line="17" column="88" selection-start-line="17" selection-start-column="87" selection-end-line="17" selection-end-column="88" />
+        <state vertical-scroll-proportion="-11.875" vertical-offset="30" max-vertical-offset="825">
+          <caret line="21" column="88" selection-start-line="21" selection-start-column="87" selection-end-line="21" selection-end-column="88" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/game.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.40880504" vertical-offset="75" max-vertical-offset="1020">
-          <caret line="18" column="44" selection-start-line="18" selection-start-column="44" selection-end-line="18" selection-end-column="44" />
+        <state vertical-scroll-proportion="-13.125" vertical-offset="0" max-vertical-offset="1050">
+          <caret line="21" column="17" selection-start-line="21" selection-start-column="17" selection-end-line="21" selection-end-column="33" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#1;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.appcache">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5252918" vertical-offset="0" max-vertical-offset="514">
+          <caret line="18" column="16" selection-start-line="18" selection-start-column="16" selection-end-line="18" selection-end-column="16" />
+          <folding />
         </state>
       </provider>
     </entry>

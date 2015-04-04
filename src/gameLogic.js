@@ -110,7 +110,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
         else {
             // Game continues
             //var items = getPossibleMoves(boardAfterMove, 1 - turnIndexBeforeMove);
-            if (turnIndexBeforeMove === 1 && isJump && hasJumpPossibility(boardAfterMove))
+            if (turnIndexBeforeMove === 1 && isJump && hasJumpPossibility(boardAfterMove,rowAfter,colAfter))
                 firstOperation = {setTurn: {turnIndex: turnIndexBeforeMove}};    //still fox's turn
             /*else if (getPossibleMoves(boardAfterMove, 1 - turnIndexBeforeMove).length === 0 && getPossibleMoves(boardAfterMove, turnIndexBeforeMove).length === 0) {
              console.log("ie tie");
@@ -121,7 +121,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
              console.log("ie not tie");
              firstOperation = {setTurn: {turnIndex: turnIndexBeforeMove}};
              }*/
-            else if (turnIndexBeforeMove === 0 && !hasJumpPossibility(boardAfterMove)) {
+            else if (turnIndexBeforeMove === 0 && !hasJumpPossibility(boardAfterMove,rowAfter,colAfter)) {
                 var isThereMove = false;
                 var rowFox1,colFox1,i, j;
                 for (i = 0; i < 7; i++) {
@@ -298,10 +298,10 @@ angular.module('myApp', []).factory('gameLogic', function() {
 
     }
 
-    function hasJumpPossibility(board) {
+    function hasJumpPossibility(board,row,col) {
         var rowFox1,colFox1,i, j,rightCol,rightRow;
         var doesJumpExist = false;
-        for (i = 0; i < 7; i++) {
+        /*for (i = 0; i < 7; i++) {
             for(j = 0; j < 7; j++) {
                 if (board[i][j] === 'F') { //find the first fox
                     rowFox1 = i;
@@ -309,7 +309,9 @@ angular.module('myApp', []).factory('gameLogic', function() {
                     break;
                 }
             }
-        }
+        }*/
+        rowFox1 = row;
+        colFox1 = col;
         for (i = -1; i < 2; i++) {
             for (j = -1; j < 2; j++) {
                 if (i === 0 && j === 0) continue; //no need to check itself
@@ -321,7 +323,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
                 }
             }
         }
-        if(doesJumpExist === false) {
+        /*if(doesJumpExist === false) {
             var rowFox2,colFox2;
             for (i = 0; i < 7; i++) {
                 for(j = 0; j < 7; j++) {
@@ -343,7 +345,7 @@ angular.module('myApp', []).factory('gameLogic', function() {
                     }
                 }
             }
-        }
+        }*/
         //console.log(doesJumpExist);
         return doesJumpExist;
     }

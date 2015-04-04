@@ -18,6 +18,10 @@ angular.module('myApp')
             $scope.randomMove;
             $scope.justHasRandomMove = false;
 
+            //$scope.isContinue = false;
+            //$scope.currentRow = 0;
+            //$scope.currentCol = 0;
+
             function sendComputerMove() {
                 var move = aiService.createComputerMove($scope.board, $scope.turnIndex);
                     // at most 1 second for the AI to choose a move (but might be much quicker)

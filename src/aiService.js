@@ -8,6 +8,10 @@ angular.module('myApp').factory('aiService',
 
             'use strict';
 
+            var isContinue = false;
+            var currentRow = 0;
+            var currentCol = 0;
+
             function createComputerMove(board, playerIndex) {
                 var possibleMoves = gameLogic.getPossibleMoves(board, playerIndex);
                 if (playerIndex === 0) {  //if it's sheep's turn
@@ -17,10 +21,21 @@ angular.module('myApp').factory('aiService',
                     }
                 }
                 //if it's fox's turn
-                if (possibleMoves.length === 1) {   //if there is only choice, then choose this one directly
-                    return possibleMoves[0];
+                //first eliminate the moves from the invalid fox
+                console.log("currentRow" + currentRow);
+                console.log("currentCol" + currentCol);
+                console.log("isContinue" + isContinue);
+                if (isContinue) {
+                    for (var i = 0; i < possibleMoves.length; i++) {
+                         if (possibleMoves[i][2].set.value.rowBefore !== currentRow || possibleMoves[i][2].set.value.colBefore !== currentCol) {
+                             possibleMoves.splice(i, 1);
+                         }
+                    }
                 }
-                if (isJump(possibleMoves[0])) {   //if the choices are jumps, find the jump which leads to the most subsequent jumps
+                if (possibleMoves.length === 1) {   //if there is only choice, then choose this one directly
+                    var move = possibleMoves[0];
+                }
+                else if (isJump(possibleMoves[0])) {   //if the choices are jumps, find the jump which leads to the most subsequent jumps
                     var max = 1;
                     var move = possibleMoves[0];
                     for (var i = 0; i < possibleMoves.length; i++) {
@@ -70,6 +85,22 @@ angular.module('myApp').factory('aiService',
                     }
 
                 }
+                console.log("isJump" + isJump(move));
+                if (!isJump(move)) {isContinue = false;}
+                else {
+                    var tempMoves = gameLogic.getPossibleMoves(move[1].set.value, 1);
+                    var i;
+                    for (i = 0; i < tempMoves.length; i++) {
+                        if (isJump(tempMoves[i]) && tempMoves[i][2].set.value.rowBefore === move[2].set.value.rowAfter && tempMoves[i][2].set.value.colBefore === move[2].set.value.colAfter) {
+                            isContinue = true;
+                            currentRow = move[2].set.value.rowAfter;
+                            currentCol = move[2].set.value.colAfter;
+                            break;
+                        }
+                    }
+                    console.log("i is " + i);
+                    if (i === tempMoves.length) {isContinue = false;}
+                }
                 return move;
             }
 
@@ -86,7 +117,7 @@ angular.module('myApp').factory('aiService',
                         move = possibleMoves[i];
                     }
                 }
-                return 1+ max;
+                return 1 + max;
             }
 
                 function isJump(move) {

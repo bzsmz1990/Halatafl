@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2be1ea00-a174-4843-8035-a4f402d41504" name="Default" comment="Added click back">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/aiService.js" afterPath="$PROJECT_DIR$/src/aiService.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/everything.js" afterPath="$PROJECT_DIR$/dist/everything.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/everything.min.js.map" afterPath="$PROJECT_DIR$/dist/everything.min.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/everything.min.js" afterPath="$PROJECT_DIR$/dist/everything.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.appcache" afterPath="$PROJECT_DIR$/game.appcache" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game.js" afterPath="$PROJECT_DIR$/src/game.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/gameLogic.js" afterPath="$PROJECT_DIR$/src/gameLogic.js" />
     </list>
     <ignored path="Halatafl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -69,8 +71,8 @@
       <file leaf-file-name="game.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-61.444443" vertical-offset="5586" max-vertical-offset="7515">
-              <caret line="483" column="17" selection-start-line="483" selection-start-column="17" selection-end-line="483" selection-end-column="17" />
+            <state vertical-scroll-proportion="-13.888889" vertical-offset="0" max-vertical-offset="7575">
+              <caret line="25" column="86" selection-start-line="25" selection-start-column="86" selection-end-line="25" selection-end-column="86" />
               <folding />
             </state>
           </provider>
@@ -79,8 +81,8 @@
       <file leaf-file-name="aiService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/aiService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-40.555557" vertical-offset="195" max-vertical-offset="1920">
-              <caret line="88" column="26" selection-start-line="88" selection-start-column="26" selection-end-line="88" selection-end-column="26" />
+            <state vertical-scroll-proportion="-12.0" vertical-offset="1161" max-vertical-offset="2385">
+              <caret line="101" column="28" selection-start-line="101" selection-start-column="28" selection-end-line="101" selection-end-column="28" />
               <folding>
                 <element signature="e#0#40#0" expanded="false" />
               </folding>
@@ -91,8 +93,8 @@
       <file leaf-file-name="gameLogic.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/gameLogic.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="59.444443" vertical-offset="2580" max-vertical-offset="5790">
-              <caret line="65" column="9" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
+            <state vertical-scroll-proportion="-15.296296" vertical-offset="307" max-vertical-offset="5820">
+              <caret line="48" column="29" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -1029,26 +1031,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/gameLogic.js">
+    <entry file="file://$PROJECT_DIR$/src/game.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="59.444443" vertical-offset="2580" max-vertical-offset="5790">
-          <caret line="65" column="9" selection-start-line="65" selection-start-column="9" selection-end-line="65" selection-end-column="9" />
+        <state vertical-scroll-proportion="-13.888889" vertical-offset="0" max-vertical-offset="7575">
+          <caret line="25" column="86" selection-start-line="25" selection-start-column="86" selection-end-line="25" selection-end-column="86" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game.js">
+    <entry file="file://$PROJECT_DIR$/src/gameLogic.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-61.444443" vertical-offset="5586" max-vertical-offset="7515">
-          <caret line="483" column="17" selection-start-line="483" selection-start-column="17" selection-end-line="483" selection-end-column="17" />
+        <state vertical-scroll-proportion="-15.296296" vertical-offset="307" max-vertical-offset="5820">
+          <caret line="48" column="29" selection-start-line="48" selection-start-column="16" selection-end-line="48" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aiService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-40.555557" vertical-offset="195" max-vertical-offset="1920">
-          <caret line="88" column="26" selection-start-line="88" selection-start-column="26" selection-end-line="88" selection-end-column="26" />
+        <state vertical-scroll-proportion="-12.0" vertical-offset="1161" max-vertical-offset="2385">
+          <caret line="101" column="28" selection-start-line="101" selection-start-column="28" selection-end-line="101" selection-end-column="28" />
           <folding>
             <element signature="e#0#40#0" expanded="false" />
           </folding>

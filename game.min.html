@@ -14,8 +14,6 @@
     <script src="src/aiService.js"></script>
 
 
-
-
     <script src="http://yoav-zibin.github.io/emulator/dist/dragAndDropListeners.min.js"></script>
 
     <script src="http://yoav-zibin.github.io/emulator/dist/gameServices.min.js"></script>
@@ -27,7 +25,16 @@
 
 <div id="gameArea">
 
+
     <img ng-src = "imgs/background.png" width = "100%" height = "100%">
+    <img src="imgs/sheep.png" style="position: absolute; top: 1.5%; left: 2%; width: 7.5%;height: 6%;"/>
+    <img src="imgs/fox.png" style="position: absolute; top: 8.5%; left: 2%; width: 6.5%;height: 5.2%;"/>
+    <div class = "font1">
+        <p> {{countArrivedSheep()}}/9</p>
+    </div>
+    <div class = "font2">
+        <p> {{countEatenSheep()}}/20</p>
+    </div>
     <div ng-repeat="row in [0, 1, 2, 3, 4, 5, 6]"
          style="position:absolute; top:{{row * 10.5 + 13}}%; left:0; width:100%; height:10.5%;">
         <div ng-repeat="col in [0, 1, 2, 3, 4, 5, 6]"
@@ -37,7 +44,7 @@
              id="{{'e2e_test_div_' + row + 'x' + col}}">
             <img ng-show="true">
             <!--ng-class="{enlarge0: true}"-->
-            <img    ng-class="{visible: true}"
+            <img    ng-class="{enlarge1: true}"
                     ng-src = "{{getSquare(row, col).content === -1 ? 'imgs/empty.png' : (getSquare(row, col).content === 0 ? (getSquare(row,col).isSelected === false ? 'imgs/sheep.png' : 'imgs/sheep_selected.png') : (getSquare(row,col).isSelected === false ? 'imgs/fox.png' : 'imgs/fox_selected.png'))}}" width = "100%" height = "66.66%"
                     style="position:absolute;"
                     id = "{{'e2e_test_img_' + row + 'x' + col}}">

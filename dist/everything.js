@@ -817,6 +817,28 @@ angular.module('myApp')
             }
 
 
+            $scope.countArrivedSheep = function(){
+                var count = 0;
+                for (var i = 0; i < 3; i++) {
+                    for (var j = 2; j < 5; j++) {
+                        if ($scope.board[i][j] === 'S')
+                        count++;
+                    }
+                }
+                return count;
+            }
+
+
+            $scope.countEatenSheep = function() {
+                var count = 0;
+                for (var i = 0; i < 7; i++) {
+                    for (var j = 0; j < 7; j++) {
+                        if ($scope.board[i][j] === 'S')
+                            count++;
+                    }
+                }
+                return 20 - count;
+            }
 
 
 

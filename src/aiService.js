@@ -22,9 +22,11 @@ angular.module('myApp').factory('aiService',
                 }
                 //if it's fox's turn
                 //first eliminate the moves from the invalid fox
-                console.log("currentRow" + currentRow);
-                console.log("currentCol" + currentCol);
-                console.log("isContinue" + isContinue);
+                //console.log("currentRow" + currentRow);
+                //console.log("currentCol" + currentCol);
+                //console.log("isContinue" + isContinue);
+                var move;
+                try {
                 if (isContinue) {
                     for (var i = 0; i < possibleMoves.length; i++) {
                          if (possibleMoves[i][2].set.value.rowBefore !== currentRow || possibleMoves[i][2].set.value.colBefore !== currentCol) {
@@ -33,11 +35,11 @@ angular.module('myApp').factory('aiService',
                     }
                 }
                 if (possibleMoves.length === 1) {   //if there is only choice, then choose this one directly
-                    var move = possibleMoves[0];
+                    move = possibleMoves[0];
                 }
                 else if (isJump(possibleMoves[0])) {   //if the choices are jumps, find the jump which leads to the most subsequent jumps
                     var max = 1;
-                    var move = possibleMoves[0];
+                    move = possibleMoves[0];
                     for (var i = 0; i < possibleMoves.length; i++) {
                         var temp = 1 + jumpNumbers(possibleMoves[i]);
                         if (temp > max) {
@@ -48,7 +50,7 @@ angular.module('myApp').factory('aiService',
                 }
                 else {                           //only regular moves are available
                     var max = 0;
-                    var move = possibleMoves[0];
+                    move = possibleMoves[0];
                     for (var i = 0; i < possibleMoves.length; i++) {
                         var temp = jumpNumbers(possibleMoves[i]);
                         if (temp > max) {
@@ -85,7 +87,10 @@ angular.module('myApp').factory('aiService',
                     }
 
                 }
-                console.log("isJump" + isJump(move));
+            }  catch (e) {
+                    move = possibleMoves[0];
+                }
+                //console.log("isJump" + isJump(move));
                 if (!isJump(move)) {isContinue = false;}
                 else {
                     var tempMoves = gameLogic.getPossibleMoves(move[1].set.value, 1);
@@ -106,6 +111,12 @@ angular.module('myApp').factory('aiService',
 
             function jumpNumbers(move) {
                 var possibleMoves = gameLogic.getPossibleMoves(move[1].set.value, 1);
+                for (var i = 0; i < possibleMoves.length; i++) {
+                    if (possibleMoves[i][2].set.value.rowBefore !== move[2].set.value.rowAfter || possibleMoves[i][2].set.value.colBefore !== move[2].set.value.colAfter) {
+                        possibleMoves.splice(i, 1);
+                    }
+                }
+                if (possibleMoves.length === 0) return 0;
                 if (!isJump(possibleMoves[0])) return 0;
                 if (possibleMoves.length === 1 && isJump(possibleMoves[0])) return 1;
                 var max = 0;

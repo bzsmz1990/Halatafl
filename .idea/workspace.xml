@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2be1ea00-a174-4843-8035-a4f402d41504" name="Default" comment="Added click back">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/aiService.js" afterPath="$PROJECT_DIR$/src/aiService.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/game.js" afterPath="$PROJECT_DIR$/src/game.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/everything.js" afterPath="$PROJECT_DIR$/dist/everything.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/everything.min.js.map" afterPath="$PROJECT_DIR$/dist/everything.min.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/everything.min.js" afterPath="$PROJECT_DIR$/dist/everything.min.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/game.appcache" afterPath="$PROJECT_DIR$/game.appcache" />
     </list>
     <ignored path="Halatafl.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -44,11 +46,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="game.appcache" pinned="false" current-in-tab="false">
+      <file leaf-file-name="game.appcache" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/game.appcache">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-              <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.6128405" vertical-offset="0" max-vertical-offset="514">
+              <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
               <folding />
             </state>
           </provider>
@@ -74,10 +76,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="aiService.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="aiService.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/aiService.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="2.3101265" vertical-offset="195" max-vertical-offset="1920">
+            <state vertical-scroll-proportion="-40.555557" vertical-offset="195" max-vertical-offset="1920">
               <caret line="88" column="26" selection-start-line="88" selection-start-column="26" selection-end-line="88" selection-end-column="26" />
               <folding>
                 <element signature="e#0#40#0" expanded="false" />
@@ -138,9 +140,9 @@
         <option value="$PROJECT_DIR$/protractor.conf.js" />
         <option value="$PROJECT_DIR$/game.html" />
         <option value="$PROJECT_DIR$/src/gameLogic.js" />
-        <option value="$PROJECT_DIR$/game.appcache" />
         <option value="$PROJECT_DIR$/src/game.js" />
         <option value="$PROJECT_DIR$/src/aiService.js" />
+        <option value="$PROJECT_DIR$/game.appcache" />
       </list>
     </option>
   </component>
@@ -1027,14 +1029,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/game.appcache">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="420">
-          <caret line="22" column="0" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/gameLogic.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="59.444443" vertical-offset="2580" max-vertical-offset="5790">
@@ -1053,11 +1047,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/aiService.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="2.3101265" vertical-offset="195" max-vertical-offset="1920">
+        <state vertical-scroll-proportion="-40.555557" vertical-offset="195" max-vertical-offset="1920">
           <caret line="88" column="26" selection-start-line="88" selection-start-column="26" selection-end-line="88" selection-end-column="26" />
           <folding>
             <element signature="e#0#40#0" expanded="false" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/game.appcache">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6128405" vertical-offset="0" max-vertical-offset="514">
+          <caret line="21" column="18" selection-start-line="21" selection-start-column="18" selection-end-line="21" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>

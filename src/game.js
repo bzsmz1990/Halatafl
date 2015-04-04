@@ -6,9 +6,9 @@ angular.module('myApp')
     .controller('Ctrl',
     ['$scope', '$log', '$timeout', '$rootScope',
         'gameService', 'stateService','gameLogic',
-        'resizeGameAreaService',
+        'aiService','resizeGameAreaService',
         function ($scope, $log, $timeout, $rootScope,
-                  gameService, stateService, gameLogic, resizeGameAreaService
+                  gameService, stateService, gameLogic, aiService, resizeGameAreaService
         ) {
 
             'use strict';
@@ -19,14 +19,21 @@ angular.module('myApp')
             $scope.justHasRandomMove = false;
 
             function sendComputerMove() {
-                var items = gameLogic.getPossibleMoves($scope.board, $scope.turnIndex);
-                if (items.length !== 0) {
-                    $scope.randomMove = items[Math.floor(Math.random() * items.length)];
-                    $scope.justHasRandomMove = true;
-                    //setTimeout(function () {var i = 0;}, 2000);
-                    gameService.makeMove($scope.randomMove);
+                var move = aiService.createComputerMove($scope.board, $scope.turnIndex);
+                    // at most 1 second for the AI to choose a move (but might be much quicker)
+                    //{millisecondsLimit: 1000});
+                console.log("computer move: ", move);
+                gameService.makeMove(move);
 
-                }
+
+                //var items = gameLogic.getPossibleMoves($scope.board, $scope.turnIndex);
+                //if (items.length !== 0) {
+                  //  $scope.randomMove = items[Math.floor(Math.random() * items.length)];
+                   // $scope.justHasRandomMove = true;
+                    //setTimeout(function () {var i = 0;}, 2000);
+                   // gameService.makeMove($scope.randomMove);
+
+               // }
                 //what if there is no available move for wolf?
             }
 

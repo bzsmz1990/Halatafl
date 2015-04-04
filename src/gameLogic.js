@@ -48,14 +48,14 @@ angular.module('myApp', []).factory('gameLogic', function() {
 
     function getPossibleMoves(board,turnIndexBeforeMove) {
         var possibleMoves = [];
-        var i, j, l, k;
+        //var i, j, l, k;
         // if it's foxes' turn
         if (turnIndexBeforeMove === 1) {
-            for (i = 0; i < 7; i++) {
-                for (j = 0; j < 7; j++) {
+            for (var i = 0; i < 7; i++) {
+                for (var j = 0; j < 7; j++) {
                     if (board[i][j] !== 'F') continue;
-                    for (l = 0; l < 7 ; l++) {
-                        for (k = 0; k < 7; k++) {
+                    for (var l = 0; l < 7 ; l++) {
+                        for (var k = 0; k < 7; k++) {
                             try {
                                 possibleMoves.push(createMove(board, i, j, l, k, turnIndexBeforeMove));
                             } catch(e) {}
@@ -65,11 +65,11 @@ angular.module('myApp', []).factory('gameLogic', function() {
             }
         }
         else {  // if it's sheep's turn
-            for (i = 0; i < 7; i++) {
-                for (j = 0; j < 7; j++) {
+            for (var i = 0; i < 7; i++) {
+                for (var j = 0; j < 7; j++) {
                     if (board[i][j] !== 'S') continue;
-                    for (l = 0; l < 7 ; l++) {
-                        for (k = 0; k < 7; k++) {
+                    for (var l = 0; l < 7 ; l++) {
+                        for (var k = 0; k < 7; k++) {
                             try {
                                 possibleMoves.push(createMove(board, i, j, l, k, turnIndexBeforeMove));
                             } catch (e) {}
@@ -180,6 +180,10 @@ angular.module('myApp', []).factory('gameLogic', function() {
                 firstOperation = {setTurn: {turnIndex: 1 - turnIndexBeforeMove}};
             }
         }
+        //var temp = [firstOperation,
+          //  {set: {key: 'board', value: boardAfterMove}},
+           // {set: {key: 'delta', value: {rowBefore: rowBefore,colBefore: colBefore,rowAfter:rowAfter, colAfter: colAfter}}}];
+        //console.log("not tie yet" + temp[1].set.value.rowAfter);
         return [firstOperation,
             {set: {key: 'board', value: boardAfterMove}},
             {set: {key: 'delta', value: {rowBefore: rowBefore,colBefore: colBefore,rowAfter:rowAfter, colAfter: colAfter}}}];

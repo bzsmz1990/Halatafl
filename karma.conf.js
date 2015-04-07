@@ -10,7 +10,9 @@ module.exports = function(config){
             'http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.js',
             'http://ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular-mocks.js',
             'src/gameLogic.js',
-            'src/gameLogic_test.js'
+            'src/gameLogic_test.js',
+            'src/aiService.js',
+            'src/aiService_test.js'
         ],
 
         reporters: ['progress', 'coverage'],

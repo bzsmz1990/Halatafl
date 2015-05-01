@@ -6,9 +6,9 @@ angular.module('myApp')
     .controller('Ctrl',
     ['$scope', '$log', '$timeout', '$rootScope',
         'gameService', 'stateService','gameLogic',
-        'aiService','resizeGameAreaService',
+        'resizeGameAreaService','dragAndDropService',
         function ($scope, $log, $timeout, $rootScope,
-                  gameService, stateService, gameLogic, aiService, resizeGameAreaService
+                  gameService, stateService, gameLogic, resizeGameAreaService, dragAndDropService
         ) {
 
             'use strict';
@@ -23,7 +23,7 @@ angular.module('myApp')
             //$scope.currentCol = 0;
 
             function sendComputerMove() {
-                var move = aiService.createComputerMove($scope.board, $scope.turnIndex);
+                var move = createComputerMove($scope.board, $scope.turnIndex);
                     // at most 1 second for the AI to choose a move (but might be much quicker)
                     //{millisecondsLimit: 1000});
                 //console.log("computer move: ", move);
@@ -234,7 +234,8 @@ angular.module('myApp')
             var draggingStartedRowCol = null; // The {row: YY, col: XX} where dragging started.
             var draggingPiece = null;
             var nextZIndex = 61;
-            window.handleDragEvent = handleDragEvent;
+            //window.handleDragEvent = handleDragEvent;
+            dragAndDropService.addDragListener("gameArea", handleDragEvent);
             function handleDragEvent(type, clientX, clientY) {
                 // Center point in gameArea
 
@@ -472,52 +473,207 @@ angular.module('myApp')
 
 
 
+            //aiService
+            var isContinue = false;
+            var currentRow = 0;
+            var currentCol = 0;
+
+            function createComputerMove(board, playerIndex) {
+                var possibleMoves = gameLogic.getPossibleMoves(board, playerIndex);
+                if (playerIndex === 0) {  //if it's sheep's turn
+                    if (possibleMoves.length !== 0) {
+                        var randomMove = possibleMoves[Math.floor(Math.random() * possibleMoves.length)];
+                        return randomMove;
+                    }
+                }
+                //if it's fox's turn
+                //first eliminate the moves from the invalid fox
+                //console.log("currentRow" + currentRow);
+                //console.log("currentCol" + currentCol);
+                //console.log("isContinue" + isContinue);
+                var move;
+                try {
+                    if (isContinue) {
+                        for (var i = 0; i < possibleMoves.length; i++) {
+                            if (possibleMoves[i][2].set.value.rowBefore !== currentRow || possibleMoves[i][2].set.value.colBefore !== currentCol) {
+                                possibleMoves.splice(i, 1);
+                            }
+                        }
+                    }
+                    if (possibleMoves.length === 1) {   //if there is only choice, then choose this one directly
+                        move = possibleMoves[0];
+                    }
+                    else if (isJump(possibleMoves[0])) {   //if the choices are jumps, find the jump which leads to the most subsequent jumps
+                        var max = 1;
+                        move = possibleMoves[0];
+                        for (var i = 0; i < possibleMoves.length; i++) {
+                            var temp = 1 + jumpNumbers(possibleMoves[i]);
+                            if (temp > max) {
+                                max = temp;
+                                move = possibleMoves[i];
+                            }
+                        }
+                    }
+                    else {                           //only regular moves are available
+                        var max = 0;
+                        move = possibleMoves[0];
+                        for (var i = 0; i < possibleMoves.length; i++) {
+                            var temp = jumpNumbers(possibleMoves[i]);
+                            if (temp > max) {
+                                max = temp;
+                                move = possibleMoves[i];
+                            }
+                        }
+                        if (max === 0) {    //indicates that no move can lead to more jumps
+                            var maxSheep = 0;   //find the move which will be close to the largest number of sheep
+                            //move = possibleMoves[0];
+                            for (var i = 0; i < possibleMoves.length; i++) {
+                                var temp = sheepNumber(possibleMoves[i]);
+                                if (temp > maxSheep) {
+                                    maxSheep = temp;
+                                    move = possibleMoves[i];
+                                }
+                            }
+                            if (maxSheep === 0) {  //no move can lead to more sheep
+                                if (possibleMoves[0][2].set.value.rowBefore < 3) {
+                                    for (var i = 0; i < possibleMoves.length; i++) {
+                                        if (possibleMoves[i][2].set.value.rowBefore < possibleMoves[i][2].set.value.rowAfter)
+                                        {move = possibleMoves[i]; break;}
+                                    }
+                                }
+                                else {
+                                    for (var i = 0; i < possibleMoves.length; i++) {
+                                        if (possibleMoves[i][2].set.value.rowBefore > possibleMoves[i][2].set.value.rowAfter)
+                                        {move = possibleMoves[i]; break;}
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    }
+                }  catch (e) {
+                    move = possibleMoves[0];
+                }
+                //console.log("isJump" + isJump(move));
+                if (!isJump(move)) {isContinue = false;}
+                else {
+                    var tempMoves = gameLogic.getPossibleMoves(move[1].set.value, 1);
+                    var i;
+                    for (i = 0; i < tempMoves.length; i++) {
+                        if (isJump(tempMoves[i]) && tempMoves[i][2].set.value.rowBefore === move[2].set.value.rowAfter && tempMoves[i][2].set.value.colBefore === move[2].set.value.colAfter) {
+                            isContinue = true;
+                            currentRow = move[2].set.value.rowAfter;
+                            currentCol = move[2].set.value.colAfter;
+                            break;
+                        }
+                    }
+                    console.log("i is " + i);
+                    if (i === tempMoves.length) {isContinue = false;}
+                }
+                return move;
+            }
+
+            function jumpNumbers(move) {
+                var possibleMoves = gameLogic.getPossibleMoves(move[1].set.value, 1);
+                for (var i = 0; i < possibleMoves.length; i++) {
+                    if (possibleMoves[i][2].set.value.rowBefore !== move[2].set.value.rowAfter || possibleMoves[i][2].set.value.colBefore !== move[2].set.value.colAfter) {
+                        possibleMoves.splice(i, 1);
+                    }
+                }
+                if (possibleMoves.length === 0) return 0;
+                if (!isJump(possibleMoves[0])) return 0;
+                if (possibleMoves.length === 1 && isJump(possibleMoves[0])) return 1;
+                var max = 0;
+                var move = possibleMoves[0];
+                for (var i = 0; i < possibleMoves.length; i++) {
+                    var temp = jumpNumbers(possibleMoves[i]);
+                    if (temp > max) {
+                        max = temp;
+                        move = possibleMoves[i];
+                    }
+                }
+                return 1 + max;
+            }
+
+            function isJump(move) {
+                var rowBefore  = move[2].set.value.rowBefore;
+                var rowAfter  = move[2].set.value.rowAfter;
+                var colBefore  = move[2].set.value.colBefore;
+                var colAfter  = move[2].set.value.colAfter;
+                if (Math.abs(rowBefore - rowAfter) === 2 || Math.abs(colBefore - colAfter) === 2)
+                    return true;
+                else return false;
+            }
+
+            function sheepNumber(move) {
+                var row = move[2].set.value.rowAfter;
+                var col = move[2].set.value.colAfter;
+                var board = move[1].set.value;
+                //console.log("board:", board);
+                var count = 0;
+                //console.log("board:", board[row + i][col + j]);
+                for (var i = -1; i < 2; i++) {
+                    for (var j = -1; j < 2; j++) {
+                        //console.log("board:", board[row + i][col + j]);
+                        if (i === 0 && j === 0) continue;
+                        if (row + i < 0 || row + i > 6 || col + j < 0 || col + j > 6) continue;
+                        if (board[row + i][col + j] === 'S') {
+                            count++;
+                            console.log("count: ", row + i, col + j);
+                        }
+                    }
+                }
+                return count;
+            }
+
+
 
             window.e2e_test_stateService = stateService; // to allow us to load any state in our e2e tests.
 
-
-             $log.info("turnIndex " + $scope.turnIndex);
-             $scope.cellClicked = function (row, col) {
-             $log.info(["Clicked on cell:", row, col]);
-             if (!$scope.isYourTurn) {
-             return;
-             }
-             $log.info("turnIndex " + $scope.turnIndex);
-             var rightOne = ($scope.turnIndex === 1) ? 'F' : 'S';
-             var wrongOne = ($scope.turnIndex === 1) ? 'S' : 'F';
-             if ($scope.board[row][col] !== rightOne && $scope.isFirstClick) {
-             return;
-             }
-             if ($scope.board[row][col] === wrongOne && !$scope.isFirstClick) {
-             $scope.isFirstClick = true;
-             $scope.uiState[$scope.firstClickRow][$scope.firstClickCol].isSelected = false;
-             return;
-             }
-             if ($scope.isFirstClick || (!$scope.isFirstClick && $scope.board[$scope.firstClickRow][$scope.firstClickCol] === $scope.board[row][col])) {
-             if (!$scope.isFirstClick) {
-             $scope.uiState[$scope.firstClickRow][$scope.firstClickCol].isSelected = false;
-             }
-             $scope.firstClickRow = row;
-             $scope.firstClickCol = col;
-             $scope.uiState[row][col].isSelected = true;
-             $scope.isFirstClick = false;
-             $scope.isSecondClick = 1;
-             return;
-             }
-             try {
-             $scope.secondClickRow = row;
-             $scope.secondClickCol = col;
-             var move = gameLogic.createMove($scope.board, $scope.firstClickRow, $scope.firstClickCol, $scope.secondClickRow, $scope.secondClickCol, $scope.turnIndex);
-             //$scope.isYourTurn = false; // to prevent making another move
-             $scope.isFirstClick = true;
-             $scope.isSecondClick = 2;
-             gameService.makeMove(move);
-             } catch (e) {
-             //$log.info(e);
-             $log.info(["Invalid move:", $scope.firstClickRow, $scope.firstClickCol, $scope.secondClickRow, $scope.secondClickCol]);
-             return;
-             }
-             };
+             //$log.info("turnIndex " + $scope.turnIndex);
+             //$scope.cellClicked = function (row, col) {
+             //$log.info(["Clicked on cell:", row, col]);
+             //if (!$scope.isYourTurn) {
+             //return;
+             //}
+             //$log.info("turnIndex " + $scope.turnIndex);
+             //var rightOne = ($scope.turnIndex === 1) ? 'F' : 'S';
+             //var wrongOne = ($scope.turnIndex === 1) ? 'S' : 'F';
+             //if ($scope.board[row][col] !== rightOne && $scope.isFirstClick) {
+             //return;
+             //}
+             //if ($scope.board[row][col] === wrongOne && !$scope.isFirstClick) {
+             //$scope.isFirstClick = true;
+             //$scope.uiState[$scope.firstClickRow][$scope.firstClickCol].isSelected = false;
+             //return;
+             //}
+             //if ($scope.isFirstClick || (!$scope.isFirstClick && $scope.board[$scope.firstClickRow][$scope.firstClickCol] === $scope.board[row][col])) {
+             //if (!$scope.isFirstClick) {
+             //$scope.uiState[$scope.firstClickRow][$scope.firstClickCol].isSelected = false;
+             //}
+             //$scope.firstClickRow = row;
+             //$scope.firstClickCol = col;
+             //$scope.uiState[row][col].isSelected = true;
+             //$scope.isFirstClick = false;
+             //$scope.isSecondClick = 1;
+             //return;
+             //}
+             //try {
+             //$scope.secondClickRow = row;
+             //$scope.secondClickCol = col;
+             //var move = gameLogic.createMove($scope.board, $scope.firstClickRow, $scope.firstClickCol, $scope.secondClickRow, $scope.secondClickCol, $scope.turnIndex);
+             ////$scope.isYourTurn = false; // to prevent making another move
+             //$scope.isFirstClick = true;
+             //$scope.isSecondClick = 2;
+             //gameService.makeMove(move);
+             //} catch (e) {
+             ////$log.info(e);
+             //$log.info(["Invalid move:", $scope.firstClickRow, $scope.firstClickCol, $scope.secondClickRow, $scope.secondClickCol]);
+             //return;
+             //}
+             //};
 
 
 

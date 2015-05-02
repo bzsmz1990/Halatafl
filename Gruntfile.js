@@ -101,7 +101,7 @@ module.exports = function(grunt) {
 
                     ],
                     network: [ 'languages/en.js',
-                        'languages/de.js',
+                        'languages/zh.js',
                         'dist/everything.min.js.map',
                         'dist/everything.js'],
                     timestamp: true

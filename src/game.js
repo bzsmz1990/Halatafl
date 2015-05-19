@@ -17,17 +17,20 @@ angular.module('myApp')
 
             $scope.randomMove;
             $scope.justHasRandomMove = false;
+            $scope.computerMove = false;
 
             //$scope.isContinue = false;
             //$scope.currentRow = 0;
             //$scope.currentCol = 0;
 
             function sendComputerMove() {
+
                 var move = createComputerMove($scope.board, $scope.turnIndex);
                     // at most 1 second for the AI to choose a move (but might be much quicker)
                     //{millisecondsLimit: 1000});
                 //console.log("computer move: ", move);
                 gameService.makeMove(move);
+
 
 
                 //var items = gameLogic.getPossibleMoves($scope.board, $scope.turnIndex);
@@ -75,9 +78,17 @@ angular.module('myApp')
                     $scope.isYourTurn = false; // to make sure the UI won't send another move.
                     // Waiting 0.5 seconds to let the move animation finish; if we call aiService
                     // then the animation is paused until the javascript finishes.
+                    $scope.computerMove = true;
+                    $log.info($scope.computerMove);
                     $timeout(sendComputerMove, 1200);
+                    $timeout(changeBoolean, 1000);
+                    $log.info($scope.computerMove);
                 }
 
+            }
+
+            function changeBoolean() {
+                $scope.computerMove = false;
             }
 
             // Before getting any updateUI, we show an empty board to a viewer (so you can't perform moves).
@@ -236,7 +247,11 @@ angular.module('myApp')
             var nextZIndex = 61;
             //window.handleDragEvent = handleDragEvent;
             dragAndDropService.addDragListener("gameArea", handleDragEvent);
+
             function handleDragEvent(type, clientX, clientY) {
+
+                $log.info($scope.computerMove);
+                if ($scope.computerMove === true) return;
                 // Center point in gameArea
 
                 //$log.info("X"+clientX);

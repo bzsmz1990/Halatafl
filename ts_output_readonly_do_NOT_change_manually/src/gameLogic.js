@@ -1,3 +1,6 @@
+/**
+ * Created by Wenzhao on 2/17/15.
+ */
 var gameLogic;
 (function (gameLogic) {
     /** Returns the initial game board, 'F' represents foxes, 'S' represents sheep,
@@ -15,8 +18,8 @@ var gameLogic;
     /** Returns the winner, either 'F' or 's', or '' if there is no winner yet. There is no tie in this game.*/
     function getWinner(board) {
         var count = 0;
-        var i = 0;
-        var j = 0;
+        var i;
+        var j;
         // check the top 3*3 matrix first, if the count of sheep is nine, then the winner is sheep
         for (i = 0; i < 3; i++) {
             for (j = 2; j < 5; j++) {
@@ -43,8 +46,6 @@ var gameLogic;
     }
     function getPossibleMoves(board, turnIndexBeforeMove) {
         var possibleMoves = [];
-        //var i, j, l, k;
-        // if it's foxes' turn
         if (turnIndexBeforeMove === 1) {
             for (var i = 0; i < 7; i++) {
                 for (var j = 0; j < 7; j++) {
@@ -103,18 +104,13 @@ var gameLogic;
         var firstOperation;
         if (winner !== '') {
             // Game over.
-            firstOperation = {
-                endMatch: {
-                    endMatchScores: (winner === 'F' ? [0, 1] : [1, 0])
-                }
-            };
+            firstOperation = { endMatch: { endMatchScores: (winner === 'F' ? [0, 1] : [1, 0]) } };
         }
         else {
             // Game continues
             //var items = getPossibleMoves(boardAfterMove, 1 - turnIndexBeforeMove);
-            if (turnIndexBeforeMove === 1 && isJump && hasJumpPossibility(boardAfterMove, rowAfter, colAfter)) {
+            if (turnIndexBeforeMove === 1 && isJump && hasJumpPossibility(boardAfterMove, rowAfter, colAfter))
                 firstOperation = { setTurn: { turnIndex: turnIndexBeforeMove } }; //still fox's turn
-            }
             else if (turnIndexBeforeMove === 0 && !hasJumpPossibility(boardAfterMove, rowAfter, colAfter)) {
                 var isThereMove = false;
                 var rowFox1;
@@ -143,8 +139,7 @@ var gameLogic;
                     }
                 }
                 if (!isThereMove) {
-                    var rowFox2;
-                    var colFox2;
+                    var rowFox2, colFox2;
                     for (i = 0; i < 7; i++) {
                         for (j = 0; j < 7; j++) {
                             if (board[i][j] === 'F' && (i !== rowFox1 || j !== colFox1)) {
@@ -170,11 +165,7 @@ var gameLogic;
                 //console.log(isThereMove);
                 console.log("not tie yet");
                 if (!isThereMove) {
-                    firstOperation = {
-                        endMatch: {
-                            endMatchScores: ([0, 0])
-                        }
-                    }; // ie tie
+                    firstOperation = { endMatch: { endMatchScores: ([0, 0]) } }; // ie tie
                     console.log("is tie");
                 }
                 else
@@ -185,6 +176,10 @@ var gameLogic;
                 firstOperation = { setTurn: { turnIndex: 1 - turnIndexBeforeMove } };
             }
         }
+        //var temp = [firstOperation,
+        //  {set: {key: 'board', value: boardAfterMove}},
+        // {set: {key: 'delta', value: {rowBefore: rowBefore,colBefore: colBefore,rowAfter:rowAfter, colAfter: colAfter}}}];
+        //console.log("not tie yet" + temp[1].set.value.rowAfter);
         return [firstOperation,
             { set: { key: 'board', value: boardAfterMove } },
             { set: { key: 'delta', value: { rowBefore: rowBefore, colBefore: colBefore, rowAfter: rowAfter, colAfter: colAfter } } }];
@@ -270,11 +265,14 @@ var gameLogic;
         var boardAfterMove = angular.copy(board);
         boardAfterMove[rowAfter][colAfter] = 'F';
         boardAfterMove[rowBefore][colBefore] = '';
+        /*if (doesJumpExist === true && isRightMove === true) {
+         //the sheep will disappear if it is jumped over by fox
+         boardAfterMove[(rowAfter + rowBefore) / 2][(rowBefore + colBefore) / 2] = '';
+         }*/
         if (Math.abs(rowAfter - rowBefore) == 2 || Math.abs(colAfter - colBefore) == 2) {
             boardAfterMove[(rowAfter + rowBefore) / 2][(colAfter + colBefore) / 2] = '';
         }
-        return {
-            boardAfterMove: boardAfterMove,
+        return { boardAfterMove: boardAfterMove,
             isJump: isRightMove
         };
     }
@@ -322,30 +320,6 @@ var gameLogic;
                 }
             }
         }
-        /*if(doesJumpExist === false) {
-            var rowFox2,colFox2;
-            for (i = 0; i < 7; i++) {
-                for(j = 0; j < 7; j++) {
-                    if (board[i][j] === 'F'&& (i !== rowFox1 || j !== colFox1)) { //find the second fox
-                        rowFox2 = i;
-                        colFox2 = j;
-                        break;
-                    }
-                }
-            }
-            for (i = -1; i < 2; i++) {
-                for (j = -1; j < 2; j++) {
-                    if (i === 0 && j === 0) continue; //no need to check itself
-                    if ((colFox2 + rowFox2) % 2 !== 0 && i !== 0 && j !== 0) continue; //no such directions for this vertex
-                    rightCol = colFox2 + 2 * i;
-                    rightRow = rowFox2 + 2 * j;
-                    if (rightCol > -1 && rightCol < 7 && rightRow > -1 && rightRow < 7 && board[rightRow][rightCol] === '' && board[(rightRow + rowFox2) / 2][(rightCol + colFox2) / 2] === 'S') {
-                        doesJumpExist = true; //jump possibility exists
-                    }
-                }
-            }
-        }*/
-        //console.log(doesJumpExist);
         return doesJumpExist;
     }
     function isMoveOk(params) {
@@ -368,8 +342,7 @@ var gameLogic;
     }
     gameLogic.isMoveOk = isMoveOk;
 })(gameLogic || (gameLogic = {}));
-angular.module('myApp', ['ngTouch', 'ui.bootstrap', 'gameServices'])
-    .factory('gameLogic', function () {
+angular.module('myApp', ['ngTouch', 'ui.bootstrap', 'gameServices']).factory('gameLogic', function () {
     return {
         getInitialBoard: gameLogic.getInitialBoard,
         getPossibleMoves: gameLogic.getPossibleMoves,

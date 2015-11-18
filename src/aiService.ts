@@ -7,7 +7,6 @@ module aiService {
   var currentRow = 0;
   var currentCol = 0;
 
-
   export function createComputerMove(board: Board, playerIndex: number) {
     var possibleMoves = gameLogic.getPossibleMoves(board, playerIndex);
     if (playerIndex === 0) {  //if it's sheep's turn
@@ -16,6 +15,7 @@ module aiService {
         return randomMove;
       }
     }
+
 
     var move: IMove;
     try {
@@ -101,7 +101,7 @@ module aiService {
     return move;
   }
 
-  function jumpNumbers(move: IMove) {
+  function jumpNumbers(move: IMove): number {
     var possibleMoves = gameLogic.getPossibleMoves(move[1].set.value, 1);
     for (var i = 0; i < possibleMoves.length; i++) {
       if (possibleMoves[i][2].set.value.rowBefore !== move[2].set.value.rowAfter || possibleMoves[i][2].set.value.colBefore !== move[2].set.value.colAfter) {
@@ -123,7 +123,7 @@ module aiService {
     return 1 + max;
   }
 
-  function isJump(move: IMove) {
+  function isJump(move: IMove): boolean {
     var rowBefore = move[2].set.value.rowBefore;
     var rowAfter = move[2].set.value.rowAfter;
     var colBefore = move[2].set.value.colBefore;
@@ -133,7 +133,7 @@ module aiService {
     else return false;
   }
 
-  function sheepNumber(move: IMove) {
+  function sheepNumber(move: IMove): number {
     var row = move[2].set.value.rowAfter;
     var col = move[2].set.value.colAfter;
     var board = move[1].set.value;
@@ -155,10 +155,6 @@ module aiService {
   }
 }
 
-
-angular.module('myApp', ['ngTouch', 'ui.bootstrap', 'gameServices'])
-  .factory('aiService', function() {
-  return {
-    createComputerMove: aiService.createComputerMove
-  };
+angular.module('myApp').factory('aiService', function() {
+  return { createComputerMove: aiService.createComputerMove };
 });

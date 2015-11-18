@@ -161,9 +161,6 @@ var aiService;
         return count;
     }
 })(aiService || (aiService = {}));
-angular.module('myApp', ['ngTouch', 'ui.bootstrap', 'gameServices'])
-    .factory('aiService', function () {
-    return {
-        createComputerMove: aiService.createComputerMove
-    };
+angular.module('myApp').factory('aiService', function () {
+    return { createComputerMove: aiService.createComputerMove };
 });

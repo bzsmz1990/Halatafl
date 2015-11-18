@@ -5,7 +5,7 @@
 
 'use strict';
 
-angular.module('myApp', ['ngTouch', 'ui.bootstrap']).factory('gameLogic', function() {
+angular.module('myApp', ['ngTouch', 'ui.bootstrap', 'gameServices']).factory('gameLogic', function() {
 
 
     /** Returns the initial game board, 'F' represents foxes, 'S' represents sheep,

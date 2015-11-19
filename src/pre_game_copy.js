@@ -14,41 +14,16 @@ angular.module('myApp')
       $scope.justHasRandomMove = false;
       $scope.computerMove = false;
 
-      //$scope.isContinue = false;
-      //$scope.currentRow = 0;
-      //$scope.currentCol = 0;
 
       function sendComputerMove() {
 
         var move = createComputerMove($scope.board, $scope.turnIndex);
-        // at most 1 second for the AI to choose a move (but might be much quicker)
-        //{millisecondsLimit: 1000});
-        //console.log("computer move: ", move);
+
         gameService.makeMove(move);
 
-
-
-        //var items = gameLogic.getPossibleMoves($scope.board, $scope.turnIndex);
-        //if (items.length !== 0) {
-        //  $scope.randomMove = items[Math.floor(Math.random() * items.length)];
-        // $scope.justHasRandomMove = true;
-        //setTimeout(function () {var i = 0;}, 2000);
-        // gameService.makeMove($scope.randomMove);
-
-        // }
-        //what if there is no available move for wolf?
       }
 
 
-
-      /*function sendComputerMove() {
-       gameService.makeMove(aiService.createComputerMove($scope.board, $scope.turnIndex,
-       // at most 1 second for the AI to choose a move (but might be much quicker)
-       {millisecondsLimit: 1000}));
-       }*/
-
-      //$scope.turnIndex = 0;
-      //$scope.isYourTurn = true;
       function updateUI(params) {
         $scope.board = params.stateAfterMove.board;
         $scope.delta = params.stateAfterMove.delta;
@@ -86,10 +61,6 @@ angular.module('myApp')
         $scope.computerMove = false;
       }
 
-      // Before getting any updateUI, we show an empty board to a viewer (so you can't perform moves).
-      //updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex:-2});
-      //updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex:0});
-
       $scope.justInitialize = false;
 
       function initializeUiState() {
@@ -126,9 +97,6 @@ angular.module('myApp')
           }
         }
         $scope.justInitialize = true;
-
-
-
 
       }
 
@@ -175,39 +143,14 @@ angular.module('myApp')
         $log.info("current" + img.className);
         var rowBefore = $scope.delta.rowBefore;
         var colBefore = $scope.delta.colBefore;
-        /*if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2) {
-         var uISquareCopy = {
-         content: 0,
-         isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false
-         //pieceSrc: 'img/empty'
-         };
-         $scope.uiState[(row + rowBefore) / 2][(col + colBefore) / 2] = uISquareCopy;
-         var img2 = document.getElementById('e2e_test_img_' + (row + rowBefore) / 2 + 'x' + (col + colBefore) / 2);
-         img2.className = 'disappear';
-         setTimeout(function () {
-         //if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2)
-         img2.className = 'invisible'
-         $log.info("current" + img2.className);
-         }, 1000);
-         //$log.info("content" + uISquareCopy2.content);
-         }
-         /*
-         var uISquareCopy = {
-         content: -1,
-         isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false
-         //pieceSrc: 'img/empty'
-         };
-         $scope.uiState[(row + rowBefore) / 2][(col + colBefore) / 2] = uISquareCopy;
-         */
+
 
 
 
 
         for (var i = 0; i < 7; i++) {
           for (var j = 0; j < 7; j++) {
-            //var char = $scope.board[i][j];
-            //var uiSquare = $scope.uiState[i][j];
-            //$log.info(char);
+
             $log.info($scope.uiState[i][j].content);
             //$log.info($scope.board[i][j]);
           }
@@ -220,14 +163,6 @@ angular.module('myApp')
         return $scope.uiState[row][col];
       };
 
-
-
-
-
-      //$scope.turnIndex = 0;
-
-
-      //$log.info("turnIndex " + $scope.turnIndex);
 
       //drag and drop
       var gameArea = document.getElementById("gameArea");
@@ -248,10 +183,6 @@ angular.module('myApp')
         if ($scope.computerMove === true) return;
         // Center point in gameArea
 
-        //$log.info("X"+clientX);
-        //$log.info("Y"+clientY);
-        //$log.info("left"+gameArea.offsetLeft);
-        //$log.info("left"+gameArea.offsetTop);
         var x = clientX - gameArea.offsetLeft;
         var y = clientY - gameArea.offsetTop;
         var row, col;
@@ -378,13 +309,7 @@ angular.module('myApp')
               top: y - 0.12 * gameArea.clientHeight - size.height / 2,
               left: x - size.width / 2
             });
-            //setDraggingPieceTopLeft(getSquareTopLeft(row, col));
-            //draggingLines.style.display = "inline";
-            //var centerXY = getSquareCenterXY(row, col);
-            //verticalDraggingLine.setAttribute("x1", centerXY.x);
-            //verticalDraggingLine.setAttribute("x2", centerXY.x);
-            //horizontalDraggingLine.setAttribute("y1", centerXY.y);
-            //horizontalDraggingLine.setAttribute("y2", centerXY.y);
+
           }
         }
         if (type === "touchend" || type === "touchcancel" || type === "touchleave") {
@@ -428,8 +353,6 @@ angular.module('myApp')
           y: row * size.height + size.height / 2
         };
       }
-
-
 
       //resizeGameAreaService.setWidthToHeight(0.5);
       function dragDone(from, to) {
@@ -483,19 +406,6 @@ angular.module('myApp')
       }
 
 
-      //$(document).ready(function () {
-      //  fontSize();
-      //});
-
-      //function fontSize() {
-      //  document.getElementById('first').css('font-size',gameArea.clientHeight.toString() + "px");
-      //return 45 + "%";
-      //}
-
-
-
-
-
       //aiService
       var isContinue = false;
       var currentRow = 0;
@@ -509,11 +419,7 @@ angular.module('myApp')
             return randomMove;
           }
         }
-        //if it's fox's turn
-        //first eliminate the moves from the invalid fox
-        //console.log("currentRow" + currentRow);
-        //console.log("currentCol" + currentCol);
-        //console.log("isContinue" + isContinue);
+
         var move;
         try {
           if (isContinue) {

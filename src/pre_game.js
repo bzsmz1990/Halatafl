@@ -15,41 +15,14 @@ angular.module('myApp')
       $scope.justHasRandomMove = false;
       $scope.computerMove = false;
 
-      //$scope.isContinue = false;
-      //$scope.currentRow = 0;
-      //$scope.currentCol = 0;
-
       function sendComputerMove() {
 
         var move = createComputerMove($scope.board, $scope.turnIndex);
-        // at most 1 second for the AI to choose a move (but might be much quicker)
-        //{millisecondsLimit: 1000});
-        //console.log("computer move: ", move);
+
         gameService.makeMove(move);
 
-
-
-        //var items = gameLogic.getPossibleMoves($scope.board, $scope.turnIndex);
-        //if (items.length !== 0) {
-        //  $scope.randomMove = items[Math.floor(Math.random() * items.length)];
-        // $scope.justHasRandomMove = true;
-        //setTimeout(function () {var i = 0;}, 2000);
-        // gameService.makeMove($scope.randomMove);
-
-        // }
-        //what if there is no available move for wolf?
       }
 
-
-
-      /*function sendComputerMove() {
-       gameService.makeMove(aiService.createComputerMove($scope.board, $scope.turnIndex,
-       // at most 1 second for the AI to choose a move (but might be much quicker)
-       {millisecondsLimit: 1000}));
-       }*/
-
-      //$scope.turnIndex = 0;
-      //$scope.isYourTurn = true;
       function updateUI(params) {
         $scope.board = params.stateAfterMove.board;
         $scope.delta = params.stateAfterMove.delta;
@@ -87,10 +60,6 @@ angular.module('myApp')
         $scope.computerMove = false;
       }
 
-      // Before getting any updateUI, we show an empty board to a viewer (so you can't perform moves).
-      //updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex:-2});
-      //updateUI({stateAfterMove: {}, turnIndexAfterMove: 0, yourPlayerIndex:0});
-
       $scope.justInitialize = false;
 
       function initializeUiState() {
@@ -127,10 +96,6 @@ angular.module('myApp')
           }
         }
         $scope.justInitialize = true;
-
-
-
-
       }
 
       $scope.isFirstClick = true;
@@ -176,32 +141,6 @@ angular.module('myApp')
         $log.info("current" + img.className);
         var rowBefore = $scope.delta.rowBefore;
         var colBefore = $scope.delta.colBefore;
-        /*if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2) {
-         var uISquareCopy = {
-         content: 0,
-         isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false
-         //pieceSrc: 'img/empty'
-         };
-         $scope.uiState[(row + rowBefore) / 2][(col + colBefore) / 2] = uISquareCopy;
-         var img2 = document.getElementById('e2e_test_img_' + (row + rowBefore) / 2 + 'x' + (col + colBefore) / 2);
-         img2.className = 'disappear';
-         setTimeout(function () {
-         //if (Math.abs(row - rowBefore) === 2 || (Math.abs(col - colBefore)) === 2)
-         img2.className = 'invisible'
-         $log.info("current" + img2.className);
-         }, 1000);
-         //$log.info("content" + uISquareCopy2.content);
-         }
-         /*
-         var uISquareCopy = {
-         content: -1,
-         isSelected: $scope.isSecondClick === 1 ? uiSquare.isSelected : false
-         //pieceSrc: 'img/empty'
-         };
-         $scope.uiState[(row + rowBefore) / 2][(col + colBefore) / 2] = uISquareCopy;
-         */
-
-
 
 
         for (var i = 0; i < 7; i++) {
@@ -222,14 +161,6 @@ angular.module('myApp')
       };
 
 
-
-
-
-      //$scope.turnIndex = 0;
-
-
-      //$log.info("turnIndex " + $scope.turnIndex);
-
       //drag and drop
       var gameArea = document.getElementById("gameArea");
       $log.info("clientWidth" + gameArea.clientWidth);
@@ -249,10 +180,6 @@ angular.module('myApp')
         if ($scope.computerMove === true) return;
         // Center point in gameArea
 
-        //$log.info("X"+clientX);
-        //$log.info("Y"+clientY);
-        //$log.info("left"+gameArea.offsetLeft);
-        //$log.info("left"+gameArea.offsetTop);
         var x = clientX - gameArea.offsetLeft;
         var y = clientY - gameArea.offsetTop;
         var row, col;
@@ -656,55 +583,7 @@ angular.module('myApp')
         return count;
       }
 
-
-
       window.e2e_test_stateService = stateService; // to allow us to load any state in our e2e tests.
-
-      //$log.info("turnIndex " + $scope.turnIndex);
-      //$scope.cellClicked = function (row, col) {
-      //$log.info(["Clicked on cell:", row, col]);
-      //if (!$scope.isYourTurn) {
-      //return;
-      //}
-      //$log.info("turnIndex " + $scope.turnIndex);
-      //var rightOne = ($scope.turnIndex === 1) ? 'F' : 'S';
-      //var wrongOne = ($scope.turnIndex === 1) ? 'S' : 'F';
-      //if ($scope.board[row][col] !== rightOne && $scope.isFirstClick) {
-      //return;
-      //}
-      //if ($scope.board[row][col] === wrongOne && !$scope.isFirstClick) {
-      //$scope.isFirstClick = true;
-      //$scope.uiState[$scope.firstClickRow][$scope.firstClickCol].isSelected = false;
-      //return;
-      //}
-      //if ($scope.isFirstClick || (!$scope.isFirstClick && $scope.board[$scope.firstClickRow][$scope.firstClickCol] === $scope.board[row][col])) {
-      //if (!$scope.isFirstClick) {
-      //$scope.uiState[$scope.firstClickRow][$scope.firstClickCol].isSelected = false;
-      //}
-      //$scope.firstClickRow = row;
-      //$scope.firstClickCol = col;
-      //$scope.uiState[row][col].isSelected = true;
-      //$scope.isFirstClick = false;
-      //$scope.isSecondClick = 1;
-      //return;
-      //}
-      //try {
-      //$scope.secondClickRow = row;
-      //$scope.secondClickCol = col;
-      //var move = gameLogic.createMove($scope.board, $scope.firstClickRow, $scope.firstClickCol, $scope.secondClickRow, $scope.secondClickCol, $scope.turnIndex);
-      ////$scope.isYourTurn = false; // to prevent making another move
-      //$scope.isFirstClick = true;
-      //$scope.isSecondClick = 2;
-      //gameService.makeMove(move);
-      //} catch (e) {
-      ////$log.info(e);
-      //$log.info(["Invalid move:", $scope.firstClickRow, $scope.firstClickCol, $scope.secondClickRow, $scope.secondClickCol]);
-      //return;
-      //}
-      //};
-
-
-
 
       gameService.setGame({
         gameDeveloperEmail: "zangwz@gmail.com",

@@ -586,7 +586,7 @@ angular.module('myApp')
       window.e2e_test_stateService = stateService; // to allow us to load any state in our e2e tests.
 
       gameService.setGame({
-        gameDeveloperEmail: "zangwz@gmail.com",
+        gameDeveloperEmail: "bzsmz1990@gmail.com",
         minNumberOfPlayers: 2,
         maxNumberOfPlayers: 2,
         isMoveOk: gameLogic.isMoveOk,

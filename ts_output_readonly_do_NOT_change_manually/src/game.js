@@ -13,8 +13,9 @@ var game;
     var firstClickCol;
     var secondClickRow;
     var secondClickCol;
-    var board;
-    var delta;
+    var state = null;
+    // let board: Board;
+    // let delta: IDelta;
     var turnIndex;
     var isYourTurn;
     var uiState = [];
@@ -22,8 +23,9 @@ var game;
     var nextZIndex = 61;
     var rowsNum = 7;
     var colsNum = 7;
-    var draggingStartedRowCol = null;
+    var draggingStartedRowCol = { row: -1, col: -1 };
     var draggingPiece = null;
+    var justInitialize = false;
     function init() {
         resizeGameAreaService.setWidthToHeight(0.666666667);
         gameService.setGame({
@@ -42,21 +44,24 @@ var game;
     game.init = init;
     function animationEndedCallback() {
         $rootScope.$apply(function () {
-            console.log("Animation ended");
+            log.info("Animation ended");
             animationEnded = true;
-            sendComputerMove();
+            if (computerMove) {
+                sendComputerMove();
+            }
         });
     }
     function sendComputerMove() {
-        var move = createComputerMove(board, turnIndex);
+        var move = createComputerMove(state.board, turnIndex);
         gameService.makeMove(move);
     }
     function updateUI(params) {
-        board = params.stateAfterMove.board;
-        delta = params.stateAfterMove.delta;
+        state = params.stateAfterMove;
+        // var board = params.stateAfterMove.board;
+        // var delta = params.stateAfterMove.delta;
         var notFirstTime = true;
-        if (board === undefined) {
-            board = gameLogic.getInitialBoard();
+        if (state.board === undefined) {
+            state.board = gameLogic.getInitialBoard();
             notFirstTime = false;
             initializeUiState();
         }
@@ -67,22 +72,31 @@ var game;
             updateUiState();
         }
         // Is it the computer's turn?
-        if (isYourTurn &&
-            params.playersInfo[params.yourPlayerIndex].playerId === '') {
-            isYourTurn = false; // to make sure the UI won't send another move.
-            // Waiting 0.5 seconds to let the move animation finish; if we call aiService
-            // then the animation is paused until the javascript finishes.
-            computerMove = true;
-            console.log(computerMove);
-            $timeout(sendComputerMove, 1200);
-            $timeout(changeBoolean, 1000);
-            console.log(computerMove);
+        // if (isYourTurn &&
+        //   params.playersInfo[params.yourPlayerIndex].playerId === '') {
+        //   isYourTurn = false; // to make sure the UI won't send another move.
+        //   // Waiting 0.5 seconds to let the move animation finish; if we call aiService
+        //   // then the animation is paused until the javascript finishes.
+        //   computerMove = true;
+        //   console.log(computerMove);
+        //   $timeout(sendComputerMove, 1200);
+        //   $timeout(changeBoolean, 1000);
+        //   console.log(computerMove);
+        // }
+        computerMove = isYourTurn && params.playersInfo[params.yourPlayerIndex].playerId === '';
+        if (computerMove) {
+            isYourTurn = false;
+            if (!state.delta) {
+                console.log(computerMove);
+                $timeout(sendComputerMove, 1200);
+                $timeout(changeBoolean, 1000);
+                console.log(computerMove);
+            }
         }
     }
     function changeBoolean() {
         computerMove = false;
     }
-    var justInitialize = false;
     function initializeUiState() {
         // Initialize the ui state as an array first
         uiState = [];
@@ -118,7 +132,7 @@ var game;
     function updateUiState() {
         for (var i = 0; i < 7; i++) {
             for (var j = 0; j < 7; j++) {
-                var char = board[i][j];
+                var char = state.board[i][j];
                 var uiSquare = uiState[i][j];
                 var uISquareCopy = {
                     content: char === 'S' ? 0 : (char === 'F' ? 1 : -1),
@@ -132,16 +146,16 @@ var game;
         isSecondClick = 0;
         console.log(justHasRandomMove);
         //animation
-        var row = delta.rowAfter;
-        var col = delta.colAfter;
+        var row = state.delta.rowAfter;
+        var col = state.delta.colAfter;
         var img = document.getElementById('e2e_test_img_' + row + 'x' + col);
         if (img.className === 'enlarge1')
             img.className = 'enlarge2';
         else
             img.className = 'enlarge1';
         console.log("current" + img.className);
-        var rowBefore = delta.rowBefore;
-        var colBefore = delta.colBefore;
+        var rowBefore = state.delta.rowBefore;
+        var colBefore = state.delta.colBefore;
         for (var i = 0; i < 7; i++) {
             for (var j = 0; j < 7; j++) {
                 console.log(uiState[i][j].content);
@@ -150,9 +164,11 @@ var game;
         console.log("turnIndex " + turnIndex);
         console.log("current" + img.className);
     }
-    var getSquare = function (row, col) {
+    function getSquare(row, col) {
         return uiState[row][col];
-    };
+    }
+    game.getSquare = getSquare;
+    ;
     //drag and drop
     function handleDragEvent(type, clientX, clientY) {
         gameArea = document.getElementById("gameArea");
@@ -186,11 +202,11 @@ var game;
             //if (y < 0.05 * gameArea.clientHeight  || y > 0.95 * gameArea.clientHeight ) return;
             var row = Math.floor(rowsNum * (y - 0.12 * gameArea.clientHeight) / gameArea.clientHeight / 0.75);
             //if ($scope.turnIndex == 1) row = row - 1;
-            if (type === "touchstart" && !draggingStartedRowCol) {
+            if (type === "touchstart" && draggingStartedRowCol.row < 0 && draggingStartedRowCol.col < 0) {
                 // drag started
                 console.log("turnIndex " + turnIndex);
-                if (board[row][col] != '' || board[row][col] != 'X') {
-                    var draggingStartedRowCol = {
+                if (state.board[row][col] != '' || state.board[row][col] != 'X') {
+                    draggingStartedRowCol = {
                         row: row,
                         col: col
                     };
@@ -222,31 +238,31 @@ var game;
                 }
                 else {
                     if (to.row === from.row && to.col < from.col) {
-                        if (board[to.row][from.col - 1] === 'S')
+                        if (state.board[to.row][from.col - 1] === 'S')
                             to.col = from.col - 2;
                         else
                             to.col = from.col - 1;
                     }
                     if (to.row === from.row && to.col > from.col) {
-                        if (board[to.row][from.col + 1] === 'S')
+                        if (state.board[to.row][from.col + 1] === 'S')
                             to.col = from.col + 2;
                         else
                             to.col = from.col + 1;
                     }
                     if (to.col === from.col && to.row < from.row) {
-                        if (board[from.row - 1][from.col] === 'S')
+                        if (state.board[from.row - 1][from.col] === 'S')
                             to.row = from.row - 2;
                         else
                             to.row = from.row - 1;
                     }
                     if (to.col === from.col && to.row > from.row) {
-                        if (board[from.row + 1][from.col] === 'S')
+                        if (state.board[from.row + 1][from.col] === 'S')
                             to.row = from.row + 2;
                         else
                             to.row = from.row + 1;
                     }
                     if (to.row < from.row && to.col < from.col && Math.abs(to.row - from.row) === Math.abs(to.col - from.col)) {
-                        if (board[from.row - 1][from.col - 1] === 'S') {
+                        if (state.board[from.row - 1][from.col - 1] === 'S') {
                             to.row = from.row - 2;
                             to.col = from.col - 2;
                         }
@@ -256,7 +272,7 @@ var game;
                         }
                     }
                     if (to.row < from.row && to.col > from.col && Math.abs(to.row - from.row) === Math.abs(to.col - from.col)) {
-                        if (board[from.row - 1][from.col + 1] === 'S') {
+                        if (state.board[from.row - 1][from.col + 1] === 'S') {
                             to.row = from.row - 2;
                             to.col = from.col + 2;
                         }
@@ -266,7 +282,7 @@ var game;
                         }
                     }
                     if (to.row > from.row && to.col < from.col && Math.abs(to.row - from.row) === Math.abs(to.col - from.col)) {
-                        if (board[from.row + 1][from.col - 1] === 'S') {
+                        if (state.board[from.row + 1][from.col - 1] === 'S') {
                             to.row = from.row + 2;
                             to.col = from.col - 2;
                         }
@@ -276,7 +292,7 @@ var game;
                         }
                     }
                     if (to.row > from.row && to.col > from.col && Math.abs(to.row - from.row) === Math.abs(to.col - from.col)) {
-                        if (board[from.row + 1][from.col + 1] === 'S') {
+                        if (state.board[from.row + 1][from.col + 1] === 'S') {
                             to.row = from.row + 2;
                             to.col = from.col + 2;
                         }
@@ -301,7 +317,7 @@ var game;
             // drag ended
             // return the piece to it's original style (then angular will take care to hide it).
             setDraggingPieceTopLeft(getSquareTopLeft(draggingStartedRowCol.row, draggingStartedRowCol.col));
-            draggingStartedRowCol = null;
+            draggingStartedRowCol = { row: -1, col: -1 };
             draggingPiece = null;
         }
     }
@@ -335,7 +351,7 @@ var game;
     function dragDone(from, to) {
         try {
             console.log("turnIndex " + turnIndex);
-            var move = gameLogic.createMove(board, from.row, from.col, to.row, to.col, turnIndex);
+            var move = gameLogic.createMove(state.board, from.row, from.col, to.row, to.col, turnIndex);
             gameService.makeMove(move);
         }
         catch (e) {
@@ -350,7 +366,7 @@ var game;
         var count = 0;
         for (var i = 0; i < 3; i++) {
             for (var j = 2; j < 5; j++) {
-                if (board[i][j] === 'S')
+                if (state.board[i][j] === 'S')
                     count++;
             }
         }
@@ -360,7 +376,7 @@ var game;
         var count = 0;
         for (var i = 0; i < 7; i++) {
             for (var j = 0; j < 7; j++) {
-                if (board[i][j] === 'S')
+                if (state.board[i][j] === 'S')
                     count++;
             }
         }

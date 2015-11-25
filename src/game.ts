@@ -48,8 +48,9 @@ module game {
   let secondClickRow: number;
   let secondClickCol: number;
 
-  let board: Board;
-  let delta: IDelta;
+  let state: IState = null;
+  // let board: Board;
+  // let delta: IDelta;
   let turnIndex: number;
   let isYourTurn: boolean;
   let uiState: any = []
@@ -57,8 +58,9 @@ module game {
   let nextZIndex = 61;
   let rowsNum = 7;
   let colsNum = 7;
-  let draggingStartedRowCol: IRowCol = null;
+  let draggingStartedRowCol: IRowCol = {row: -1, col: -1};
   let draggingPiece: any = null;
+  let justInitialize = false;
 
 
   export function init() {
@@ -81,23 +83,26 @@ module game {
 
   function animationEndedCallback() {
     $rootScope.$apply(function() {
-      console.log("Animation ended");
+      log.info("Animation ended");
       animationEnded = true;
-      sendComputerMove();
+      if (computerMove) {
+        sendComputerMove();
+      }
     });
   }
 
   function sendComputerMove() {
-    var move = createComputerMove(board, turnIndex);
+    var move = createComputerMove(state.board, turnIndex);
     gameService.makeMove(move)
   }
 
   function updateUI(params: IUpdateUI) {
-    board = params.stateAfterMove.board;
-    delta = params.stateAfterMove.delta;
+    state = params.stateAfterMove;
+    // var board = params.stateAfterMove.board;
+    // var delta = params.stateAfterMove.delta;
     var notFirstTime = true;
-    if (board === undefined) {
-      board = gameLogic.getInitialBoard();
+    if (state.board === undefined) {
+      state.board = gameLogic.getInitialBoard();
       notFirstTime = false;
       initializeUiState();
     }
@@ -109,24 +114,32 @@ module game {
     }
 
     // Is it the computer's turn?
-    if (isYourTurn &&
-      params.playersInfo[params.yourPlayerIndex].playerId === '') {
-      isYourTurn = false; // to make sure the UI won't send another move.
-      // Waiting 0.5 seconds to let the move animation finish; if we call aiService
-      // then the animation is paused until the javascript finishes.
-      computerMove = true;
-      console.log(computerMove);
-      $timeout(sendComputerMove, 1200);
-      $timeout(changeBoolean, 1000);
-      console.log(computerMove);
+    // if (isYourTurn &&
+    //   params.playersInfo[params.yourPlayerIndex].playerId === '') {
+    //   isYourTurn = false; // to make sure the UI won't send another move.
+    //   // Waiting 0.5 seconds to let the move animation finish; if we call aiService
+    //   // then the animation is paused until the javascript finishes.
+    //   computerMove = true;
+    //   console.log(computerMove);
+    //   $timeout(sendComputerMove, 1200);
+    //   $timeout(changeBoolean, 1000);
+    //   console.log(computerMove);
+    // }
+    computerMove = isYourTurn && params.playersInfo[params.yourPlayerIndex].playerId === '';
+    if (computerMove) {
+      isYourTurn = false;
+      if (!state.delta) {
+        console.log(computerMove);
+        $timeout(sendComputerMove, 1200);
+        $timeout(changeBoolean, 1000);
+        console.log(computerMove);
+      }
     }
   }
 
   function changeBoolean() {
     computerMove = false;
   }
-
-  let justInitialize = false;
 
   function initializeUiState() {
     // Initialize the ui state as an array first
@@ -163,7 +176,7 @@ module game {
   function updateUiState() {
     for (var i = 0; i < 7; i++) {
       for (var j = 0; j < 7; j++) {
-        var char = board[i][j];
+        var char = state.board[i][j];
         var uiSquare = uiState[i][j];
         var uISquareCopy = {
           content: char === 'S' ? 0 : (char === 'F' ? 1 : -1), //0 is sheep, 1 is fox, -1 is empty
@@ -180,16 +193,16 @@ module game {
     console.log(justHasRandomMove);
 
     //animation
-    var row = delta.rowAfter;
-    var col = delta.colAfter;
+    var row = state.delta.rowAfter;
+    var col = state.delta.colAfter;
     var img = document.getElementById('e2e_test_img_' + row + 'x' + col);
     if (img.className === 'enlarge1')
       img.className = 'enlarge2';
     else
       img.className = 'enlarge1';
     console.log("current" + img.className);
-    var rowBefore = delta.rowBefore;
-    var colBefore = delta.colBefore;
+    var rowBefore = state.delta.rowBefore;
+    var colBefore = state.delta.colBefore;
 
 
     for (var i = 0; i < 7; i++) {
@@ -201,7 +214,7 @@ module game {
     console.log("current" + img.className);
   }
 
-  let getSquare = function(row: number, col: number): any {
+  export function getSquare (row: number, col: number): any {
     return uiState[row][col];
   };
 
@@ -237,11 +250,11 @@ module game {
       //if (y < 0.05 * gameArea.clientHeight  || y > 0.95 * gameArea.clientHeight ) return;
       var row = Math.floor(rowsNum * (y - 0.12 * gameArea.clientHeight) / gameArea.clientHeight / 0.75);
       //if ($scope.turnIndex == 1) row = row - 1;
-      if (type === "touchstart" && !draggingStartedRowCol) {
+      if (type === "touchstart" && draggingStartedRowCol.row < 0 && draggingStartedRowCol.col < 0) {
         // drag started
         console.log("turnIndex " + turnIndex);
-        if (board[row][col] != '' || board[row][col] != 'X') {
-          var draggingStartedRowCol: IRowCol = {
+        if (state.board[row][col] != '' || state.board[row][col] != 'X') {
+          draggingStartedRowCol = {
             row: row,
             col: col
           };
@@ -270,27 +283,27 @@ module game {
           if (from.col > to.col) to.col = from.col - 1;
         } else {
           if (to.row === from.row && to.col < from.col) { //left
-            if (board[to.row][from.col - 1] === 'S')
+            if (state.board[to.row][from.col - 1] === 'S')
               to.col = from.col - 2;
             else to.col = from.col - 1;
           }
           if (to.row === from.row && to.col > from.col) { //right
-            if (board[to.row][from.col + 1] === 'S')
+            if (state.board[to.row][from.col + 1] === 'S')
               to.col = from.col + 2;
             else to.col = from.col + 1;
           }
           if (to.col === from.col && to.row < from.row) { //top
-            if (board[from.row - 1][from.col] === 'S')
+            if (state.board[from.row - 1][from.col] === 'S')
               to.row = from.row - 2;
             else to.row = from.row - 1;
           }
           if (to.col === from.col && to.row > from.row) { //bottom
-            if (board[from.row + 1][from.col] === 'S')
+            if (state.board[from.row + 1][from.col] === 'S')
               to.row = from.row + 2;
             else to.row = from.row + 1;
           }
           if (to.row < from.row && to.col < from.col && Math.abs(to.row - from.row) === Math.abs(to.col - from.col)) { //top left
-            if (board[from.row - 1][from.col - 1] === 'S') {
+            if (state.board[from.row - 1][from.col - 1] === 'S') {
               to.row = from.row - 2;
               to.col = from.col - 2;
             } else {
@@ -299,7 +312,7 @@ module game {
             }
           }
           if (to.row < from.row && to.col > from.col && Math.abs(to.row - from.row) === Math.abs(to.col - from.col)) { //top right
-            if (board[from.row - 1][from.col + 1] === 'S') {
+            if (state.board[from.row - 1][from.col + 1] === 'S') {
               to.row = from.row - 2;
               to.col = from.col + 2;
             } else {
@@ -308,7 +321,7 @@ module game {
             }
           }
           if (to.row > from.row && to.col < from.col && Math.abs(to.row - from.row) === Math.abs(to.col - from.col)) { //bottom left
-            if (board[from.row + 1][from.col - 1] === 'S') {
+            if (state.board[from.row + 1][from.col - 1] === 'S') {
               to.row = from.row + 2;
               to.col = from.col - 2;
             } else {
@@ -317,7 +330,7 @@ module game {
             }
           }
           if (to.row > from.row && to.col > from.col && Math.abs(to.row - from.row) === Math.abs(to.col - from.col)) { //bottom right
-            if (board[from.row + 1][from.col + 1] === 'S') {
+            if (state.board[from.row + 1][from.col + 1] === 'S') {
               to.row = from.row + 2;
               to.col = from.col + 2;
             } else {
@@ -343,7 +356,7 @@ module game {
       // return the piece to it's original style (then angular will take care to hide it).
       setDraggingPieceTopLeft(getSquareTopLeft(draggingStartedRowCol.row, draggingStartedRowCol.col));
 
-      draggingStartedRowCol = null;
+      draggingStartedRowCol = {row: -1, col: -1};
       draggingPiece = null;
     }
   }
@@ -381,7 +394,7 @@ module game {
   function dragDone(from: IRowCol, to: IRowCol) {
     try {
       console.log("turnIndex " + turnIndex);
-      var move = gameLogic.createMove(board, from.row, from.col, to.row, to.col, turnIndex);
+      var move = gameLogic.createMove(state.board, from.row, from.col, to.row, to.col, turnIndex);
 
       gameService.makeMove(move);
       //return;
@@ -398,7 +411,7 @@ module game {
     var count = 0;
     for (var i = 0; i < 3; i++) {
       for (var j = 2; j < 5; j++) {
-        if (board[i][j] === 'S')
+        if (state.board[i][j] === 'S')
           count++;
       }
     }
@@ -410,7 +423,7 @@ module game {
     var count = 0;
     for (var i = 0; i < 7; i++) {
       for (var j = 0; j < 7; j++) {
-        if (board[i][j] === 'S')
+        if (state.board[i][j] === 'S')
           count++;
       }
     }
@@ -541,6 +554,7 @@ module game {
     return 1 + max;
   }
 
+  
   function isJump(move: IMove): boolean {
     var rowBefore = move[2].set.value.rowBefore;
     var rowAfter = move[2].set.value.rowAfter;

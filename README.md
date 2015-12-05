@@ -18,7 +18,4 @@ https://en.wikipedia.org/wiki/Fox_games
 
 
 
-
-For any questions or suggestions, please contact me at zangwz@gmail.com
-
 Thank you!
